@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'humanz'
+version '1.0'
+
+sourceCompatibility = 1.7
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    runtime fileTree(dir: 'libs', include: '*.jar')
+}

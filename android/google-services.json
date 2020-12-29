@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "920380747954",
+    "firebase_url": "https://tankzor-d4701.firebaseio.com",
+    "project_id": "tankzor-d4701",
+    "storage_bucket": "tankzor-d4701.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920380747954:android:75db2620d624dcd57f19ab",
+        "android_client_info": {
+          "package_name": "com.tanchiki.libgdx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920380747954-j7l6j1e5i9kukf9co8j5jtcvauerj7vb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpkSOzuk4OpTUKascbL_nnWWTc9F53J2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920380747954-j7l6j1e5i9kukf9co8j5jtcvauerj7vb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-9681014917190212~9758853608"
+    }
+  ],
+  "configuration_version": "1"
+}

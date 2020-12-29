@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'humanz'
+version '1.0'
+
+sourceCompatibility = 1.8
+mainClassName = 'com.app.Game'
+sourceSets.main.resources.srcDir(new File('../android/src/main/assets'))
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}

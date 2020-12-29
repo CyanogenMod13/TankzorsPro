@@ -1,0 +1,3 @@
+rootProject.name = 'Tankzors'
+include 'core', 'desktop', 'android'//, 'editor'
+
