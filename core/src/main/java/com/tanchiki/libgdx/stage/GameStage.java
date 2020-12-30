@@ -271,7 +271,7 @@ public class GameStage extends Stage {
             MapsDatabase database = MapsDatabase.getInstance();
             int index = 0;
             while (true) {
-                FileHandle map = Gdx.files.internal("map/" + (index < 100 ? "0" : "") + (index < 10 ? "0" : "") + index + ".map");
+                FileHandle map = Gdx.files.internal(String.format("map/%03d.map", index));
                 if (!map.exists()) break;
                 database.putMap("map" + index, map.read());
                 index++;
