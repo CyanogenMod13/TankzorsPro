@@ -7,6 +7,7 @@ group 'humanz'
 version '1.0'
 
 sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
 mainClassName = 'com.app.Game'
 sourceSets.main.resources.srcDir(new File('../android/src/main/assets'))
 
@@ -17,5 +18,8 @@ repositories {
 dependencies {
     implementation project(':core')
     implementation fileTree(dir: 'libs', include: '*.jar')
+
+    runtime fileTree(dir: 'libs', include: '*.jar')
+    runtime project(':core')
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }

@@ -6,7 +6,6 @@ import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.terrains.Sand;
 import com.tanchiki.libgdx.screens.GameScreen;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.MapXMLParser;
 import com.tanchiki.libgdx.util.MapsDatabase;
 import com.tanchiki.libgdx.util.ObjectVarable;
 import com.tanchiki.libgdx.util.Settings;
@@ -315,13 +314,13 @@ public class Editor extends JFrame {
     }
 
     private void saveMap(File file) throws Exception {
-        MainTerrain.getCurrentTerrain().saveMap(file.getAbsoluteFile());
+        //MainTerrain.getCurrentTerrain().saveMap(file.getAbsoluteFile());
         setTitle("Map Editor - [" + file.getAbsolutePath() + ']');
     }
 
     private void loadMap(File file) throws Exception {
         isEdit = true;
-        GameStage.getInstance().createTerrain(new MapXMLParser(new FileInputStream(file)));
+        //GameStage.getInstance().createTerrain(new MapXMLParser(new FileInputStream(file)));
         setTitle("Map Editor - [" + file.getAbsolutePath() + ']');
     }
 

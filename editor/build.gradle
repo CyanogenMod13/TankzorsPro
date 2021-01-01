@@ -6,6 +6,7 @@ plugins {
 version '1.0'
 
 sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
 mainClassName = 'com.app.Editor'
 sourceSets.main.resources.srcDir(new File('../android/src/main/assets'))
 
