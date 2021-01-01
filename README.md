@@ -1,6 +1,6 @@
 # Tankzors Pro
-`Tankzors Pro` is a j2me arcade game made by `DaSuppaStudio`, ported for PC and Android<br>
-![alt preview1] (preview/preview1.png)
+`Tankzors Pro` is a j2me arcade game made by `DaSuppaStudio`, ported for PC and Android<br><br>
+![alt preview1](preview/preview1.png)
 # Technical Info
 
 - LibGDX 1.9.10
