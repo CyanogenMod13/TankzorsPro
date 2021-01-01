@@ -1,7 +1,7 @@
 package com.tanchiki.libgdx.util;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.audio.*;
-import java.util.*;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 
 public class MusicLoader {
 	private static MusicLoader musicLoader = null;

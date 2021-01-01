@@ -1,11 +1,13 @@
 package com.tanchiki.libgdx.util;
 
-import com.badlogic.gdx.*;
-import com.tanchiki.libgdx.stage.*;
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.nio.*;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.tanchiki.libgdx.stage.GameStage;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
 
 public class SavePreferences {
 	private static SavePreferences instance = null;

@@ -1,9 +1,7 @@
 package com.tanchiki.libgdx.model.buildes;
 
-import com.tanchiki.libgdx.model.tanks.*;
-import com.tanchiki.libgdx.model.ui.*;
-import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.model.terrains.*;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.util.ObjectVarable;
 
 public class YellowFlag extends Flag
  {

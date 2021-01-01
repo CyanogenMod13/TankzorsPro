@@ -1,52 +1,88 @@
 package com.tanchiki.libgdx.stage;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
-import com.badlogic.gdx.utils.*;
-import com.tanchiki.libgdx.model.tanks.*;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.ui.*;
-import com.tanchiki.libgdx.util.*;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.WeaponData;
 
 public class PanelStage extends Stage {
     public Group toasts;
-    Array<TextTable> texts = new Array<TextTable>();
-
-    //PlayPad.Knob knob = null;
     public PanelStage() {
         ObjectClass.PanelStage = this;
         toasts = new Group();
         addActor(new CornerOverlayer());
-        addActor(new Buttons());
         addActor(new TSButton());
+        if (!(Gdx.app.getType().equals(Application.ApplicationType.Desktop) ||
+                Gdx.app.getType().equals(Application.ApplicationType.WebGL))) {
+            addActor(new Buttons());
+            addActor(new PauseButton());
+        }
         addActor(new InfoPanel());
         MiniMap map = new MiniMap();
         map.setPosition(0, getHeight() - map.getHeight());
         addActor(map);
         addActor(toasts);
-		addActor(new PauseButton());
+
         addListener(new InputListener() {
+            int keycode;
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                switch (keycode) {
-                    case Input.Keys.A:
-                        GameStage.getInstance().TankUser.setMotion(TankUser.Vec.LEFT); break;
-                    case Input.Keys.W:
-                        GameStage.getInstance().TankUser.setMotion(TankUser.Vec.UP); break;
-                    case Input.Keys.S:
-                        GameStage.getInstance().TankUser.setMotion(TankUser.Vec.DOWN); break;
-                    case Input.Keys.D:
-                        GameStage.getInstance().TankUser.setMotion(TankUser.Vec.RIGHT); break;
-                }
+                if (GameStage.getInstance().TankUser != null)
+                    switch (keycode) {
+                        case Input.Keys.A:
+                            this.keycode = keycode;
+                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.LEFT); break;
+                        case Input.Keys.W:
+                            this.keycode = keycode;
+                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.UP); break;
+                        case Input.Keys.S:
+                            this.keycode = keycode;
+                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.DOWN); break;
+                        case Input.Keys.D:
+                            this.keycode = keycode;
+                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.RIGHT); break;
+                        case Input.Keys.ESCAPE:
+                            if (!Settings.start_game || Settings.pause) break;
+                            Settings.pauseView = true;
+                            Settings.pause = true;
+                            break;
+                        case Input.Keys.Q:
+                            GameStage.getInstance().TankUser.enterHangar();
+                            break;
+                        case Input.Keys.E:
+                            ObjectClass.WeaponMenuStage.showMenu();
+                            break;
+                        case Input.Keys.R:
+                            GameStage.getInstance().TankUser.doRepair();
+                            break;
+                        case Input.Keys.NUMPAD_1:
+                            GameStage.getInstance().TankUser.AI.BULLET(); break;
+                        case Input.Keys.NUMPAD_2:
+                            GameStage.getInstance().TankUser.AI.MINES(); break;
+                        case Input.Keys.NUMPAD_3:
+                            GameStage.getInstance().TankUser.AI.AIR(); break;
+
+                    }
                 return super.keyDown(event, keycode);
             }
 
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                GameStage.getInstance().TankUser.setMotion(TankUser.Vec.NONE);
+                if (GameStage.getInstance().TankUser != null && this.keycode == keycode)
+                    GameStage.getInstance().TankUser.setMotion(TankUser.Vec.NONE);
                 return super.keyUp(event, keycode);
             }
         });

@@ -1,8 +1,11 @@
 package com.tanchiki.libgdx.model.buildes;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.model.aircraft.*;
+
+import com.tanchiki.libgdx.model.aircraft.airplane;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public class BlueFlag extends Flag {
 	public static int LAST_INDEX = 0;

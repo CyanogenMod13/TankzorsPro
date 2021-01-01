@@ -1,11 +1,13 @@
 package com.tanchiki.libgdx.model.tanks;
 
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.model.bullets.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.terrains.IronWall;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
 
 public class Turret extends Tank {
 	public static final int prm[][] = {

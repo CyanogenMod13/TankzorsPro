@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.stage;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
@@ -8,15 +7,14 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.aircraft.airplane;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
@@ -24,15 +22,8 @@ import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.*;
 import com.tanchiki.libgdx.model.terrains.Object.Block;
-import com.tanchiki.libgdx.screens.GameScreen;
+import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.*;
-
-import java.io.File;
-import java.io.PrintStream;
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Scanner;
-import com.tanchiki.libgdx.model.ui.*;
 
 public class GameStage extends Stage {
     public static GameStage gameStage = null;

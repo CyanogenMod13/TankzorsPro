@@ -3,8 +3,6 @@ package com.tanchiki.libgdx.stage;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.tanchiki.libgdx.model.ui.WeaponMenu.Container;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.badlogic.gdx.scenes.scene2d.actions.*;
-import com.badlogic.gdx.math.*;
 
 public class WeaponMenuStage extends Stage {
     public WeaponMenuStage() {

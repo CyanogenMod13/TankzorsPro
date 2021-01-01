@@ -3,9 +3,9 @@ package com.tanchiki.libgdx.model.bullets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class BronetBullet1 extends Bullet {
     public BronetBullet1(float x, float y, int angle, float f) {

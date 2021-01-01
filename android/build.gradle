@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -26,9 +25,6 @@ android {
 }
 
 dependencies {
-	//api 'com.google.firebase:firebase-iid:17.0.3'
-	//api 'com.google.firebase:firebase-ads:17.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    
     implementation project(':core')
 }

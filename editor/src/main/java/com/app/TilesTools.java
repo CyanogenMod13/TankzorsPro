@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+@Deprecated
 public class TilesTools extends JDialog {
     TilesTools(JFrame jFrame) {
         super(jFrame, "Tiles", false);

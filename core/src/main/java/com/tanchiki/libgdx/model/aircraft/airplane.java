@@ -9,7 +9,6 @@ import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVarable;
-import com.tanchiki.libgdx.util.WeaponData;
 
 public class airplane extends GameActor {
     Sprite plane;

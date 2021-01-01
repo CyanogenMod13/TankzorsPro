@@ -1,14 +1,11 @@
 package com.tanchiki.libgdx.model.terrains;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.tanchiki.libgdx.model.bonus.*;
-import com.tanchiki.libgdx.model.bonus.Object.Bonus;
 import com.tanchiki.libgdx.model.buildes.*;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
@@ -24,18 +21,8 @@ import com.tanchiki.libgdx.util.astar.AStar;
 import com.tanchiki.libgdx.util.astar.AStarNode;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.*;
-import com.badlogic.gdx.*;
-import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainTerrain extends Group implements Disposable {
     //public RingTanks RingTanks;

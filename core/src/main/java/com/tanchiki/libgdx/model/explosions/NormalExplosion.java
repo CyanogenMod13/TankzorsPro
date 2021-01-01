@@ -1,11 +1,15 @@
 package com.tanchiki.libgdx.model.explosions;
 
-import com.badlogic.gdx.audio.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.tanchiki.libgdx.model.explosions.Object.*;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tanchiki.libgdx.model.explosions.Object.Explosion;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public class NormalExplosion extends Explosion {
     private Sprite overlayer;

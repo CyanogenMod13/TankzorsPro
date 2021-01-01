@@ -1,10 +1,13 @@
 package com.tanchiki.libgdx.stage;
 
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
-import com.tanchiki.libgdx.util.*;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.SavePreferences;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class PauseStage extends Stage {
 	private Table viewRoot;

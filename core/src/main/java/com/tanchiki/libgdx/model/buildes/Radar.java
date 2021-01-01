@@ -1,9 +1,10 @@
 package com.tanchiki.libgdx.model.buildes;
 
-import com.tanchiki.libgdx.model.buildes.Object.*;
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.model.buildes.Object.Build;
+import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
 
 public class Radar extends Build {
     public Radar(float x, float y, short f) {

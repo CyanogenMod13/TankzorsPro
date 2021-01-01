@@ -1,9 +1,8 @@
 package com.tanchiki.libgdx.model.ui.WeaponMenu;
 
 import com.badlogic.gdx.Gdx;
-import com.tanchiki.libgdx.graphics.GameGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.tanchiki.libgdx.util.WeaponData;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 public class Container extends Table {
     public float x, y, h;

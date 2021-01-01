@@ -1,8 +1,8 @@
 package com.tanchiki.libgdx.model.tanks;
 
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.util.ObjectClass;
 
 public class TankKamikaze extends Tank {
     public TankKamikaze(float x, float y, short f, int weapon, int mode) {

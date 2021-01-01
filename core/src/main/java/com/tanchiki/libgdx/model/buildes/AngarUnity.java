@@ -1,13 +1,18 @@
 package com.tanchiki.libgdx.model.buildes;
 
-import com.tanchiki.libgdx.model.buildes.Object.*;
+import com.badlogic.gdx.math.MathUtils;
+import com.tanchiki.libgdx.model.buildes.Object.SubBuilds;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.model.tanks.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.ui.*;
-import com.tanchiki.libgdx.util.*;
-import java.util.*;
-import com.badlogic.gdx.math.*;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.model.ui.MissionCompleted;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.WeaponData;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AngarUnity extends SubBuilds {
 	public static Map<Integer, AngarUnity> register = null;

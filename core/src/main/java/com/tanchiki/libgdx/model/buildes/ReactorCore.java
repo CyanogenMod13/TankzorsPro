@@ -3,9 +3,9 @@ package com.tanchiki.libgdx.model.buildes;
 import com.tanchiki.libgdx.model.buildes.Object.Build;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVarable;
-import com.tanchiki.libgdx.model.terrains.*;
 
 public class ReactorCore extends Build {
     public ReactorCore(float x, float y, short f) {

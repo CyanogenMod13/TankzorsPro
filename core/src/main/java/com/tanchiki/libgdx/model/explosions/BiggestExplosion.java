@@ -1,13 +1,17 @@
 package com.tanchiki.libgdx.model.explosions;
 
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.tanchiki.libgdx.graphics.*;
-import com.tanchiki.libgdx.model.buildes.Object.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.terrains.Object.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tanchiki.libgdx.graphics.GameActor;
+import com.tanchiki.libgdx.graphics.GameGroup;
+import com.tanchiki.libgdx.model.buildes.Object.Build;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.terrains.Concrete3Wall;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.model.terrains.Object.Block;
+import com.tanchiki.libgdx.model.terrains.Trigger;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
 
 public class BiggestExplosion extends GameGroup {
     GameStage GameStage;

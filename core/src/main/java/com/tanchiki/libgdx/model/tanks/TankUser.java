@@ -2,20 +2,12 @@ package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.tanchiki.libgdx.model.buildes.AngarUnity;
 import com.tanchiki.libgdx.model.buildes.Flag;
-import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.*;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.tanks.Object.Tank;
-import com.tanchiki.libgdx.model.ui.MissionCompleted;
-import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
-import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.util.WeaponData;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.tanchiki.libgdx.model.buildes.*;
-import com.tanchiki.libgdx.model.terrains.*;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.util.*;
 
 
 public class TankUser extends Tank {
@@ -250,4 +242,25 @@ public class TankUser extends Tank {
 		MainTerrain.getCurrentTerrain().distance += speed;
 		super.updateRun();
 	}
+
+	public void doRepair() {
+        if (GameStage.TankUser.HP != GameStage.TankUser.HPbackup)
+            if (WeaponData.fix > 0) {
+                GameStage.TankUser.HP = GameStage.TankUser.HPbackup;
+                WeaponData.fix -= 1;
+                SoundLoader.getInstance().getRepairPickup().play(Settings.volumeEffect);
+            } else {
+                ObjectClass.PanelStage.addToast("Рем. комплект закончился");
+            }
+        else
+            ObjectClass.PanelStage.addToast("Танк не нуждаеться в ремонте");
+    }
+
+    public void enterHangar() {
+        if (GameStage.world_buildes[(int) getCenterX()][(int) getCenterY()] != null) {
+            ObjectClass.StoreStage.show();
+        } else {
+            ObjectClass.PanelStage.addToast("Вернитесь на базу!");
+        }
+    }
 }

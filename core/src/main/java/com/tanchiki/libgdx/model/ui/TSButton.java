@@ -13,18 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.MiniMapStage;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
-import com.tanchiki.libgdx.util.*;
 
 public class TSButton extends Table {
     TextureRegion reg[];
-    TextButton angar, weapon, fix, fire, mines, air, radar;
+    TextButton hangar, weapon, fix, fire, mines, air, radar;
     float size = Gdx.graphics.getHeight() / 7.2f;
     SpriteDrawable t, t1;
     GameStage GameStage;
@@ -53,38 +51,23 @@ public class TSButton extends Table {
         fix.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 super.clicked(e, x, y);
-                if (GameStage.TankUser != null) {
-                    if (GameStage.TankUser.HP != GameStage.TankUser.HPbackup)
-                        if (WeaponData.fix > 0) {
-                            GameStage.TankUser.HP = GameStage.TankUser.HPbackup;
-                            WeaponData.fix -= 1;
-							SoundLoader.getInstance().getRepairPickup().play(Settings.volumeEffect);
-                        } else {
-                            ObjectClass.PanelStage.addToast("Рем. комплект закончился");
-                        }
-                    else
-                        ObjectClass.PanelStage.addToast("Танк не нуждаеться в ремонте");
-                }
+                if (GameStage.TankUser != null)
+                    GameStage.TankUser.doRepair();
             }
         });
-        angar = new TextButton("", new TextButtonStyle(new TextureRegionDrawable(reg[6]), new TextureRegionDrawable(reg[7]), null, FontLoader.f16));
-        angar.setSize(size, size);
-        angar.setPosition(Gdx.graphics.getWidth() - angar.getWidth() - 5, fix.getHeight() + 5);
-        addActor(angar);
-        angar.addListener(new ClickListener() {
+        hangar = new TextButton("", new TextButtonStyle(new TextureRegionDrawable(reg[6]), new TextureRegionDrawable(reg[7]), null, FontLoader.f16));
+        hangar.setSize(size, size);
+        hangar.setPosition(Gdx.graphics.getWidth() - hangar.getWidth() - 5, fix.getHeight() + 5);
+        addActor(hangar);
+        hangar.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 super.clicked(e, x, y);
-                TankUser t = GameStage.TankUser;
-                if (GameStage.world_buildes[(int) t.getCenterX()][(int) t.getCenterY()] != null) {
-                    ObjectClass.StoreStage.show();
-                } else {
-                    ObjectClass.PanelStage.addToast("Вернитесь на базу!");
-                }
+                GameStage.TankUser.enterHangar();
             }
         });
         weapon = new TextButton("", new TextButtonStyle(new TextureRegionDrawable(reg[0]), new TextureRegionDrawable(reg[1]), null, FontLoader.f16));
         weapon.setSize(size, size);
-        weapon.setPosition(Gdx.graphics.getWidth() - weapon.getWidth() - 5, angar.getHeight() * 2 + 5);
+        weapon.setPosition(Gdx.graphics.getWidth() - weapon.getWidth() - 5, hangar.getHeight() * 2 + 5);
         addActor(weapon);
         weapon.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
@@ -102,11 +85,9 @@ public class TSButton extends Table {
 
         air = new AirButton();
         addActor(air);
-		
-		/*radar = new RadarButton();
-		addActor(radar);*/
     }
 
+    @Deprecated
     private class RadarButton extends TextButton {
         TextureRegion[] t;
         Sprite s;
@@ -193,7 +174,7 @@ public class TSButton extends Table {
         public MinesButton() {
             super("", style);
             setSize(size, size);
-            setPosition(angar.getX() - getWidth(), angar.getY());
+            setPosition(hangar.getX() - getWidth(), hangar.getY());
             addListener(new ClickListener() {
                 public void clicked(InputEvent e, float x, float y) {
                     super.clicked(e, x, y);

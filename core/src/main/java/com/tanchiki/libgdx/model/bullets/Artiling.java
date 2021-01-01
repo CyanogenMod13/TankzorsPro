@@ -1,11 +1,15 @@
 package com.tanchiki.libgdx.model.bullets;
 
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.utils.*;
-import com.tanchiki.libgdx.model.bullets.Object.*;
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.util.*;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.tanchiki.libgdx.model.bullets.Object.Bullet;
+import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public class Artiling extends Bullet {
     float x, y;

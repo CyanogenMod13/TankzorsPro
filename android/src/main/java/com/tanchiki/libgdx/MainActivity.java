@@ -1,14 +1,11 @@
 package com.tanchiki.libgdx;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
-import com.badlogic.gdx.backends.android.*;
-import com.tanchiki.libgdx.*;
-import com.tanchiki.libgdx.screens.*;
-import java.io.*;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.tanchiki.libgdx.screens.GameScreen;
 
 public class MainActivity extends AndroidApplication {
 

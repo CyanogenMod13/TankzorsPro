@@ -1,12 +1,18 @@
 package com.tanchiki.libgdx.model.ui;
 
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
-import com.badlogic.gdx.utils.*;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.tanchiki.libgdx.stage.AboutStage;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.FontLoader;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.SavePreferences;
+import com.tanchiki.libgdx.util.Settings;
 
 public class MissionCompleted {
 	public static boolean isShow = false;

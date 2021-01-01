@@ -1,31 +1,16 @@
 package com.tanchiki.libgdx.stage;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.tanchiki.libgdx.model.ui.StoreMenu;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.model.ui.*;
 
 public class StoreStage extends Stage {
-    public static StoreStage s = null;
-    //public Store c;
-    //public GestureDetector gesture;
-    private boolean a = true;
-    public Group root = new Group();
-
-	private StoreMenu storeMenu = new StoreMenu();
+    private StoreMenu storeMenu = new StoreMenu();
 	
     public StoreStage() {
-        //super(ObjectClass.viewport,new SpriteBatch());
-        //setDebugAll(true);
         ObjectClass.StoreStage = this;
-        s = this;
-        /*try {
-            c = new Store();
-        } catch (NoSuchFieldException e) {
-        }
-        addActor(c);*/
     }
 
     public void show() {
@@ -36,13 +21,14 @@ public class StoreStage extends Stage {
 
     @Override
     public boolean keyDown(int keyCode) {
-        if (keyCode == Input.Keys.BACK) {
-            //c.hide();
-			Settings.store_menu = false;
-			Settings.pause = false;
-			clear();
-        }
-        // TODO: Implement this method
+        if (Settings.store_menu)
+            switch (keyCode) {
+                case Input.Keys.BACK:
+                case Input.Keys.ESCAPE:
+                    Settings.store_menu = false;
+                    Settings.pause = false;
+                    clear();
+            }
         return super.keyDown(keyCode);
     }
 }

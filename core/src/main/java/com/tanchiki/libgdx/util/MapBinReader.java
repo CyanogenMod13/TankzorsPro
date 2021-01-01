@@ -1,13 +1,6 @@
 package com.tanchiki.libgdx.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
-import com.badlogic.gdx.*;
-import java.io.*;
 
 public class MapBinReader {
     InputStream stream;

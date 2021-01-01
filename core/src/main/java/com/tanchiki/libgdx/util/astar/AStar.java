@@ -1,9 +1,10 @@
 package com.tanchiki.libgdx.util.astar;
 
+import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
+import com.tanchiki.libgdx.model.terrains.Spike;
+import com.tanchiki.libgdx.stage.GameStage;
+
 import java.util.ArrayList;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.model.terrains.Object.*;
-import com.tanchiki.libgdx.model.terrains.*;
 
 public class AStar {
     AStarListener listener;

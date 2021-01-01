@@ -1,7 +1,8 @@
 package com.tanchiki.libgdx.model.bonus;
 
-import com.tanchiki.libgdx.model.bonus.Object.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.model.bonus.Object.Bonus;
+import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public class Moner extends Bonus {
     public Moner(float x, float y) {

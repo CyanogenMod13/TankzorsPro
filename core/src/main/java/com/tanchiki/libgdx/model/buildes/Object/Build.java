@@ -3,13 +3,12 @@ package com.tanchiki.libgdx.model.buildes.Object;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVarable;
 import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.model.terrains.*;
 
 abstract public class Build extends ObjBuild {
     public float a = ObjectVarable.size_block * 2;

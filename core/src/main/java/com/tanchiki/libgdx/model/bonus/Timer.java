@@ -1,7 +1,8 @@
 package com.tanchiki.libgdx.model.bonus;
 
-import com.tanchiki.libgdx.model.bonus.Object.*;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.model.bonus.Object.Bonus;
+import com.tanchiki.libgdx.util.SoundLoader;
+import com.tanchiki.libgdx.util.WeaponData;
 
 public class Timer extends Bonus {
     public Timer(float x, float y) {

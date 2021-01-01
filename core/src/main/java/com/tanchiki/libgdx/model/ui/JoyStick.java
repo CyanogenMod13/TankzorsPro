@@ -1,15 +1,17 @@
 package com.tanchiki.libgdx.model.ui;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
-import com.tanchiki.libgdx.model.tanks.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.tanchiki.libgdx.model.tanks.TankUser;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.ObjectClass;
 
 public class JoyStick extends Touchpad {
     private static SpriteDrawable t, t1 = null;

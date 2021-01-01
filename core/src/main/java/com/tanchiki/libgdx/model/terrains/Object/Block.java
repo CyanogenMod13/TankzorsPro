@@ -1,15 +1,20 @@
 package com.tanchiki.libgdx.model.terrains.Object;
 
-import com.badlogic.gdx.audio.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.glutils.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.tanchiki.libgdx.graphics.*;
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tanchiki.libgdx.graphics.GameActor;
+import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public abstract class Block extends GameActor {
     protected GameStage GameStage;

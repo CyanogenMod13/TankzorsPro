@@ -1,20 +1,27 @@
 package com.tanchiki.libgdx.model.terrains;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.utils.*;
-import com.tanchiki.libgdx.model.aircraft.*;
-import com.tanchiki.libgdx.model.buildes.*;
-import com.tanchiki.libgdx.model.bullets.Object.*;
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.model.tanks.*;
-import com.tanchiki.libgdx.model.tanks.Object.*;
-import com.tanchiki.libgdx.model.terrains.Object.*;
-import com.tanchiki.libgdx.model.ui.*;
-import com.tanchiki.libgdx.stage.*;
-import com.tanchiki.libgdx.util.*;
-import java.util.*;
-import com.badlogic.gdx.math.*;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
+import com.tanchiki.libgdx.model.aircraft.airplane;
+import com.tanchiki.libgdx.model.buildes.AngarEnemy;
+import com.tanchiki.libgdx.model.buildes.AngarUnity;
+import com.tanchiki.libgdx.model.bullets.Object.Bullet;
+import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
+import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.TankUser;
+import com.tanchiki.libgdx.model.terrains.Object.Block;
+import com.tanchiki.libgdx.model.ui.MissionCompleted;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.TextureLoader;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Trigger extends Actor {
 	public static int LAST_INDEX = 0;

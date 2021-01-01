@@ -3,23 +3,17 @@ package com.tanchiki.libgdx.model.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.graphics.GameActor;
+import com.tanchiki.libgdx.model.buildes.*;
 import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
-import com.tanchiki.libgdx.model.terrains.ConcreteWall;
-import com.tanchiki.libgdx.model.terrains.Grass;
-import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.model.terrains.Sand;
-import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.model.buildes.*;
 import com.tanchiki.libgdx.model.terrains.*;
+import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.WeaponData;
 
 public class MiniMap extends GameActor {
     public MiniMap() {

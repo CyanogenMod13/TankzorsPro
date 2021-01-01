@@ -1,14 +1,23 @@
 package com.tanchiki.libgdx.model.ui;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.g2d.*;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
-import com.tanchiki.libgdx.util.*;
-import com.badlogic.gdx.graphics.*;
-import java.lang.reflect.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.utils.*;
-import com.tanchiki.libgdx.stage.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.stage.MenuStage;
+import com.tanchiki.libgdx.util.FontLoader;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.TextureLoader;
+import com.tanchiki.libgdx.util.WeaponData;
 
 public class StoreMenu extends Table{
 	NinePatch background = new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4);

@@ -1,8 +1,10 @@
 package com.tanchiki.libgdx.model.buildes;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.stage.*;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.SoundLoader;
 
 public class RedFlag extends Flag {
 	public static boolean died = false;

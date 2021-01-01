@@ -3,7 +3,6 @@ package com.tanchiki.libgdx.model.tanks;
 import com.tanchiki.libgdx.model.bullets.Artiling;
 import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.badlogic.gdx.math.*;
 
 public class TankSiege extends Tank {
     public TankSiege(float x, float y, short f, int weapon, int mode) {

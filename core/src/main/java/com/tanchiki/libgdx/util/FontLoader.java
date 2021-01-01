@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FontLoader {
     public static String c = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmЙЦУКЕНГШЩЗХФЫВАПРОЛДЖЭЯЧСМИТЪЬБЮЁйцукенгшщзхфывапролджэячсмитъьбюё,.+-—/*?!;:'1234567890_#@()^~`";

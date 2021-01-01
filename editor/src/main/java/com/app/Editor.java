@@ -6,20 +6,23 @@ import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.terrains.Sand;
 import com.tanchiki.libgdx.screens.GameScreen;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.MapsDatabase;
 import com.tanchiki.libgdx.util.ObjectVarable;
 import com.tanchiki.libgdx.util.Settings;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
+@Deprecated
 public class Editor extends JFrame {
 
     public boolean isEdit = false;

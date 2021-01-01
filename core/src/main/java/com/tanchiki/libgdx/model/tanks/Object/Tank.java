@@ -1,24 +1,36 @@
 package com.tanchiki.libgdx.model.tanks.Object;
 
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.math.*;
-import com.badlogic.gdx.scenes.scene2d.*;
-import com.tanchiki.libgdx.graphics.*;
-import com.tanchiki.libgdx.model.buildes.*;
-import com.tanchiki.libgdx.model.buildes.Object.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Align;
+import com.tanchiki.libgdx.graphics.GameActor;
+import com.tanchiki.libgdx.model.buildes.Object.Build;
+import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.*;
-import com.tanchiki.libgdx.model.explosions.*;
-import com.tanchiki.libgdx.model.mine.*;
-import com.tanchiki.libgdx.model.tanks.*;
+import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.model.mine.MineUnity1;
+import com.tanchiki.libgdx.model.mine.MineUnity2;
+import com.tanchiki.libgdx.model.tanks.TankUser;
+import com.tanchiki.libgdx.model.tanks.Turret;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.terrains.Object.*;
-import com.tanchiki.libgdx.model.tnt.*;
-import com.tanchiki.libgdx.stage.*;
+import com.tanchiki.libgdx.model.terrains.Object.Block;
+import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
+import com.tanchiki.libgdx.model.tnt.TNT1;
+import com.tanchiki.libgdx.model.tnt.TNT2;
+import com.tanchiki.libgdx.model.tnt.TNT3;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.*;
-import com.tanchiki.libgdx.util.astar.*;
-import java.util.*;
-import java.util.concurrent.*;
-import com.badlogic.gdx.utils.*;
+import com.tanchiki.libgdx.util.astar.AStarNode;
+import com.tanchiki.libgdx.util.astar.AStarPath;
+
+import java.util.List;
+import java.util.concurrent.Future;
 
 public class Tank extends GameActor {
     protected GameStage GameStage;
