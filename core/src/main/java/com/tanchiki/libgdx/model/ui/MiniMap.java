@@ -155,7 +155,7 @@ public class MiniMap extends GameActor {
     }
 
     private void printTanks(ShapeRenderer shapes, GameActor a, float size) {
-        switch (((Tank) a).angle_for_bullet) {
+        switch (((Tank) a).direction) {
             case Tank.DOWN:
                 shapes.triangle(getX() + a.getCenterX() / 2 * size, getY() + a.getCenterY() / 2 * size + size,
                         getX() + a.getCenterX() / 2 * size + size, getY() + a.getCenterY() / 2 * size + size,

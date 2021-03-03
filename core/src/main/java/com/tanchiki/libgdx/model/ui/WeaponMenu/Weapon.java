@@ -181,9 +181,9 @@ public class Weapon extends GameActor {
                     case WeaponData.Type.fix: {
                         GameStage GameStage = ObjectClass.GameStage;
                         if (GameStage.TankUser != null) {
-                            if (GameStage.TankUser.HP != GameStage.TankUser.HPbackup)
+                            if (GameStage.TankUser.HP != GameStage.TankUser.HPBackup)
                                 if (WeaponData.fix > 0) {
-                                    GameStage.TankUser.HP = GameStage.TankUser.HPbackup;
+                                    GameStage.TankUser.HP = GameStage.TankUser.HPBackup;
                                     WeaponData.fix -= 1;
                                 }
                         }

@@ -8,7 +8,7 @@ public class TankKamikaze extends Tank {
     public TankKamikaze(float x, float y, short f, int weapon, int mode) {
         super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankKamikaze(), weapon);
         HP = 5;
-        HPbackup = HP;
+        HPBackup = HP;
         speed = 0.2f;
 		AI.radius_enemy = 3 * 2;
     }
@@ -16,7 +16,7 @@ public class TankKamikaze extends Tank {
 	boolean expl = false;
 	
 	@Override
-	protected void creatBullet() {
+	protected void createBullet() {
 		if (expl) return;
 		
 		int x = (int) getCenterX();

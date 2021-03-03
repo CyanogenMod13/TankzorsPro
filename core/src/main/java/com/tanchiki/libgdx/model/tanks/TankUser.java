@@ -19,16 +19,16 @@ public class TankUser extends Tank {
             anim = new Animation<>(360 / 16f, GameStage.TextureLoader.getTankHeavy()[0]);
         automatic = false;
         Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
-        HPbackup = Settings.TankUserSettings.HPbackup;
-        Settings.TankUserSettings.HP = (int) HPbackup;
-        HP = HPbackup;
+        HPBackup = Settings.TankUserSettings.HPbackup;
+        Settings.TankUserSettings.HP = (int) HPBackup;
+        HP = HPBackup;
 
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
         Settings.TankUserSettings.HPShield = (int) HPShieldBackup;
         HPShield = HPShieldBackup;
 
         speed = 0.2f;
-        ringid = 0;
+        ringId = 0;
         ring.setRegion(rings[0]);
 		
 		//GameStage.cam.position.set(0, 30, 0);
@@ -41,12 +41,12 @@ public class TankUser extends Tank {
 	}
 	
     @Override
-    protected void creatBullet() {
+    protected void createBullet() {
         switch (weapon) {
             case 1: {
                 if (time > 0.8 / speed_skill) {
                     if (WeaponData.light_bullet > 0) {
-                        Bullet bullet = new BulletLight(getCenterX(), getCenterY(), angle_for_bullet, fraction);
+                        Bullet bullet = new BulletLight(getCenterX(), getCenterY(), direction, fraction);
                         bullet.parent = this;
                         GameStage.MT.bullet.addActor(bullet);
                         WeaponData.light_bullet -= 1;
@@ -59,7 +59,7 @@ public class TankUser extends Tank {
             case 2: {
                 if (time > 0.5 / speed_skill) {
                     if (WeaponData.plazma > 0) {
-                        Bullet bullet = new BulletPluzma(getCenterX(), getCenterY(), angle_for_bullet, fraction);
+                        Bullet bullet = new BulletPluzma(getCenterX(), getCenterY(), direction, fraction);
                         bullet.parent = this;
                         GameStage.MT.bullet.addActor(bullet);
                         WeaponData.plazma -= 1;
@@ -72,22 +72,22 @@ public class TankUser extends Tank {
 			case 3: {
 					if (time > 0.8 / speed_skill) {
 						if (WeaponData.double_light_bullet > 0) {
-							switch (angle_for_bullet) {
+							switch (direction) {
 								case 1: 
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 									break;
 								case 2:
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 									break;
 								case 3: 
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 									break;
 								case 4:
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 									break;	
 							}
 							WeaponData.double_light_bullet -= 1;
@@ -100,22 +100,22 @@ public class TankUser extends Tank {
             case 4: {
 					if (time > 0.5 / speed_skill) {
 						if (WeaponData.double_palzma > 0) {
-							switch (angle_for_bullet) {
+							switch (direction) {
 								case 1: 
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 									break;
 								case 2:
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 									break;
 								case 3: 
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 									break;
 								case 4:
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 									break;	
 							}
 							WeaponData.double_palzma -= 1;
@@ -128,7 +128,7 @@ public class TankUser extends Tank {
             case 5: {
                 if (time > 0.8 / speed_skill) {
                     if (WeaponData.bronet_bullet > 0) {
-                        Bullet bullet = new BronetBullet1(getCenterX(), getCenterY(), angle_for_bullet, fraction);
+                        Bullet bullet = new BronetBullet1(getCenterX(), getCenterY(), direction, fraction);
                         bullet.parent = this;
                         GameStage.MT.bullet.addActor(bullet);
                         WeaponData.bronet_bullet -= 1;
@@ -141,7 +141,7 @@ public class TankUser extends Tank {
             case 6: {
                 if (time > 0.8 / speed_skill) {
                     if (WeaponData.bronet_bullet2 > 0) {
-                        Bullet bullet = new BronetBullet2(getCenterX(), getCenterY(), angle_for_bullet, fraction);
+                        Bullet bullet = new BronetBullet2(getCenterX(), getCenterY(), direction, fraction);
                         bullet.parent = this;
                         GameStage.MT.bullet.addActor(bullet);
                         WeaponData.bronet_bullet2 -= 1;
@@ -154,7 +154,7 @@ public class TankUser extends Tank {
             case 7: {
                 if (time > 1 / speed_skill) {
                     if (WeaponData.rocket > 0) {
-                        Bullet bullet = new Roket(getCenterX(), getCenterY(), angle_for_bullet, fraction);
+                        Bullet bullet = new Roket(getCenterX(), getCenterY(), direction, fraction);
                         bullet.parent = this;
                         GameStage.MT.bullet.addActor(bullet);
                         WeaponData.rocket -= 1;
@@ -174,7 +174,7 @@ public class TankUser extends Tank {
         super.act(delta);
 		Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         Settings.TankUserSettings.HP = (int) HP;
-        HPbackup = Settings.TankUserSettings.HPbackup;
+        HPBackup = Settings.TankUserSettings.HPbackup;
 
         Settings.TankUserSettings.HPShield = (int) HPShield;
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
@@ -244,9 +244,9 @@ public class TankUser extends Tank {
 	}
 
 	public void doRepair() {
-        if (GameStage.TankUser.HP != GameStage.TankUser.HPbackup)
+        if (GameStage.TankUser.HP != GameStage.TankUser.HPBackup)
             if (WeaponData.fix > 0) {
-                GameStage.TankUser.HP = GameStage.TankUser.HPbackup;
+                GameStage.TankUser.HP = GameStage.TankUser.HPBackup;
                 WeaponData.fix -= 1;
                 SoundLoader.getInstance().getRepairPickup().play(Settings.volumeEffect);
             } else {

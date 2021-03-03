@@ -174,7 +174,7 @@ public class Bullet extends GameActor {
                 body.setCenter(tank.getCenterX(), tank.getCenterY());
 				if (body.contains(getCenterX(), getCenterY())) {
 					if (parent instanceof TankUser) {
-						tank.give_coin = true;
+						tank.giveCoin = true;
 						tank.giveDamage += HP;
 					}	
 					final float tankHP = tank.HP + tank.HPShield;

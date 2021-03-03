@@ -15,7 +15,7 @@ public class AStar {
         this.graph = graph;
     }
 
-    private int matrix[][] =
+    private final int[][] matrix =
             {
                     {0, -2, AStarNode.DOWN},
                     {0, 2, AStarNode.UP},
@@ -62,13 +62,14 @@ public class AStar {
             }
 
             for (int i = 0; i < matrix.length; i++) {
-                int args[] = matrix[i];
+                int[] args = matrix[i];
                 int x_new = max_node.x + args[0];
                 int y_new = max_node.y + args[1];
 
                 if (x_new >= graph.length || x_new < 0 || y_new >= graph[0].length || y_new < 0) continue;
 
-				if (graph[x_new][y_new] == 1 && !(GameStage.getInstance().world_physic_block[x_new][y_new] instanceof DestroyableBlock) || (GameStage.getInstance().world_physic_block[x_new][y_new] instanceof Spike)) continue;
+				if (graph[x_new][y_new] == 1 && !(GameStage.getInstance().world_physic_block[x_new][y_new] instanceof DestroyableBlock) ||
+                        (GameStage.getInstance().world_physic_block[x_new][y_new] instanceof Spike)) continue;
                 //if (graph[x_new][y_new] != 0) continue;
 
                 AStarNode child = new AStarNode(x_new, y_new);
@@ -83,9 +84,8 @@ public class AStar {
         }
     }
 
-    public static interface AStarListener {
-        public float h(AStarNode end, AStarNode current);
-
-        public float g(AStarNode begin, AStarNode current);
+    public interface AStarListener {
+        float h(AStarNode end, AStarNode current);
+        float g(AStarNode begin, AStarNode current);
     }
 }

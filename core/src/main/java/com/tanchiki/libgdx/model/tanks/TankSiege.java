@@ -8,7 +8,7 @@ public class TankSiege extends Tank {
     public TankSiege(float x, float y, short f, int weapon, int mode) {
         super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankSiege(), weapon);
         HP = 150;
-        HPbackup = HP;
+        HPBackup = HP;
         HPShield = 10;
         HPShieldBackup = HPShield;
         speed = 0.1f;
@@ -27,10 +27,10 @@ public class TankSiege extends Tank {
     }
 
     @Override
-    protected void creatBullet() {
-        if (AI.distance_of_goal <= 4 * 2) super.creatBullet();
+    protected void createBullet() {
+        if (AI.distance_of_goal <= 4 * 2) super.createBullet();
         else if (time > 2f) {
-            GameStage.MT.bullet.addActor(new Artiling(getCenterX(), getCenterY(), AI.radius_enemy, angle_for_bullet));
+            GameStage.MT.bullet.addActor(new Artiling(getCenterX(), getCenterY(), AI.radius_enemy, direction));
             time = 0;
         }
     }

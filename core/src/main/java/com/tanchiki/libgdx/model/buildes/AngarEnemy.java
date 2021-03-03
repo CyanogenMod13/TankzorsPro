@@ -72,7 +72,7 @@ public class AngarEnemy extends SubBuilds {
 							case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVarable.tank_enemy, prm[2], 0); break;
 						}
 						tank.HP = prm[1];
-						tank.HPbackup = tank.HP;
+						tank.HPBackup = tank.HP;
 						tank.HPShield = prm[3];
 						tank.HPShieldBackup = tank.HPShield;
 						if (i == 7) tank.setBossEnable();

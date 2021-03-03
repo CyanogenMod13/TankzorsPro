@@ -7,7 +7,7 @@ public class TankHeavy extends Tank {
     public TankHeavy(float x, float y, short f, int weapon, int mode) {
         super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankHeavy(), weapon);
         HP = 150;
-        HPbackup = HP;
+        HPBackup = HP;
         HPShield = 10;
         HPShieldBackup = HPShield;
         speed = 0.1f / 2;

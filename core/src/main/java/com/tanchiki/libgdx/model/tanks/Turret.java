@@ -27,10 +27,10 @@ public class Turret extends Tank {
         super(x, y, f, ObjectClass.TextureLoader.getTurrets(), 5);
         hasRide = false;
         HP = 10;
-        HPbackup = HP;
+        HPBackup = HP;
         speed = 0;
 		int i = Math.max(0, MainTerrain.getCurrentTerrain().getParameters().getKey(f == ObjectVarable.tank_enemy ? 19 : 20) - 1);
-		HP = HPbackup = prm[i][0];
+		HP = HPBackup = prm[i][0];
 		weapon = prm[i][1];
 		AI.radius_enemy = MainTerrain.getCurrentTerrain().getParameters().getKey(22) * 2;
 		if (fraction == ObjectVarable.tank_enemy) ObjectVarable.all_size_turrets_enemy++;
@@ -86,40 +86,40 @@ public class Turret extends Tank {
 		super.destroyTank(damage);
 	}
 	
-	protected void creatBullet() {
+	protected void createBullet() {
         switch (weapon) {
             case 1: {
 					if (time > 1.0f / speed_skill) {
-						GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), angle_for_bullet, fraction, this));
+						GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
 						time = 0;
 					}
 					break;
 				}
             case 2: {
 					if (time > 0.6 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY(), angle_for_bullet, fraction, this));
+						GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY(), direction, fraction, this));
 						time = 0;
 					}
 					break;
 				}
 			case 3: {
 					if (time > 1.0f / speed_skill) {
-						switch (angle_for_bullet) {
+						switch (direction) {
 							case 1: 
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 								break;
 							case 2:
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 								break;
 							case 3: 
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 								break;
 							case 4:
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 								break;	
 						}
 						time = 0;
@@ -128,22 +128,22 @@ public class Turret extends Tank {
 				}
             case 4: {
 					if (time > 0.6 / speed_skill) {
-						switch (angle_for_bullet) {
+						switch (direction) {
 							case 1: 
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 								break;
 							case 2:
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 								break;
 							case 3: 
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
 								break;
 							case 4:
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, angle_for_bullet, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, angle_for_bullet, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
 								break;	
 						}
 						time = 0;
@@ -152,21 +152,21 @@ public class Turret extends Tank {
 				}
             case 5: {
 					if (time > 1 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BronetBullet1(getCenterX(), getCenterY(), angle_for_bullet, fraction, this));
+						GameStage.MT.bullet.addActor(new BronetBullet1(getCenterX(), getCenterY(), direction, fraction, this));
 						time = 0;
 					}
 					break;
 				}
             case 6: {
 					if (time > 1 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BronetBullet2(getCenterX(), getCenterY(), angle_for_bullet, fraction, this));
+						GameStage.MT.bullet.addActor(new BronetBullet2(getCenterX(), getCenterY(), direction, fraction, this));
 						time = 0;
 					}
 					break;
 				}
             case 7: {
 					if (time > 1.2f / speed_skill) {
-						GameStage.MT.bullet.addActor(new Roket(getCenterX(), getCenterY(), angle_for_bullet, fraction, this));
+						GameStage.MT.bullet.addActor(new Roket(getCenterX(), getCenterY(), direction, fraction, this));
 						time = 0;
 					}
 					break;

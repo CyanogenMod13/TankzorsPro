@@ -119,7 +119,7 @@ public class Bonus extends GameActor {
 			switch (type_bonus) {
 				case WeaponData.Type.speed: ((Tank) tank).activate_speed_skill(); remove(); break;
 				case WeaponData.Type.time: if (tank instanceof TankUser) { GameStage.stop_time(((Tank) tank).fraction); remove(); } break;
-				case WeaponData.Type.fix: if (((Tank) tank).HP != ((Tank) tank).HPbackup) { ((Tank) tank).HP = ((Tank) tank).HPbackup; remove(); } break;
+				case WeaponData.Type.fix: if (((Tank) tank).HP != ((Tank) tank).HPBackup) { ((Tank) tank).HP = ((Tank) tank).HPBackup; remove(); } break;
 				case WeaponData.Type.live: if (tank instanceof TankUser) { ++WeaponData.live; remove(); } break;
 				case ObjectVarable.coin_id: if (tank instanceof TankUser) { Settings.TankUserSettings.coin += 5; MainTerrain.getCurrentTerrain().coin += 5; remove(); } break;
 				case ObjectVarable.star_id: if (tank instanceof TankUser) { ++Settings.TankUserSettings.star; MainTerrain.getCurrentTerrain().star += 1; remove(); } break;

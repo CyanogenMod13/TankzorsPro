@@ -21,7 +21,7 @@ import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
 
 public class TSButton extends Table {
-    TextureRegion reg[];
+    TextureRegion[] reg;
     TextButton hangar, weapon, fix, fire, mines, air, radar;
     float size = Gdx.graphics.getHeight() / 7.2f;
     SpriteDrawable t, t1;

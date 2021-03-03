@@ -7,7 +7,7 @@ public class TankLight extends Tank {
     public TankLight(float x, float y, short f, int weapon, int mode) {
         super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankLight(), weapon);
         HP = 5;
-        HPbackup = HP;
+        HPBackup = HP;
         speed = 0.1f;
     }
 

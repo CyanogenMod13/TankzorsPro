@@ -94,7 +94,7 @@ public class AngarUnity extends SubBuilds {
                         t.setCenterPosition(getCenterX(), getCenterY());
                         t.AI.goal_x = (int) getCenterX();
                         t.AI.goal_y = (int) getCenterY();
-                        t.HP = t.HPbackup;
+                        t.HP = t.HPBackup;
                         Settings.TankUserSettings.HPShieldBackup = 0;
 
                         GameStage.MT.tanks_unity.addActor(t);
@@ -125,7 +125,7 @@ public class AngarUnity extends SubBuilds {
 								case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVarable.tank_unity, prm[2], 0); break;
 							}
 							tank.HP = prm[1];
-							tank.HPbackup = tank.HP;
+							tank.HPBackup = tank.HP;
 							tank.HPShield = prm[3];
 							tank.HPShieldBackup = tank.HPShield;
 							if (i == 7) tank.setBossEnable();
