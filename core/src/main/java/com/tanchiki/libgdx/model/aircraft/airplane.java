@@ -8,7 +8,7 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class airplane extends GameActor {
     Sprite plane;
@@ -36,7 +36,7 @@ public class airplane extends GameActor {
         deltaX = MathUtils.cos(angle) / 5;
         deltaY = MathUtils.sin(angle) / 5;
 
-        setSize(ObjectVarable.size_block * 2 * 6, ObjectVarable.size_block * 2 * 6);
+        setSize(ObjectVariables.size_block * 2 * 6, ObjectVariables.size_block * 2 * 6);
         setCenterPosition(x, 0);
 
         this.targetX = targetX;
@@ -54,8 +54,8 @@ public class airplane extends GameActor {
         if (count > 0)
             if (Vector2.dst2(getCenterX(), getCenterY(), targetX, targetY) < 3) {
                 GameStage.addActor(new BiggestExplosion(targetX, targetY, radius, damage));
-                targetX += ObjectVarable.size_block * 2 * 3;
-                targetY += ObjectVarable.size_block * 2 * 3;
+                targetX += ObjectVariables.size_block * 2 * 3;
+                targetY += ObjectVariables.size_block * 2 * 3;
                 count--;
             }
         setVisible(true);
@@ -72,10 +72,10 @@ public class airplane extends GameActor {
         plane.draw(batch);
 
         back.setSize(getWidth(), getHeight());
-        back.setPosition(getX() + ObjectVarable.size_block * 2 * 3, getY() - ObjectVarable.size_block * 2 * 3);
+        back.setPosition(getX() + ObjectVariables.size_block * 2 * 3, getY() - ObjectVariables.size_block * 2 * 3);
         back.draw(batch);
 
-        point.setSize(ObjectVarable.size_block * 2, ObjectVarable.size_block * 2);
+        point.setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
         point.setCenter(targetX, targetY);
         if (count > 0)
             point.draw(batch);

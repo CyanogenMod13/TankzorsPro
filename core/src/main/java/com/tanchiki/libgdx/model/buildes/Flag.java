@@ -8,12 +8,12 @@ import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public abstract class Flag extends ObjBuild {
     public Sprite s;
     TextureRegion[] r;
-    float size = ObjectVarable.size_block * 2;
+    float size = ObjectVariables.size_block * 2;
     public boolean isgrab = false;
     public boolean yellow = false;
     public boolean blue = false;

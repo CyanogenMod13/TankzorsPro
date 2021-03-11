@@ -1,14 +1,14 @@
 package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.model.buildes.Object.SubBuilds;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankHeavy;
 import com.tanchiki.libgdx.model.tanks.TankKamikaze;
 import com.tanchiki.libgdx.model.tanks.TankLight;
 import com.tanchiki.libgdx.model.tanks.TankSiege;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class AngarEnemy extends SubBuilds {
 	public int activity = 1;
 	
     public AngarEnemy(float x, float y) {
-        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][1], ObjectVarable.tank_enemy);
+        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][1], ObjectVariables.tank_enemy);
 		if (LAST_INDEX == 0) register = new HashMap<>();
         code_name = "angar_enemy";
 		index = LAST_INDEX++;
@@ -53,23 +53,23 @@ public class AngarEnemy extends SubBuilds {
     public void act(float delta) {
 		LAST_INDEX = 0;
 		
-		if (ObjectVarable.size_enemy < ObjectVarable.max_tanks_enemy && GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0)
+		if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy && GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0)
 			time += delta;
 		
 		if (activity == 1)
         if (time >= 1) {
 			if (spawnCount > 0)
-            if (ObjectVarable.size_enemy < ObjectVarable.max_tanks_enemy) {
+            if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy) {
 				for (int i = 0; i < 8; i++) {
-					if (ObjectVarable.tanks_type_enemy[i] > 0) {
-						ObjectVarable.tanks_type_enemy[i]--;
-						int prm[] = tanks_prm[i][Math.max(0, ObjectVarable.level_diffculty - 1)];
+					if (ObjectVariables.tanks_type_enemy[i] > 0) {
+						ObjectVariables.tanks_type_enemy[i]--;
+						int prm[] = tanks_prm[i][Math.max(0, ObjectVariables.level_difficulty - 1)];
 						Tank tank = null;
 						switch (prm[0]) {
-							case 1: tank = new TankLight(getCenterX(), getCenterY(), ObjectVarable.tank_enemy, prm[2], 0); break;
-							case 2: tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVarable.tank_enemy, prm[2], 0); break;
-							case 3: tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVarable.tank_enemy, prm[2], 0); break;
-							case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVarable.tank_enemy, prm[2], 0); break;
+							case 1: tank = new TankLight(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]); break;
+							case 2: tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]); break;
+							case 3: tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2], 0); break;
+							case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]); break;
 						}
 						tank.HP = prm[1];
 						tank.HPBackup = tank.HP;

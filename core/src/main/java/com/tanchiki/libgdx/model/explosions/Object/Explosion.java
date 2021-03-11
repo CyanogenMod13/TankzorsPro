@@ -9,11 +9,11 @@ import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Explosion extends GameActor {
     protected GameStage GameStage;
-    private float a = ObjectVarable.size_block;
+    private float a = ObjectVariables.size_block;
     protected Animation<TextureRegion> anim;
     public Sprite s;
     protected float time = 0;

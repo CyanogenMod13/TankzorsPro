@@ -218,11 +218,11 @@ public class TextureLoader {
         return te;
     }
 
-    public TextureRegion[][] getHealth_Red() {
+    public TextureRegion[][] getHealthRed() {
         return hr;
     }
 
-    public TextureRegion[][] getHealth_Yell() {
+    public TextureRegion[][] getHealthYell() {
         return hy;
     }
 

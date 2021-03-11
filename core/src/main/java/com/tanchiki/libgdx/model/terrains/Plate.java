@@ -1,7 +1,6 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.model.terrains.Object.Terrains;
 
 public class Plate extends Terrains {
     public int HP = 1;

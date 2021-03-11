@@ -69,11 +69,11 @@ public class PanelStage extends Stage {
                             GameStage.getInstance().TankUser.doRepair();
                             break;
                         case Input.Keys.NUMPAD_1:
-                            GameStage.getInstance().TankUser.AI.BULLET(); break;
+                            GameStage.getInstance().TankUser.defaultAI.BULLET(); break;
                         case Input.Keys.NUMPAD_2:
-                            GameStage.getInstance().TankUser.AI.MINES(); break;
+                            GameStage.getInstance().TankUser.defaultAI.MINES(); break;
                         case Input.Keys.NUMPAD_3:
-                            GameStage.getInstance().TankUser.AI.AIR(); break;
+                            GameStage.getInstance().TankUser.defaultAI.AIR(); break;
 
                     }
                 return super.keyDown(event, keycode);

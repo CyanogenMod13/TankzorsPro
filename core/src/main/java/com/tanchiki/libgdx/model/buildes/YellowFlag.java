@@ -1,7 +1,7 @@
 package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class YellowFlag extends Flag
  {
@@ -16,8 +16,8 @@ public class YellowFlag extends Flag
 			case 16:
 			case 17:	
 			case 2: win(); break;
-			case 4: if (ObjectVarable.all_size_enemy == 0) win(); break;
-			case 5: if (ObjectVarable.all_size_boss_enemy == 0) win(); break;
+			case 4: if (ObjectVariables.all_size_enemies == 0) win(); break;
+			case 5: if (ObjectVariables.all_size_boss_enemies == 0) win(); break;
 		}
 	}
 }

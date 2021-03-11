@@ -1,6 +1,6 @@
 package com.tanchiki.libgdx.util.astar;
 
-import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
+import com.tanchiki.libgdx.model.terrains.DestroyableBlock;
 import com.tanchiki.libgdx.model.terrains.Spike;
 import com.tanchiki.libgdx.stage.GameStage;
 

@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.ScrollableTextArea;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.tanchiki.libgdx.server.GameServer;
 import com.tanchiki.libgdx.util.*;
 
 import java.util.Date;
@@ -59,7 +60,7 @@ public class MenuStage extends Stage {
 		menuButtons.show();    
 	}
 	
-	private class Background extends Table {
+	private static class Background extends Table {
 		public Background() {
 			setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			setPosition(0, 0);
@@ -67,7 +68,7 @@ public class MenuStage extends Stage {
 		}
 	}
 
-    private class MenuButtons extends ViewTable {
+    private static class MenuButtons extends ViewTable {
 		private String[] names = {
 			"Начать игру",
 			"Настройки",
@@ -210,12 +211,13 @@ public class MenuStage extends Stage {
 		}
 	}
 
-    private class LevelsMenu extends ViewTable {
+    private static class LevelsMenu extends ViewTable {
 		private String[] names = {
 			"Продолжить",
 			"Новая игра",
 			"Загрузить игру",
-			"Сетевой режим",
+			"Сетевой режим (клиент)",
+			"Сетевой режим (сервер)",
 			"Назад"
 		};
 			
@@ -234,6 +236,8 @@ public class MenuStage extends Stage {
 								} else {
 									SavePreferences.getInstance().loadContinues();
 									GameStage.getInstance().startLevel(GameStage.next_level + 1);
+									GameServer server = GameServer.getInstance();
+									server.sendData("Hello".getBytes());
 									Settings.pause = true;
 									AboutStage.getInstance().show();
 								}
@@ -243,6 +247,11 @@ public class MenuStage extends Stage {
 								GameStage.getInstance().startLevel(GameStage.next_level + 1);
 								Settings.pause = true;
 								AboutStage.getInstance().show();
+								break;
+							case 3:
+								GameServer server = GameServer.getInstance();
+								server.stopWaiting();
+
 								break;
 							default: 
 								super.run(idx);
@@ -272,7 +281,7 @@ public class MenuStage extends Stage {
 		}
 	}
 	
-	private class LoadMenu extends ViewTable {
+	private static class LoadMenu extends ViewTable {
 		private String[] names = {
 			"Назад"
 		};
@@ -311,7 +320,21 @@ public class MenuStage extends Stage {
 		}
 		
 	}
-	
+
+	private static class NetworkMenu extends ViewTable {
+		private String[] names = {
+				"Назад"
+		};
+
+    	public NetworkMenu(Table root, ViewTable parent) {
+    		super(root, parent);
+			setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
+			put(0, parent);
+
+			init(names);
+		}
+	}
+
 	public static class ViewTable extends VisTable {
 		public static final String SEPARATOR = "SEP";
 		public ViewTable parent = null;

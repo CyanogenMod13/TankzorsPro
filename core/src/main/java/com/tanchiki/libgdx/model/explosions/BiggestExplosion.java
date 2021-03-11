@@ -4,20 +4,20 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.graphics.GameGroup;
 import com.tanchiki.libgdx.model.buildes.Object.Build;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.terrains.Concrete3Wall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
+import com.tanchiki.libgdx.model.terrains.Block;
 import com.tanchiki.libgdx.model.terrains.Trigger;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class BiggestExplosion extends GameGroup {
     GameStage GameStage;
     float damage;
     final float T = 0.1f;
-    float a = ObjectVarable.size_block * 2;
+    float a = ObjectVariables.size_block * 2;
 	float lastTime = 0;
 	boolean destroySpike = true;
 

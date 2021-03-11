@@ -7,11 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 
 abstract public class Build extends ObjBuild {
-    public float a = ObjectVarable.size_block * 2;
+    public float a = ObjectVariables.size_block * 2;
     public GameStage GameStage;
     private float size;
     private Sprite s;
@@ -59,12 +59,12 @@ abstract public class Build extends ObjBuild {
 
         GameStage.MT.health.addActor(Health);
         //overlayer = new Overlayer(Body[0].getPosition().x + a / 2, Body[0].getPosition().y - a / 2,f);
-        if (fraction == ObjectVarable.tank_unity)
+        if (fraction == ObjectVariables.tank_ally)
             overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][0]);
-        if (fraction == ObjectVarable.tank_enemy)
+        if (fraction == ObjectVariables.tank_enemy)
             overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][1]);
 			
-		overlayer.setSize(6 * ObjectVarable.size_block * 2, 6 * ObjectVarable.size_block * 2);
+		overlayer.setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
 		overlayer.setCenter(x + a / 2, y - a / 2);
 		
 		s.setSize(a * 2.5f, size * 2.5f);
@@ -149,11 +149,11 @@ abstract public class Build extends ObjBuild {
         private Sprite helth;
 
         public Health() {
-            if (fraction == ObjectVarable.tank_enemy) {
-                h = GameStage.TextureLoader.getHealth_Red()[0];
+            if (fraction == ObjectVariables.tank_enemy) {
+                h = GameStage.TextureLoader.getHealthRed()[0];
             }
-            if (fraction == ObjectVarable.tank_unity) {
-                h = GameStage.TextureLoader.getHealth_Yell()[0];
+            if (fraction == ObjectVariables.tank_ally) {
+                h = GameStage.TextureLoader.getHealthYell()[0];
             }
             helth = new Sprite(h[11]);
 			helth.setSize(a * 2, 0.3f);

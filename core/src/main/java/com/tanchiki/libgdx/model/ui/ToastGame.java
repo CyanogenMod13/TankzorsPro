@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class ToastGame extends Label {
     public ToastGame(String text)//,float x,float y)
     {
         super(text, new Label.LabelStyle(FontLoader.f24, Color.WHITE));//, null, null, ));
-        setSize(ObjectVarable.size_block * 2 * 3, ObjectVarable.size_block * 2);
+        setSize(ObjectVariables.size_block * 2 * 3, ObjectVariables.size_block * 2);
         setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, Align.center);
         setAlignment(Align.center);
         setVisible(false);

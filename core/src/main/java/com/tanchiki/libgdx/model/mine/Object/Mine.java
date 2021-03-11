@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Mine extends GameActor {
     GameStage GameStage;
     protected Sprite s;
     public float damage;
     public int fraction;
-    private float size = ObjectVarable.size_block * 2;
+    private float size = ObjectVariables.size_block * 2;
 
     public Mine(float x, float y, float damage, int fraction, TextureRegion t) {
         this.GameStage = ObjectClass.GameStage;

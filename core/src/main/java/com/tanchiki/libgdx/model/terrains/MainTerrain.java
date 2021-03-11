@@ -11,21 +11,17 @@ import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.mine.MineEnemy1;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.Turret;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.*;
 import com.tanchiki.libgdx.util.astar.AStar;
 import com.tanchiki.libgdx.util.astar.AStarNode;
 
-import java.io.BufferedWriter;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainTerrain extends Group implements Disposable {
-    //public RingTanks RingTanks;
     public GameStage GameStage;
     public Group ground;
     public Group tanks;
@@ -44,31 +40,20 @@ public class MainTerrain extends Group implements Disposable {
     public Group health;
     public Group explosions;
     public Group smoke;
-    public Group overlayer;
+    public Group overlays;
     public Group ring;
 	public Group trigger;
-    //private Node[][] graph;
     public MainTerrain.Mission mission = null;
     public Rectangle rect;
-    BufferedWriter w;
 
     public HashMap<Integer, Tank> hashTanks = new HashMap<>();
 
-    //public Texture groundTexture;
-
     public AStar AStar;
-
-    //public static TanksHoldGroup TanksHoldGroupUnity = new TanksHoldGroup();
-
-    //public static TanksHoldGroup TanksHoldGroupEnemy = new TanksHoldGroup();
-
     private static MainTerrain currentTerrain = null;
 
     public static MainTerrain getCurrentTerrain() {
         return currentTerrain;
     }
-
-    public static final Map<Integer, Class<?>> mapping = new HashMap<>();
 
     Parameters param;
 	Briefings brfg;
@@ -99,16 +84,12 @@ public class MainTerrain extends Group implements Disposable {
         health = new Group();
         explosions = new Group();
         smoke = new Group();
-        overlayer = new Group();
+        overlays = new Group();
         ring = new Group();
 		trigger = new Group();
 
         tanks_unity = new TanksUnity();
         tanks_enemy = new TanksEnemy();
-        //RingTanks = new RingTanks();
-
-        //root.addActor(TanksHoldGroupUnity);
-        //root.addActor(TanksHoldGroupEnemy);
 
         tanks.addActor(tanks_unity);
         tanks.addActor(tanks_enemy);
@@ -120,7 +101,7 @@ public class MainTerrain extends Group implements Disposable {
 		root.addActor(trigger);
         root.addActor(track);
         root.addActor(walls);
-        root.addActor(overlayer);
+        root.addActor(overlays);
         root.addActor(builds);
         root.addActor(ring);
         root.addActor(tanks);
@@ -130,19 +111,17 @@ public class MainTerrain extends Group implements Disposable {
         if (!Settings.edit_map_mode)
             root.addActor(health);
         root.addActor(decor);
-        //root.addActor(new Debug());
 
         GameStage.TankUser = null;
 
         if (Settings.start_game) {
             ObjectClass.PanelStage.toasts.clear();
-            ObjectClass.PanelStage.addToast("Миссия " + (GameStage.next_level + 1));
-			MusicLoader.getInstance().getTrack((GameStage.next_level % 5) + 1).play();
+            ObjectClass.PanelStage.addToast("Миссия " + (com.tanchiki.libgdx.stage.GameStage.next_level + 1));
+			MusicLoader.getInstance().getTrack((com.tanchiki.libgdx.stage.GameStage.next_level % 5) + 1).play();
         } else {
 			MusicLoader.getInstance().getIntro().play();
 		}
-			
-        //root.setCullingArea(new Rectangle(0, 0, GameStage.cam.viewportWidth / 2, GameStage.cam.viewportHeight / 2));
+
         addActor(root);
     }
 
@@ -152,7 +131,6 @@ public class MainTerrain extends Group implements Disposable {
 		super.act(delta);
 	}
 
-    Array<Node> node = new Array<>();
     public void loadMap(String name) throws Exception{
         MapBinReader map = MapsDatabase.getInstance().getMap(name);
         loadMap(map);
@@ -169,29 +147,27 @@ public class MainTerrain extends Group implements Disposable {
     public void loadMap(MapBinReader map) throws Exception {
 		System.out.println("MAP " + map.getName());
 		
-        ObjectVarable.size_enemy = 0;
-        ObjectVarable.size_unity = 0;
-
-        float pointXY[] = {-1, -1};
+        ObjectVariables.size_enemies = 0;
+        ObjectVariables.size_allies = 0;
 
         loadBinaryMap(map);
-		ObjectVarable.max_tanks_enemy = param.getKey(1);
-		ObjectVarable.max_tanks_ally = param.getKey(10);
-		ObjectVarable.level_diffculty = param.getKey(24);
+		ObjectVariables.max_tanks_enemy = param.getKey(1);
+		ObjectVariables.max_tanks_ally = param.getKey(10);
+		ObjectVariables.level_difficulty = param.getKey(24);
 
 		int[] tanks_type_enemy = new int[8];
 		for (int i = 0; i < 8; i++) {
 			tanks_type_enemy[i] = param.getKey(i + 2);
-			ObjectVarable.all_size_enemy += param.getKey(i + 2);
+			ObjectVariables.all_size_enemies += param.getKey(i + 2);
 		}
-		ObjectVarable.tanks_type_enemy = tanks_type_enemy;
+		ObjectVariables.tanks_type_enemy = tanks_type_enemy;
 
 		int[] tanks_type_ally = new int[8];
 		for (int i = 0; i < 8; i++) {
 			tanks_type_ally[i] = param.getKey(i + 11);
-			ObjectVarable.all_size_unity += param.getKey(i + 11);
+			ObjectVariables.all_size_allies += param.getKey(i + 11);
 		}
-		ObjectVarable.tanks_type_ally = tanks_type_ally;
+		ObjectVariables.tanks_type_ally = tanks_type_ally;
 		if (Settings.start_game) {
 			mission = new MainTerrain.Mission(param.getKey(26));
 			root.addActor(mission);
@@ -215,30 +191,22 @@ public class MainTerrain extends Group implements Disposable {
         this.rect = new Rectangle(-1, -1, GameStage.world_wight, GameStage.world_height);
 		GameStage.cam.position.set(pointXY[0] / 2f - 1f, pointXY[1] / 2f - 1, 0);
         AStar = new AStar(GameStage.world_nodes, new AStar.AStarListener() {
-
             @Override
             public float h(AStarNode end, AStarNode current) {
-                // TODO: Implement this method
-                return (float) Math.pow(end.x - current.x, 2) + (float) Math.pow(end.y - current.y, 2) + ((current.parent != null) ? ((current.code == current.parent.code) ? 0 : 100) : 0);
+                return (end.x - current.x) * (end.x - current.x) + (end.y - current.y) * (end.y - current.y) + ((current.parent != null) ? ((current.code == current.parent.code) ? 0 : 100) : 0);
             }
 
             @Override
             public float g(AStarNode begin, AStarNode current) {
-                // TODO: Implement this method
-                return (float) Math.pow(begin.x - current.x, 2) + (float) Math.pow(begin.y - current.y, 2);
+                return (begin.x - current.x) * (begin.x - current.x) + (begin.y - current.y) * (begin.y - current.y);
             }
         });
     }
 
     public void loadBinaryMap(final MapBinReader input) throws Exception {
         System.out.println("Binary map reading started...");
-		//Gdx.app.log("Tanchiki", "Binary map reading started...");
-
 		param = new Parameters(input.getParametersPart());
-		/*PrintStream p = new PrintStream(new File("/sdcard/prm.txt"));
-		for (int i = 0; i < input.getParametersPart().length; i++) {
-			p.println(input.getParametersPart()[i]);
-		}*/
+
 		brfg = new Briefings(input.getHints());
 		final int width = input.getSizeMapPart()[0];
 		final int height = input.getSizeMapPart()[1];
@@ -260,7 +228,7 @@ public class MainTerrain extends Group implements Disposable {
 		for (Actor a : ground.getChildren())
 			if (a instanceof Sand) {
 				Sand s = (Sand) a;
-				s.init();
+				s.postInit();
 			}
 		for (Actor a : road.getChildren())
 			if (a instanceof Road) {
@@ -302,10 +270,10 @@ public class MainTerrain extends Group implements Disposable {
 			decor.addActor(new Palm(j * 2, i * 2));
 		}
 		if (code >= 151 && code <= 159 || code >= 191 && code <= 199 || code >= 231 && code <= 239) {
-			tanks_enemy.addActor(new Turret(j * 2, i * 2, ObjectVarable.tank_enemy, 0));
+			tanks_enemy.addActor(new Turret(j * 2, i * 2, ObjectVariables.tank_enemy));
 		}
 		if (code == 160 || code == 200 || code == 240) {
-			tanks_unity.addActor(new Turret(j * 2, i * 2, ObjectVarable.tank_unity, 0));
+			tanks_unity.addActor(new Turret(j * 2, i * 2, ObjectVariables.tank_ally));
 		}
 		if (code == 102) {
 			trigger.addActor(new Trigger(j * 2, i * 2));
@@ -600,35 +568,35 @@ public class MainTerrain extends Group implements Disposable {
 				case 32:	
 				case 1:
 				case 11:
-					if (ObjectVarable.all_size_enemy == 0) win(); break;
+					if (ObjectVariables.all_size_enemies == 0) win(); break;
 				
 				case 12: 
-					if (ObjectVarable.all_size_unity < 1) lose();
-					if (ObjectVarable.all_size_enemy == 0) win(); break;
+					if (ObjectVariables.all_size_allies < 1) lose();
+					if (ObjectVariables.all_size_enemies == 0) win(); break;
 				case 13: 
-					if (ObjectVarable.all_size_unity < 2) lose();
-					if (ObjectVarable.all_size_enemy == 0) win(); break;
+					if (ObjectVariables.all_size_allies < 2) lose();
+					if (ObjectVariables.all_size_enemies == 0) win(); break;
 				case 14: 
-					if (ObjectVarable.all_size_unity < 3) lose();
-					if (ObjectVarable.all_size_enemy == 0) win(); break;
+					if (ObjectVariables.all_size_allies < 3) lose();
+					if (ObjectVariables.all_size_enemies == 0) win(); break;
 					
-				case 15: if (ObjectVarable.all_size_unity < 1) lose(); break;
-				case 16: if (ObjectVarable.all_size_unity < 2) lose(); break;
-				case 17: if (ObjectVarable.all_size_unity < 3) lose(); break;
+				case 15: if (ObjectVariables.all_size_allies < 1) lose(); break;
+				case 16: if (ObjectVariables.all_size_allies < 2) lose(); break;
+				case 17: if (ObjectVariables.all_size_allies < 3) lose(); break;
 				
 				case 50:
 				case 51:
 				case 52:
 				case 53:
-				case 54: if (ObjectVarable.all_size_radar_allies == 0) lose(); break;
-				case 55: if (ObjectVarable.all_size_radar_allies == 0) lose();
-						 if (ObjectVarable.all_size_enemy == 0) win();	break;
+				case 54: if (ObjectVariables.all_size_radar_allies == 0) lose(); break;
+				case 55: if (ObjectVariables.all_size_radar_allies == 0) lose();
+						 if (ObjectVariables.all_size_enemies == 0) win();	break;
 						 
-				case 56: if (ObjectVarable.all_size_radar_enemy == 0) win(); break;
-				case 57: if (ObjectVarable.all_size_reactor_enemy == 0) win(); break;
-				case 58: if (ObjectVarable.all_size_radar_enemy == 0 && ObjectVarable.all_size_reactor_enemy == 0) win(); break;
-				case 59: if (ObjectVarable.all_size_turrets_enemy == 0) win(); break;
-				case 60: if (ObjectVarable.all_size_turrets_enemy == 0 && ObjectVarable.all_size_enemy == 0) win(); break;
+				case 56: if (ObjectVariables.all_size_radar_enemy == 0) win(); break;
+				case 57: if (ObjectVariables.all_size_reactor_enemy == 0) win(); break;
+				case 58: if (ObjectVariables.all_size_radar_enemy == 0 && ObjectVariables.all_size_reactor_enemy == 0) win(); break;
+				case 59: if (ObjectVariables.all_size_turrets_enemy == 0) win(); break;
+				case 60: if (ObjectVariables.all_size_turrets_enemy == 0 && ObjectVariables.all_size_enemies == 0) win(); break;
 				case 66: break;
 				default: remove();
 			}
@@ -697,43 +665,6 @@ public class MainTerrain extends Group implements Disposable {
 		
 		return timer.remove();
 	}
-	
-    public static class Node {
-        public boolean visited = false;
-
-        public float x, y;
-
-        public Node parent = null;
-
-        public Node child = null;
-
-        public Array<Integer> code_way = new Array<Integer>();
-
-        public Node() {
-        }
-
-        public int CODE;
-
-        public boolean CODE_RIGHT = false,
-                CODE_LEFT = false,
-                CODE_UP = false,
-                CODE_DOWN = false;
-
-        public Node(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public
-        static
-        final
-        int
-                UP = 2,
-                DOWN = -2,
-                RIGHT = 1,
-                LEFT = -1;
-
-    }
 
     public class TanksGroup extends Group {
     }

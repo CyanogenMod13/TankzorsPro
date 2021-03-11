@@ -4,16 +4,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.model.terrains.Object.Decorete;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
-public class Palm extends Decorete {
+public class Palm extends Decorate {
     public Sprite s;
     public Sprite s2;
     protected TextureRegion[] t;
-    private float a = ObjectVarable.size_block;
+    private float a = ObjectVariables.size_block;
     private GameStage g = ObjectClass.GameStage;
 
     public Palm(float x, float y) {

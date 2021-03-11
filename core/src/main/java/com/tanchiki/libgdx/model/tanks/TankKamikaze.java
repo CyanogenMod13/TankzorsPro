@@ -1,16 +1,15 @@
 package com.tanchiki.libgdx.model.tanks;
 
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.util.ObjectClass;
 
-public class TankKamikaze extends Tank {
-    public TankKamikaze(float x, float y, short f, int weapon, int mode) {
-        super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankKamikaze(), weapon);
+public class TankKamikaze extends DefaultTank {
+    public TankKamikaze(float x, float y, short f, int weapon) {
+        super(x, y, f, ObjectClass.GameStage.TextureLoader.getTankKamikaze()[0], weapon);
         HP = 5;
         HPBackup = HP;
         speed = 0.2f;
-		AI.radius_enemy = 3 * 2;
+		defaultAI.radius_enemy = 3 * 2;
     }
 
 	boolean expl = false;

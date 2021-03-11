@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.model.terrains;
 
-import com.tanchiki.libgdx.model.terrains.Object.Block;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public class IronWall extends Block {

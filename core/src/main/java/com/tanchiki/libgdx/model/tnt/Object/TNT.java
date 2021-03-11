@@ -7,7 +7,7 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class TNT extends GameActor {
     protected Sprite s;
@@ -24,7 +24,7 @@ public class TNT extends GameActor {
         GameStage = ObjectClass.GameStage;
         t = GameStage.TextureLoader.getIcons()[0];
         s = new Sprite(t[0]);
-        setSize(ObjectVarable.size_block * 2, ObjectVarable.size_block * 2);
+        setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
         setCenterPosition(x, y);
         GameStage.world_mines[(int) x][(int) y] = this;
     }

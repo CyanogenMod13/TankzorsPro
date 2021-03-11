@@ -11,12 +11,12 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.buildes.Object.Build;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.explosions.SmallExplosion;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.tanks.Turret;
 import com.tanchiki.libgdx.model.terrains.IronWall;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
-import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
+import com.tanchiki.libgdx.model.terrains.Block;
+import com.tanchiki.libgdx.model.terrains.DestroyableBlock;
 import com.tanchiki.libgdx.model.terrains.Spike;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.*;
@@ -56,13 +56,13 @@ public class Bullet extends GameActor {
         }
         s = new Sprite(t[0]);
         //Body.setBullet(false);
-        s.setSize(s.getWidth() / 10 * ObjectVarable.size_block, s.getHeight() / 10 * ObjectVarable.size_block);
+        s.setSize(s.getWidth() / 10 * ObjectVariables.size_block, s.getHeight() / 10 * ObjectVariables.size_block);
         //Body.setUserData(this);
         setSize(s.getWidth(), s.getHeight());
         setCenterPosition(x, y);
         pos.set(Math.round(getCenterX()), Math.round(getCenterY()));
-        if (fraction == ObjectVarable.tank_unity) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
-        if (fraction == ObjectVarable.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
 		body.setSize(2, 2);
     }
 
@@ -88,16 +88,16 @@ public class Bullet extends GameActor {
         if (HP <= 0) {
             GameStage.MT.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
 
-            if (fraction == ObjectVarable.tank_unity)
+            if (fraction == ObjectVariables.tank_ally)
                 if (pos.x >= 0 && pos.x < GameStage.world_wight && pos.y >= 0 && pos.y < GameStage.world_height)
                     GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
-            if (fraction == ObjectVarable.tank_enemy)
+            if (fraction == ObjectVariables.tank_enemy)
                 if (pos.x >= 0 && pos.x < GameStage.world_wight && pos.y >= 0 && pos.y < GameStage.world_height)
                     GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
-            if (fraction == ObjectVarable.tank_unity)
+            if (fraction == ObjectVariables.tank_ally)
                 if (x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)
                     GameStage.world_bullets_unity[x][y] = null;
-            if (fraction == ObjectVarable.tank_enemy)
+            if (fraction == ObjectVariables.tank_enemy)
                 if (x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)
                     GameStage.world_bullets_enemy[x][y] = null;
             remove();
@@ -162,11 +162,11 @@ public class Bullet extends GameActor {
 
         if (!(x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)) return;
 
-        if (fraction == ObjectVarable.tank_unity) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
-        if (fraction == ObjectVarable.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
+        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
+        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
         pos.set(x, y);
-        if (fraction == ObjectVarable.tank_unity) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
-        if (fraction == ObjectVarable.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
 
         Tank tank = GameStage.MT.hashTanks.get(GameStage.world_block[x][y]);
         if (tank != null)
@@ -188,7 +188,7 @@ public class Bullet extends GameActor {
 				}
             }
 
-        Bullet bullet = (fraction == ObjectVarable.tank_enemy) ? GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] : GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y];
+        Bullet bullet = (fraction == ObjectVariables.tank_enemy) ? GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] : GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y];
         if (bullet != null) {
             final float bulletHP = bullet.HP;
             bullet.HP -= Math.max(HP, 0);

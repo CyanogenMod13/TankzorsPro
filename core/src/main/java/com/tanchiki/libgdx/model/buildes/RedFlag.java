@@ -34,7 +34,7 @@ public class RedFlag extends Flag {
 		}
 		
 		if (!active) {
-			setCenterPosition(GameStage.getInstance().TankUser.AI.goal_x, GameStage.getInstance().TankUser.AI.goal_y);
+			setCenterPosition(GameStage.getInstance().TankUser.defaultAI.goal_x, GameStage.getInstance().TankUser.defaultAI.goal_y);
 			switch (MainTerrain.Mission.CODE) {
 				case 3:
 				case 40:

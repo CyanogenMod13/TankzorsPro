@@ -2,12 +2,12 @@ package com.tanchiki.libgdx.model.buildes;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.model.buildes.Object.SubBuilds;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
 
@@ -35,7 +35,7 @@ public class AngarUnity extends SubBuilds {
 	public int activity = 1;
 	
     public AngarUnity(float x, float y) {
-        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][0], ObjectVarable.tank_unity);
+        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][0], ObjectVariables.tank_ally);
 		setCenterPosition(x, y);
 		if (LAST_INDEX == 0) register = new HashMap<>();
 		index = LAST_INDEX++;
@@ -70,7 +70,7 @@ public class AngarUnity extends SubBuilds {
 		LAST_INDEX = 0;
 		
         super.act(delta);
-		if (GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVarable.size_unity < ObjectVarable.max_tanks_ally || GameStage.TankUser != null && GameStage.TankUser.HP <= 0))
+		if (GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || GameStage.TankUser != null && GameStage.TankUser.HP <= 0))
         	time += delta;
 
         if (time >= 1) {
@@ -89,11 +89,11 @@ public class AngarUnity extends SubBuilds {
                         TankUser t = GameStage.TankUser;
                         //t.destroyTank();
                         if (t.flag != null) t.flag.active = true;
-                        t.Health.setVisible(true);
-                        t.Ring.setVisible(true);
+                        GameStage.MT.health.addActor(t.health);
+                        GameStage.MT.ring.addActor(t.ring);
                         t.setCenterPosition(getCenterX(), getCenterY());
-                        t.AI.goal_x = (int) getCenterX();
-                        t.AI.goal_y = (int) getCenterY();
+                        t.defaultAI.goal_x = (int) getCenterX();
+                        t.defaultAI.goal_y = (int) getCenterY();
                         t.HP = t.HPBackup;
                         Settings.TankUserSettings.HPShieldBackup = 0;
 
@@ -112,17 +112,17 @@ public class AngarUnity extends SubBuilds {
             }
 			if (activity == 1)
             if (spawnCount > 0)
-				if (ObjectVarable.size_unity < ObjectVarable.max_tanks_ally) {
+				if (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally) {
 					for (int i = 0; i < 8; i++) {
-						if (ObjectVarable.tanks_type_ally[i] > 0) {
-							ObjectVarable.tanks_type_ally[i]--;
-							int prm[] = tanks_prm[i][Math.max(ObjectVarable.level_diffculty - 1, 0)];
+						if (ObjectVariables.tanks_type_ally[i] > 0) {
+							ObjectVariables.tanks_type_ally[i]--;
+							int prm[] = tanks_prm[i][Math.max(ObjectVariables.level_difficulty - 1, 0)];
 							Tank tank = null;
 							switch (prm[0]) {
-								case 1: tank = new TankLight(getCenterX(), getCenterY(), ObjectVarable.tank_unity, prm[2], 0); break;
-								case 2: tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVarable.tank_unity, prm[2], 0); break;
-								case 3: tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVarable.tank_unity, prm[2], 0); break;
-								case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVarable.tank_unity, prm[2], 0); break;
+								case 1: tank = new TankLight(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]); break;
+								case 2: tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]); break;
+								case 3: tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2], 0); break;
+								case 4: tank = new TankSiege(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]); break;
 							}
 							tank.HP = prm[1];
 							tank.HPBackup = tank.HP;

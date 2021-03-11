@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public class Artiling extends Bullet {
@@ -23,7 +23,7 @@ public class Artiling extends Bullet {
 	public int diameter = 6 * 2;
 
     public Artiling(float x, float y, float distance, int angle) {
-        super(x, y, angle, 0.2f, ObjectVarable.tank_unity, new Array<TextureRegion>(new TextureRegion[]{ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12]}));
+        super(x, y, angle, 0.2f, ObjectVariables.tank_ally, new Array<TextureRegion>(new TextureRegion[]{ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12]}));
         this.x = x;
         this.y = y;
 		
@@ -37,10 +37,10 @@ public class Artiling extends Bullet {
 		ball1 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][21]);
 		ball2 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][20]);
 		ball3 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][19]);
-        ball.setSize(ball.getWidth() / 10 * ObjectVarable.size_block, ball.getHeight() / 10 * ObjectVarable.size_block);
-		ball1.setSize(ball1.getWidth() / 10 * ObjectVarable.size_block, ball1.getHeight() / 10 * ObjectVarable.size_block);
-		ball2.setSize(ball2.getWidth() / 10 * ObjectVarable.size_block, ball2.getHeight() / 10 * ObjectVarable.size_block);
-		ball3.setSize(ball3.getWidth() / 10 * ObjectVarable.size_block, ball3.getHeight() / 10 * ObjectVarable.size_block);
+        ball.setSize(ball.getWidth() / 10 * ObjectVariables.size_block, ball.getHeight() / 10 * ObjectVariables.size_block);
+		ball1.setSize(ball1.getWidth() / 10 * ObjectVariables.size_block, ball1.getHeight() / 10 * ObjectVariables.size_block);
+		ball2.setSize(ball2.getWidth() / 10 * ObjectVariables.size_block, ball2.getHeight() / 10 * ObjectVariables.size_block);
+		ball3.setSize(ball3.getWidth() / 10 * ObjectVariables.size_block, ball3.getHeight() / 10 * ObjectVariables.size_block);
     }
 
     @Override

@@ -156,14 +156,14 @@ public class Weapon extends GameActor {
                     }
                     case WeaponData.Type.time: {
                         WeaponData.time -= 1;
-                        GameStage.stop_time(ObjectVarable.tank_unity);
+                        GameStage.stop_time(ObjectVariables.tank_ally);
                         Settings.pause = false;
                         ObjectClass.WeaponMenuStage.hideMenu();
                         break;
                     }
                     case WeaponData.Type.speed: {
                         WeaponData.speed -= 1;
-                        ObjectClass.GameStage.TankUser.activate_speed_skill();
+                        ObjectClass.GameStage.TankUser.activateSpeedSkill();
                         Settings.pause = false;
                         ObjectClass.WeaponMenuStage.hideMenu();
                         break;

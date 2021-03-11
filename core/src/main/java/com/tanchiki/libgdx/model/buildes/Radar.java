@@ -4,7 +4,7 @@ import com.tanchiki.libgdx.model.buildes.Object.Build;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Radar extends Build {
     public Radar(float x, float y, short f) {
@@ -24,28 +24,28 @@ public class Radar extends Build {
 
     public static class RadarUnity extends Radar {
         public RadarUnity(float x, float y) {
-            super(x, y, ObjectVarable.tank_unity);
+            super(x, y, ObjectVariables.tank_ally);
             code_name = "radar_unity";
-			ObjectVarable.all_size_radar_allies++;
+			ObjectVariables.all_size_radar_allies++;
         }
 
 		@Override
 		public void destroyBuilds() {
-			ObjectVarable.all_size_radar_allies--;
+			ObjectVariables.all_size_radar_allies--;
 			super.destroyBuilds();
 		}
     }
 
     public static class RadarEnemy extends Radar {
         public RadarEnemy(float x, float y) {
-            super(x, y, ObjectVarable.tank_enemy);
+            super(x, y, ObjectVariables.tank_enemy);
             code_name = "radar_enemy";
-			ObjectVarable.all_size_radar_enemy++;
+			ObjectVariables.all_size_radar_enemy++;
         }
 
 		@Override
 		public void destroyBuilds() {
-			ObjectVarable.all_size_radar_enemy--;
+			ObjectVariables.all_size_radar_enemy--;
 			super.destroyBuilds();
 		}
     }

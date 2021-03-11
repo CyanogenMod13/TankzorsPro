@@ -18,7 +18,6 @@ public class SavePreferences {
 	private final String dir = Gdx.app.getType().equals(Application.ApplicationType.Android) ? "/data/data/com.tanchiki.libgdx/files/" : "";
 	
 	private SavePreferences() {
-		
 	}
 	
 	public void save(int slot) {

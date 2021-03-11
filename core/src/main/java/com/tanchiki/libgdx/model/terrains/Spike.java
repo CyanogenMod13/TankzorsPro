@@ -3,7 +3,6 @@ package com.tanchiki.libgdx.model.terrains;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
-import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
 
 public class Spike extends DestroyableBlock {
     public Spike(float x, float y) {

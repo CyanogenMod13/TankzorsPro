@@ -11,13 +11,12 @@ import com.tanchiki.libgdx.model.buildes.AngarEnemy;
 import com.tanchiki.libgdx.model.buildes.AngarUnity;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 import java.util.HashMap;
@@ -209,8 +208,8 @@ public class Trigger extends Actor {
 		Tank tank = ObjectClass.GameStage.world_tank[(int) x][(int) y];
 		if (tank != null && !isClick)
 		if ((tank instanceof TankUser) && byUser || 
-			(tank.fraction == ObjectVarable.tank_enemy) && byEnemy ||
-			(tank.fraction == ObjectVarable.tank_unity) && byAlly) {
+			(tank.fraction == ObjectVariables.tank_enemy) && byEnemy ||
+			(tank.fraction == ObjectVariables.tank_ally) && byAlly) {
 				actived();
 				isClick = true;
 				return;

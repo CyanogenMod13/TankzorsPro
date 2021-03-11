@@ -1,8 +1,7 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.model.terrains.Object.Terrains;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Road extends Terrains {
     Object center = last_block;
@@ -16,20 +15,20 @@ public class Road extends Terrains {
         int yy = (int) getCenterY();
 
         Object right = null;
-        if (g.world_obj.length > xx + ObjectVarable.size_block * 2)
-            right = g.world_obj[xx + ObjectVarable.size_block * 2][yy];
+        if (g.world_obj.length > xx + ObjectVariables.size_block * 2)
+            right = g.world_obj[xx + ObjectVariables.size_block * 2][yy];
 
         Object left = null;
-        if (xx - ObjectVarable.size_block * 2 >= 0)
-            left = g.world_obj[xx - ObjectVarable.size_block * 2][yy];
+        if (xx - ObjectVariables.size_block * 2 >= 0)
+            left = g.world_obj[xx - ObjectVariables.size_block * 2][yy];
 
         Object top = null;
-        if (g.world_obj[0].length > yy + ObjectVarable.size_block * 2)
-            top = g.world_obj[xx][yy + ObjectVarable.size_block * 2];
+        if (g.world_obj[0].length > yy + ObjectVariables.size_block * 2)
+            top = g.world_obj[xx][yy + ObjectVariables.size_block * 2];
 
         Object bottom = null;
-        if (yy - ObjectVarable.size_block * 2 >= 0)
-            bottom = g.world_obj[xx][yy - ObjectVarable.size_block * 2];
+        if (yy - ObjectVariables.size_block * 2 >= 0)
+            bottom = g.world_obj[xx][yy - ObjectVariables.size_block * 2];
 
         if (center instanceof Sand) {
             if (right instanceof Road && left instanceof Road) {
@@ -78,7 +77,7 @@ public class Road extends Terrains {
     }*/
 
     public static void createRoadGrass(MainTerrain mt, float x, float y, float w, float h) {
-        int block = ObjectVarable.size_block * 2;
+        int block = ObjectVariables.size_block * 2;
         //mt.ground.addActor(new Begin(x,y,2));
         if (h == 0)
             for (int i = 0; i < w; i++) {
@@ -105,7 +104,7 @@ public class Road extends Terrains {
     }
 
     public static void createRoadSand(MainTerrain mt, float x, float y, float w, float h) {
-        int block = ObjectVarable.size_block * 2;
+        int block = ObjectVariables.size_block * 2;
         //mt.ground.addActor(new Begin(x,y,2));
         if (h == 0)
             for (int i = 0; i < w; i++) {

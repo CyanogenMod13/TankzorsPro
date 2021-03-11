@@ -1,65 +1,61 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Track extends GameActor {
-    public Sprite s;
-    protected TextureRegion[] t;
-    private float a = ObjectVarable.size_block;
-    private int rot;
+    protected TextureRegion[] t = ObjectClass.GameStage.TextureLoader.getTracks()[0];
+    private float a = ObjectVariables.size_block;
     private float HP = 1;
+    private int index;
 
-    public static final int VERTICAL = 2, HORIZONTAL = 1, RIGHT_DOWN = 4, LEFT_DOWN = 5, LEFT_UP = 7, RIGHT_UP = 8;
+    public static final int VERTICAL = 2,
+            HORIZONTAL = 1,
+            RIGHT_DOWN = 4,
+            LEFT_DOWN = 5,
+            LEFT_UP = 7,
+            RIGHT_UP = 8;
+
+    public Track(float x, float y) {
+        this(x, y, HORIZONTAL);
+    }
 
     public Track(float x, float y, int rot) {
-        this.rot = rot;
-        TextureRegion[][] r = ObjectClass.GameStage.TextureLoader.getTracks();
-        t = new TextureRegion[20];
-        for (int i = 0; i < 20; i++) {
-            t[i] = r[0][i];
-        }
-
-        if (rot == VERTICAL)
-            s = new Sprite(t[4]);
-        if (rot == HORIZONTAL)
-            s = new Sprite(t[0]);
-        if (rot == RIGHT_DOWN)
-            s = new Sprite(t[14]);
-        if (rot == LEFT_DOWN)
-            s = new Sprite(t[17]);
-        if (rot == RIGHT_UP)
-            s = new Sprite(t[11]);
-        if (rot == LEFT_UP)
-            s = new Sprite(t[8]);
-
+        setOrientation(rot);
+        setSize(a * 2, a * 2);
         setCenterPosition(x, y);
-        //setVisible(false);
+    }
+
+    public void setOrientation(int rot) {
+        int index = -1;
+        switch (rot) {
+            case VERTICAL: index = 4; break;
+            case HORIZONTAL: index = 0; break;
+            case RIGHT_DOWN: index = 14; break;
+            case LEFT_DOWN: index = 17; break;
+            case RIGHT_UP: index = 11; break;
+            case LEFT_UP: index = 8; break;
+        }
+        this.index = index;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
         super.draw(batch, parentAlpha);
-
-        s.setSize(a * 2, a * 2);
-        s.setOrigin(s.getWidth() / 2, s.getHeight() / 2);
-        s.setCenter(getCenterX(), getCenterY());
-        s.draw(batch);
+        batch.setColor(1, 1, 1, HP);
+        batch.draw(t[index],
+                getX(), getY(),
+                getWidth(), getHeight());
+        batch.setColor(1, 1, 1, 1);
     }
 
     @Override
     public void act(float delta) {
-        if (HP <= 0)
-            remove();
-        s.setAlpha(HP);
+        if (HP <= 0) remove();
         HP -= delta / 10;
-        // TODO: Implement this method
         super.act(delta);
     }
-
 }

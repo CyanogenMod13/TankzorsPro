@@ -2,7 +2,7 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class DecorGrass {
     public static void createBulgeGrass(MainTerrain mt, float x, float y) {
@@ -26,7 +26,7 @@ public class DecorGrass {
     private static class SandGrass extends Sand {
         float x;
         float y;
-        int block = ObjectVarable.size_block * 2;
+        int block = ObjectVariables.size_block * 2;
 
         public SandGrass(float x, float y) {
             super(x, y);
@@ -56,7 +56,7 @@ public class DecorGrass {
     private static class BugleGrass extends Grass {
         float x;
         float y;
-        int block = ObjectVarable.size_block * 2;
+        int block = ObjectVariables.size_block * 2;
 
         public BugleGrass(float x, float y) {
             super(x, y);
@@ -86,7 +86,7 @@ public class DecorGrass {
     private static class BugleGrass2 extends Grass {
         float x;
         float y;
-        int block = ObjectVarable.size_block * 2;
+        int block = ObjectVariables.size_block * 2;
 
         public BugleGrass2(float x, float y) {
             super(x, y);

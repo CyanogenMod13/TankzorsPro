@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.terrains.Object;
+package com.tanchiki.libgdx.model.terrains;
 
 public abstract class DestroyableBlock extends Block {
     public DestroyableBlock(float x, float y) {

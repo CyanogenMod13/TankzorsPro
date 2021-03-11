@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.terrains.Object;
+package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Terrains extends GameActor {
     public Sprite s;
     protected TextureRegion[] t;
-    private float a = ObjectVarable.size_block;
+    private float a = ObjectVariables.size_block;
     protected float size = a * 2;
     protected GameStage g = ObjectClass.GameStage;
     public Object last_block = null;

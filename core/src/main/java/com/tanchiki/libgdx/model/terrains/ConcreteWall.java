@@ -2,7 +2,6 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.tanchiki.libgdx.model.bullets.Roket;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
 
 public class ConcreteWall extends Block {
     public ConcreteWall(float x, float y) {

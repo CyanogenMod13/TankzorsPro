@@ -134,7 +134,7 @@ public class TSButton extends Table {
                 public void clicked(InputEvent e, float x, float y) {
                     super.clicked(e, x, y);
                     //if(GameStage.TankUser != null)
-                    GameStage.TankUser.AI.AIR();
+                    GameStage.TankUser.defaultAI.AIR();
                 }
 
             });
@@ -179,7 +179,7 @@ public class TSButton extends Table {
                 public void clicked(InputEvent e, float x, float y) {
                     super.clicked(e, x, y);
                     //if(GameStage.TankUser != null)
-                    GameStage.TankUser.AI.MINES();
+                    GameStage.TankUser.defaultAI.MINES();
                 }
 
             });
@@ -304,7 +304,7 @@ public class TSButton extends Table {
 
         @Override
         public void act(float delta) {
-            if (touch) GameStage.TankUser.AI.BULLET();
+            if (touch) GameStage.TankUser.defaultAI.BULLET();
             super.act(delta);
         }
     }

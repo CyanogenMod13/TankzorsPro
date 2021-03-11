@@ -18,10 +18,10 @@ import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.aircraft.airplane;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
+import com.tanchiki.libgdx.model.terrains.Block;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.*;
 
@@ -97,8 +97,6 @@ public class GameStage extends Stage {
 	private Rectangle areaVisible;
 
     public GameStage() {
-        //super(ObjectClass.viewport,new SpriteBatch());
-        //setDebugAll(true);
 		SavePreferences.getInstance().loadSettings();
         ObjectClass.GameStage = this;
         loadMap();
@@ -205,7 +203,7 @@ public class GameStage extends Stage {
     }
 
     public void disposeTerrain() {
-        ObjectVarable.all_size_boss_ally = ObjectVarable.all_size_boss_enemy = ObjectVarable.all_size_radar_allies = ObjectVarable.all_size_radar_enemy = ObjectVarable.all_size_reactor_enemy = ObjectVarable.all_size_turrets_enemy = ObjectVarable.all_size_enemy = ObjectVarable.all_size_unity = ObjectVarable.size_enemy = ObjectVarable.size_unity = ObjectVarable.max_tanks = 0;
+        ObjectVariables.all_size_boss_allies = ObjectVariables.all_size_boss_enemies = ObjectVariables.all_size_radar_allies = ObjectVariables.all_size_radar_enemy = ObjectVariables.all_size_reactor_enemy = ObjectVariables.all_size_turrets_enemy = ObjectVariables.all_size_enemies = ObjectVariables.all_size_allies = ObjectVariables.size_enemies = ObjectVariables.size_allies = ObjectVariables.max_tanks = 0;
 		timer_enemy = 0;
 		Tank.stop_enemy = false;
 		MissionCompleted.isShow = false;
@@ -353,32 +351,15 @@ public class GameStage extends Stage {
 	}
 	
     public void drawStage(float delta) {
-        //setDebugAll(debug);
         long d = System.currentTimeMillis();
         if (MT != null && !Settings.edit_map_mode)
             Clound.random(delta);
         time += delta;
-        //World.getBodies(array_bodies);
-        //GPUOptimizerRender();
-		/*if(MT != null)
-			MT.root.setCullingArea(new Rectangle(cam.position.x - cam.viewportWidth/2, cam.position.y - cam.viewportHeight/2, cam.viewportWidth, cam.viewportHeight));*/
         updateAirplane();
 
 		GPUOptimization(MT.root);
         if (!Settings.pause) act(delta);
         draw();
-		//cam.update();
-        //updateBody();
-        //array_bodies.clear();
-		
-		/*if(load_world != null)
-		{
-			disposeTerrain();
-			createTerrain(load_world);
-			load_world = null;
-		}*/
-        //Box2DDebugRenderer.render(World,cam.combined);
-        //returnCam();
     }
 
     @Override
@@ -417,7 +398,7 @@ public class GameStage extends Stage {
                     Group parent = (Group) MainTerrain.class.getField(parentObj).get(MT);
                     parent.addActor(obj);
                     for (Actor act : MT.ground.getChildren())
-                        if (act instanceof Sand) ((Sand) act).init();
+                        if (act instanceof Sand) ((Sand) act).postInit();
                     for (Actor act : MT.road.getChildren())
                         if (act instanceof Road) ((Road) act).init();
 

@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.graphics;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class GameActor extends Actor {
@@ -25,10 +24,4 @@ public class GameActor extends Actor {
         setCenterX(x);
         setCenterY(y);
     }
-
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		// TODO: Implement this method
-		super.draw(batch, parentAlpha);
-	}
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 
 abstract public class SubBuilds extends ObjBuild {
@@ -21,7 +21,7 @@ abstract public class SubBuilds extends ObjBuild {
 		{ {3, 20, 3, 7, 0}, {3, 30, 3, 15, 0}, {3, 40, 5, 20, 1}, {3, 90, 7, 40, 1}, {3, 150, 6, 60, 1}}
 	};
 	
-    private float a = ObjectVarable.size_block * 2;
+    private float a = ObjectVariables.size_block * 2;
     public GameStage GameStage;
     private Sprite s;
     private float time;
@@ -33,12 +33,12 @@ abstract public class SubBuilds extends ObjBuild {
         s = new Sprite(r);
         setCenterPosition(x, y);
 
-        if (fraction == ObjectVarable.tank_unity)
+        if (fraction == ObjectVariables.tank_ally)
             overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][0]);
-        if (fraction == ObjectVarable.tank_enemy)
+        if (fraction == ObjectVariables.tank_enemy)
             overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][1]);
 			
-		overlayer.setSize(6 * ObjectVarable.size_block * 2, 6 * ObjectVarable.size_block * 2);
+		overlayer.setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
 		overlayer.setCenter(x, y);
 		
 		s.setSize(a, a);

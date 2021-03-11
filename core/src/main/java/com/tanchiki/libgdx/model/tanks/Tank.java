@@ -1,8 +1,7 @@
-package com.tanchiki.libgdx.model.tanks.Object;
+package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -16,11 +15,9 @@ import com.tanchiki.libgdx.model.bullets.*;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
 import com.tanchiki.libgdx.model.mine.MineUnity2;
-import com.tanchiki.libgdx.model.tanks.TankUser;
-import com.tanchiki.libgdx.model.tanks.Turret;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.terrains.Object.Block;
-import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
+import com.tanchiki.libgdx.model.terrains.Block;
+import com.tanchiki.libgdx.model.terrains.DestroyableBlock;
 import com.tanchiki.libgdx.model.tnt.TNT1;
 import com.tanchiki.libgdx.model.tnt.TNT2;
 import com.tanchiki.libgdx.model.tnt.TNT3;
@@ -30,12 +27,10 @@ import com.tanchiki.libgdx.util.astar.AStarNode;
 import com.tanchiki.libgdx.util.astar.AStarPath;
 
 public class Tank extends GameActor {
-    protected GameStage GameStage;
-    private final float a = ObjectVarable.size_block;
-    protected TextureRegion[] tl;
+    protected GameStage GameStage = ObjectClass.GameStage;
+    private final float a = ObjectVariables.size_block;
     public Animation<TextureRegion> anim;
     public short fraction;
-    public Sprite s;
     private int angle = 0;
     private int angleSet = 0;
     public float HP = 3;
@@ -45,46 +40,37 @@ public class Tank extends GameActor {
     public float speed = 1;
     protected float time;
     public boolean rotate = true;
-    private final Sprite health;
 
-    public Sprite ring;
-    public TextureRegion[] rings;
-
-    private TextureRegion[] h = new TextureRegion[12];
-    public int direction = 1, lastDirection = 1;
+    int direction = 1;
+    int lastDirection = 1;
 
     public int weapon = 1;
 
-    public AI AI;
+    public DefaultAI defaultAI;
 
-    private int id = 0;
+    private final int id;
 
     private float speedr = 0;
 
-    public float speed_skill = 1;
+    public float speedSkill = 1;
 
-    public float speed_time = 0;
+    public float speedTime = 0;
 
-    public boolean speed_hack = false;
+    public boolean speedHack = false;
 
     public static final int DOWN = 1,
                             RIGHT = 2,
                             UP = 3,
                             LEFT = 4;
 
-    public boolean automatic = true;
-
-    public Health Health;
-
-    public Ring Ring;
+    public final Health health = new Health();
+    public final Ring ring = new Ring();
 
     public static boolean stop_enemy = false;
 
     public static boolean stop_unity = false;
 
-    public int ringId = 0;
-
-    public boolean hasRide = true;
+    private boolean hasRide = true;
 
     public boolean giveCoin = false;
 	
@@ -94,83 +80,97 @@ public class Tank extends GameActor {
 
 	public boolean boss = false;
 
-    public Tank(float x, float y, short f, TextureRegion[][] r, int weapon) {
+    public Tank(float x, float y, short fraction, TextureRegion[] regions, int weapon) {
         this.weapon = weapon;
-        this.fraction = f;
-        this.GameStage = ObjectClass.GameStage;
+        this.fraction = fraction;
         setSize(a * 2.6f, a * 2.6f);
         setCenterPosition(x, y);
         setOrigin(getWidth() / 2, getHeight() / 2);
-		
-        tl = r[0];
-        s = new Sprite(tl[0]);
-        anim = new Animation<>(360 / 16f, tl);
 
-        rings = GameStage.TextureLoader.getRings()[0];//new TextureRegion[5];
-        /*TextureRegion[][] t = GameStage.TextureLoader.getRings();
-        for (int i = 0; i < 5; i++) {
-            rings[i] = t[0][i];
-        }*/
-        ring = new Sprite(rings[0]);
+        anim = new Animation<>(360 / 16f, regions);
 
-        if (fraction == ObjectVarable.tank_enemy) {
-            ringId = 1;
-            h = GameStage.TextureLoader.getHealth_Red()[0];
-            if (!(this instanceof Turret))
-                ObjectVarable.size_enemy++;
-			if (boss) ObjectVarable.all_size_boss_enemy++;
-            id = -hashCode();
-            ring.setRegion(rings[ringId]);
-
-        }
-
-        if (fraction == ObjectVarable.tank_unity) {
-            ringId = 4;
-            h = GameStage.TextureLoader.getHealth_Yell()[0];
-            if (!(this instanceof Turret || this instanceof TankUser))
-                ObjectVarable.size_unity++;
-			if (boss) ObjectVarable.all_size_boss_ally++;
-            id = hashCode();
-            ring.setRegion(rings[ringId]);
+        switch (this.fraction) {
+            case ObjectVariables.tank_enemy:
+                health.setRegions(GameStage.TextureLoader.getHealthRed()[0]);
+                ring.setRing(Ring.ENEMY);
+                break;
+            case ObjectVariables.tank_ally:
+                health.setRegions(GameStage.TextureLoader.getHealthYell()[0]);
+                ring.setRing(Ring.ALLY);
         }
         updateDirection();
 
-        AI = new AI();
+		GameStage.MT.health.addActor(health);
+		GameStage.MT.ring.addActor(ring);
 
-		health = new Sprite(h[11]);
-		
-		Health = new Health();
-		GameStage.MT.health.addActor(Health);
-
-		Ring = new Ring();
-		if (!(this instanceof Turret))
-			GameStage.MT.ring.addActor(Ring);
-
-        GameStage.MT.hashTanks.put(id, this);
+        GameStage.MT.hashTanks.put(id = this.fraction * hashCode(), this);
     }
 
-	public void setBossEnable() {
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setBossEnable() {
 		if (boss) return;
 		
 		boss = true;
-		if (fraction == ObjectVarable.tank_enemy) {
-			ObjectVarable.all_size_boss_enemy++;
+		if (fraction == ObjectVariables.tank_enemy) {
+			ObjectVariables.all_size_boss_enemies++;
         }
 
-        if (fraction == ObjectVarable.tank_unity) {
-            ObjectVarable.all_size_boss_ally++;
+        if (fraction == ObjectVariables.tank_ally) {
+            ObjectVariables.all_size_boss_allies++;
         }
 	}
-	
+
+	void incrementSize() {
+        switch (fraction) {
+            case ObjectVariables.tank_enemy:
+                    ObjectVariables.size_enemies++;
+                if (boss) ObjectVariables.all_size_boss_enemies++;
+                break;
+            case ObjectVariables.tank_ally:
+                    ObjectVariables.size_allies++;
+                if (boss) ObjectVariables.all_size_boss_allies++;
+        }
+    }
+
+    void decrementSize() {
+        switch (fraction) {
+            case ObjectVariables.tank_enemy:
+                ObjectVariables.size_enemies--;
+                ObjectVariables.all_size_enemies--;
+                if (boss) ObjectVariables.all_size_boss_enemies--;
+                break;
+            case ObjectVariables.tank_ally:
+                ObjectVariables.size_allies--;
+                ObjectVariables.all_size_allies--;
+                if (boss) ObjectVariables.all_size_boss_allies--;
+        }
+    }
+
+    public boolean isHasRide() {
+        return hasRide;
+    }
+
+    public void setHasRide(boolean hasRide) {
+        this.hasRide = hasRide;
+    }
+
+    public DefaultAI getAI() {
+        return defaultAI;
+    }
+
+    public void setAI(DefaultAI DefaultAI) {
+        this.defaultAI = DefaultAI;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
         super.draw(batch, parentAlpha);
-        float scale = 2.6f;
-        s.setSize(a * scale, a * scale);
-        s.setCenter(getCenterX(), getCenterY());
-        s.setRegion(anim.getKeyFrame(Math.abs(angleSet), true));
-        s.draw(batch);
+        batch.draw(anim.getKeyFrame(Math.abs(angleSet), true),
+                getX(), getY(),
+                a * 2.6f, a * 2.6f);
     }
 
     private void updateRotation() {
@@ -210,7 +210,7 @@ public class Tank extends GameActor {
         setCenterPosition(x, y);
     }
 
-    private void updateDirection() {
+    public void updateDirection() {
         if (angle != 0) return;
 
         lastDirection = direction;
@@ -223,91 +223,103 @@ public class Tank extends GameActor {
         }
     }
 
+    float timeBullet = 1.0f;
+    void createLightBullet() {
+        GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
+    }
+
+    float timePlazma = 0.6f;
+    void createPlazmaBullet() {
+        GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY(), direction, fraction, this));
+    }
+
+    void createDoubleLightBullet() {
+        switch (direction) {
+            case 1:
+            case 3:
+                GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                break;
+            case 2:
+            case 4:
+                GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                break;
+        }
+    }
+
+    void createDoublePlazmaBullet() {
+        switch (direction) {
+            case 1:
+            case 3:
+                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                break;
+            case 2:
+            case 4:
+                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                break;
+        }
+    }
+
+    void createBronetBullet1() {
+        GameStage.MT.bullet.addActor(new BronetBullet1(getCenterX(), getCenterY(), direction, fraction, this));
+    }
+
+    void createBronetBullet2() {
+        GameStage.MT.bullet.addActor(new BronetBullet2(getCenterX(), getCenterY(), direction, fraction, this));
+    }
+
+    float timeRocket = 1.2f;
+    void createRocket() {
+        GameStage.MT.bullet.addActor(new Roket(getCenterX(), getCenterY(), direction, fraction, this));
+    }
+
     protected void createBullet() {
         switch (weapon) {
-            case 1: {
-					if (time > 1.0f / speed_skill) {
-						GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
+            case 1:
+					if (time > timeBullet / speedSkill) {
+						createLightBullet();
 						time = 0;
 					}
 					break;
-				}
-            case 2: {
-					if (time > 0.6 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY(), direction, fraction, this));
+            case 2:
+					if (time > timePlazma / speedSkill) {
+						createPlazmaBullet();
 						time = 0;
 					}
 					break;
-				}
-			case 3: {
-					if (time > 1.0f / speed_skill) {
-						switch (direction) {
-							case 1: 
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-								break;
-							case 2:
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-								break;
-							case 3: 
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-								break;
-							case 4:
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-								break;	
-						}
+			case 3:
+					if (time > timeBullet / speedSkill) {
+						createDoubleLightBullet();
 						time = 0;
 					}
 					break;
-				}
-            case 4: {
-					if (time > 0.6 / speed_skill) {
-						switch (direction) {
-							case 1: 
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-								break;
-							case 2:
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-								break;
-							case 3: 
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-								break;
-							case 4:
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-								GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-								break;	
-						}
+            case 4:
+					if (time > timePlazma / speedSkill) {
+						createDoublePlazmaBullet();
 						time = 0;
 					}
 					break;
-				}
-            case 5: {
-					if (time > 1 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BronetBullet1(getCenterX(), getCenterY(), direction, fraction, this));
+            case 5:
+					if (time > timeBullet / speedSkill) {
+						createBronetBullet1();
 						time = 0;
 					}
 					break;
-				}
-            case 6: {
-					if (time > 1 / speed_skill) {
-						GameStage.MT.bullet.addActor(new BronetBullet2(getCenterX(), getCenterY(), direction, fraction, this));
+            case 6:
+					if (time > timeBullet / speedSkill) {
+						createBronetBullet2();
 						time = 0;
 					}
 					break;
-				}
-            case 7: {
-					if (time > 1.2f / speed_skill) {
-						GameStage.MT.bullet.addActor(new Roket(getCenterX(), getCenterY(), direction, fraction, this));
+            case 7:
+					if (time > timeRocket / speedSkill) {
+						createRocket();
 						time = 0;
 					}
 					break;
-				}
         }
     }
 
@@ -320,51 +332,32 @@ public class Tank extends GameActor {
         }
         HP -= damage1;
         if (HP <= 0) {
-            if (automatic == true) {
-                Health.remove();
-                Ring.remove();
-            } else {
-                Health.setVisible(false);
-                Ring.setVisible(false);
+            GameStage.world_tank[defaultAI.goal_x][defaultAI.goal_y] = null;
+            GameStage.world_block[defaultAI.goal_x][defaultAI.goal_y] = 0;
+            if (defaultAI.lastPoint != null) {
+                GameStage.world_block[(int) defaultAI.lastPoint.x][(int) defaultAI.lastPoint.y] = 0;
+                GameStage.world_tank[(int) defaultAI.lastPoint.x][(int) defaultAI.lastPoint.y] = null;
             }
-            GameStage.world_tank[AI.goal_x][AI.goal_y] = null;
-            GameStage.world_block[AI.goal_x][AI.goal_y] = 0;
-            if (AI.last_point != null) {
-                GameStage.world_block[(int) AI.last_point.x][(int) AI.last_point.y] = 0;
-                GameStage.world_tank[(int) AI.last_point.x][(int) AI.last_point.y] = null;
-            }
-            //d.setUserData(null);
-            if (automatic == true)
-                if (fraction == ObjectVarable.tank_enemy) 
-					if (!(this instanceof Turret)) {
-						if (boss) {
-							ObjectVarable.all_size_boss_enemy--;
-							MainTerrain.getCurrentTerrain().star++;
-							Settings.TankUserSettings.star++;
-						}	
-                    	ObjectVarable.all_size_enemy--;
-                    	ObjectVarable.size_enemy--;
-
-                }
-            if (automatic == true)
-                if (fraction == ObjectVarable.tank_unity)
-					if (!(this instanceof Turret || this instanceof TankUser)) {
-						if (boss) ObjectVarable.all_size_boss_ally--;
-                    	ObjectVarable.size_unity--;
-                    	ObjectVarable.all_size_unity--;
-                }
+            decrementSize();
             remove();
-            if (!(this instanceof TankUser)) GameStage.MT.hashTanks.remove(id);
-            //if (automatic == false)
-            //GameStage.TankUser = null;
             if (giveCoin) {
 				coinPrice = giveDamage * weapon;
 				Settings.TankUserSettings.coin += coinPrice;
 				MainTerrain.getCurrentTerrain().coin += coinPrice;
-			}
+                if (boss) {
+                    MainTerrain.getCurrentTerrain().star++;
+                    Settings.TankUserSettings.star++;
+                }
+            }
             GameStage.MT.explosions.addActor(new NormalExplosion(Math.round(getCenterX()), Math.round(getCenterY()), GameStage.TextureLoader.getExpl()));
-            //ObjectClass.AudioLoader.playTankExplosion().play();
         }
+    }
+
+    @Override
+    public boolean remove() {
+        health.remove();
+        ring.remove();
+        return super.remove();
     }
 
     public void left() {
@@ -411,9 +404,9 @@ public class Tank extends GameActor {
         }
     }
 
-    public void activate_speed_skill() {
-        speed_hack = true;
-        speed_time = 0;
+    public void activateSpeedSkill() {
+        speedHack = true;
+        speedTime = 0;
     }
 
     private float time_shield = 0;
@@ -426,31 +419,28 @@ public class Tank extends GameActor {
             HPShield++;
             time_shield = 0;
         }
-        if (speed_hack) {
-            speed_time += delta;
-            if (speed_time > 30) {
-                speed_hack = false;
-                speed_skill = 1;
+        if (speedHack) {
+            speedTime += delta;
+            if (speedTime > 30) {
+                speedHack = false;
+                speedSkill = 1;
             } else {
-                speed_skill = 2f;
+                speedSkill = 2f;
             }
         }
         time += delta;
         updateRotation();
-        System.out.println("angle " + angle + " angle set " + angleSet);
-		if (automatic)
-			AI.update();
-		else
-			AI.updateUser();
+		if (defaultAI != null)
+		    defaultAI.update();
         super.act(delta);
     }
 
-    public class AI {
+    public class DefaultAI {
         public final int NORMAL = 1;
         public final int ATTACK = 2;
         public int goal_x = (int) getCenterX(), goal_y = (int) getCenterY();
-        private final int block = ObjectVarable.size_block * 2;
-        private Vector2 last_point = null;
+        private final int block = ObjectVariables.size_block * 2;
+        private Vector2 lastPoint = null;
         public int MODE = NORMAL;
         public int radius_enemy = MainTerrain.getCurrentTerrain().getParameters().getKey(129) >= 4 ?
                 MainTerrain.getCurrentTerrain().getParameters().getKey(129) * 2 : 10;
@@ -462,7 +452,7 @@ public class Tank extends GameActor {
         public boolean step_place = false;
         public boolean isRiding = false;
 
-        public AI() {
+        public DefaultAI() {
             GameStage.world_block[goal_x][goal_y] = id;
             GameStage.world_tank[goal_x][goal_y] = Tank.this;
         }
@@ -497,8 +487,7 @@ public class Tank extends GameActor {
                     if (step_place) createBullet();
                     step_place = false;
                     isRiding = true;
-                    if (hasRide)
-                        updateRun();
+                    if (hasRide) updateRun();
                 }
         }
 
@@ -510,24 +499,65 @@ public class Tank extends GameActor {
             if (path == null) currentWay = preWay = nextWay = null;
         }
 
-        public boolean hasUnDestroyableBlock(int x0, int y0, int x, int y, boolean invert) {
-			if (!invert) {
-            for (int i = x0; i <= x; i += 2)
-                for (int u = y0; u <= y; u += 2)
-                    if (i >= 0 && i < GameStage.world_physic_block.length && u >= 0 && u < GameStage.world_physic_block[i].length) {
-                        Actor actor = GameStage.world_physic_block[i][u];
+        public boolean isUnDestroyableBlock(Actor block) {
+            return !(block instanceof DestroyableBlock);
+        }
+
+        public boolean hasUnDestroyableBlock(int x0, int y0, int x, int y) {
+            int yy = y - y0;
+            int xx = x - x0;
+            int signx = Integer.signum(xx) * 2;
+            int signy = Integer.signum(yy) * 2;
+            for (int i = 0; i <= Math.abs(xx); i += 2, x0 += signx)
+                for (int j = 0; j <= Math.abs(yy); j += 2, y0 += signy)
+                    if (x0 >= 0 && x0 < GameStage.world_physic_block.length && y0 >= 0 && y0 < GameStage.world_physic_block[0].length) {
+                        Actor actor = GameStage.world_physic_block[x0][y0];
                         if (actor == null) continue;
-                        if (!(actor instanceof DestroyableBlock)) return true;
+                        return isUnDestroyableBlock(actor);
                     }
-			} else {
-				for (int i = x; i >= x0; i -= 2)
-					for (int u = y; u >= y0; u -= 2)
-						if (i >= 0 && i < GameStage.world_physic_block.length && u >= 0 && u < GameStage.world_physic_block[i].length) {
-							Actor actor = GameStage.world_physic_block[i][u];
-							if (actor == null) continue;
-							if (!(actor instanceof DestroyableBlock)) return true;
-						}
-			}		
+            return false;
+        }
+
+        public float distance_of_goal;
+        public float targetX, targetY;
+
+        public boolean startAttack(float x, float y) {
+            if (x == goal_x)
+                if ((distance_of_goal = Math.abs(goal_y - y)) <= radius_enemy)
+                    if (y > goal_y) {
+                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal))
+                            return false;
+                        top();
+                        if (direction == UP) createBullet();
+                        MODE = ATTACK;
+                        return true;
+                    } else {
+                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y - (int) distance_of_goal))
+                            return false;
+                        bottom();
+                        if (direction == DOWN) createBullet();
+                        MODE = ATTACK;
+                        return true;
+                    }
+
+            if (y == goal_y)
+                if ((distance_of_goal = Math.abs(goal_x - x)) <= radius_enemy)
+                    if (x > goal_x) {
+                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y))
+                            return false;
+                        right();
+                        if (direction == RIGHT) createBullet();
+                        MODE = ATTACK;
+                        return true;
+                    } else {
+                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x - (int) distance_of_goal, goal_y))
+                            return false;
+                        left();
+                        if (direction == LEFT) createBullet();
+                        MODE = ATTACK;
+                        return true;
+                    }
+            MODE = NORMAL;
             return false;
         }
 
@@ -543,97 +573,23 @@ public class Tank extends GameActor {
                 float x = targetX = Math.round(build.x);
                 float y = targetY = Math.round(build.y);
 
-                if (x == goal_x)
-                    if ((distance_of_goal = Math.abs(goal_y - y)) <= radius_enemy)
-                        if (y > goal_y) {
-                            if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal, false)) continue;
-
-                            top();
-                            if (direction == UP) createBullet();
-                            MODE = ATTACK;
-                            break;
-                        } else {
-                            if (hasUnDestroyableBlock(goal_x, goal_y - (int) distance_of_goal, goal_x, goal_y, true)) continue;
-
-                            bottom();
-                            if (direction == DOWN) createBullet();
-                            MODE = ATTACK;
-                            break;
-                        }
-
-                if (y == goal_y)
-                    if ((distance_of_goal = Math.abs(goal_x - x)) <= radius_enemy)
-                        if (x > goal_x) {
-                            if (hasUnDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y, false)) continue;
-
-                            right();
-                            if (direction == RIGHT) createBullet();
-                            MODE = ATTACK;
-                            break;
-                        } else {
-                            if (hasUnDestroyableBlock(goal_x - (int) distance_of_goal, goal_y, goal_x, goal_y, true)) continue;
-
-                            left();
-                            if (direction == LEFT) createBullet();
-                            MODE = ATTACK;
-                            break;
-                        }
-                MODE = NORMAL;
+                if (startAttack(x, y)) break;
             }
         }
 
-        public float distance_of_goal;
-        public float targetX, targetY;
-
         public void startAttackTank() {
-            Group tanks = (fraction == ObjectVarable.tank_unity) ?
+            Group tanks = (fraction == ObjectVariables.tank_ally) ?
                     GameStage.MT.tanks_enemy : GameStage.MT.tanks_unity;
             for (int i = 0; i < tanks.getChildren().size; i++) {
                 Tank tank = (Tank) tanks.getChildren().get(i);
-                float x = targetX = tank.AI.goal_x;
-                float y = targetY = tank.AI.goal_y;
+                float x = targetX = tank.defaultAI.goal_x;
+                float y = targetY = tank.defaultAI.goal_y;
 
-                if (x == goal_x)
-                    if ((distance_of_goal = Math.abs(goal_y - y)) <= radius_enemy)
-                        if (y > goal_y) {
-                            if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal, false)) continue;
-
-                            top();
-                            if (direction == UP) createBullet();
-                            MODE = ATTACK;
-                            return;
-                        } else {
-                            if (hasUnDestroyableBlock(goal_x, goal_y - (int) distance_of_goal, goal_x, goal_y, true)) continue;
-
-                            bottom();
-                            if (direction == DOWN) createBullet();
-                            MODE = ATTACK;
-                            return;
-                        }
-
-                if (y == goal_y)
-                    if ((distance_of_goal = Math.abs(goal_x - x)) <= radius_enemy)
-                        if (x > goal_x) {
-                            if (hasUnDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y, false)) continue;
-
-                            right();
-                            if (direction == RIGHT) createBullet();
-                            MODE = ATTACK;
-                            return;
-                        } else {
-                            if (hasUnDestroyableBlock(goal_x - (int) distance_of_goal, goal_y, goal_x, goal_y, true)) continue;
-
-                            left();
-                            if (direction == LEFT) createBullet();
-                            MODE = ATTACK;
-                            return;
-                        }
-                MODE = NORMAL;
+                if (startAttack(x, y)) break;
             }
 			int code = MainTerrain.Mission.CODE;
-            if (fraction == ObjectVarable.tank_enemy && code >= 50 && code <= 55) startAttackBuild();
-			if (fraction == ObjectVarable.tank_unity && code >= 56 && code <= 60) startAttackBuild();
-            //GameStage.world_nodes[goal_x][goal_y] = MODE == NORMAL ? 0 : id;
+            if (fraction == ObjectVariables.tank_enemy && code >= 50 && code <= 55) startAttackBuild();
+			if (fraction == ObjectVariables.tank_ally && code >= 56 && code <= 60) startAttackBuild();
         }
 
         public void attack() {
@@ -644,14 +600,14 @@ public class Tank extends GameActor {
             Tank buffer = null;
             float last_dis = Float.MAX_VALUE;
 
-            Group tanks = (fraction == ObjectVarable.tank_unity) ? GameStage.MT.tanks_enemy : GameStage.MT.tanks_unity;
+            Group tanks = (fraction == ObjectVariables.tank_ally) ? GameStage.MT.tanks_enemy : GameStage.MT.tanks_unity;
             for (int i = 0; i < tanks.getChildren().size; i++) {
                 Tank tank = (Tank) tanks.getChildren().get(i);
 
                 Rectangle rect = new Rectangle(goal_x - radius_enemy, goal_y - radius_enemy, radius_enemy * 2, radius_enemy * 2);
 
-                if (rect.contains(tank.AI.goal_x, tank.AI.goal_y)) {
-                    float dst = Vector2.dst2(tank.AI.goal_x, tank.AI.goal_y, goal_x, goal_y);
+                if (rect.contains(tank.defaultAI.goal_x, tank.defaultAI.goal_y)) {
+                    float dst = Vector2.dst2(tank.defaultAI.goal_x, tank.defaultAI.goal_y, goal_x, goal_y);
                     if (dst < last_dis) {
                         last_dis = dst;
                         buffer = tank;
@@ -661,7 +617,7 @@ public class Tank extends GameActor {
 
             if (!(Tank.this instanceof Turret))
                 if (buffer != null) {
-                    path = GameStage.MT.AStar.search(buffer.AI.goal_x, buffer.AI.goal_y, goal_x, goal_y);
+                    path = GameStage.MT.AStar.search(buffer.defaultAI.goal_x, buffer.defaultAI.goal_y, goal_x, goal_y);
 					//if (path != null) path.next();
 					//lastBuf = buffer;
 				}	
@@ -693,7 +649,7 @@ public class Tank extends GameActor {
                 tank = GameStage.MT.hashTanks.get(GameStage.world_block[x][y]);
                 if (!(tank instanceof TankUser) && tank != null) {
 					path = null;
-					if (tank.AI.MODE == ATTACK) tank.AI.step_place = true;
+					if (tank.defaultAI.MODE == ATTACK) tank.defaultAI.step_place = true;
 				}   
 
                 block = GameStage.world_physic_block[x][y];
@@ -808,35 +764,9 @@ public class Tank extends GameActor {
                 }
         }
 
-        public void updateUser() {
-            weapon = Settings.TankUserSettings.bullet_type;
-
-            if (isOnBlock()) {
-                updateDirection();
-                detectGround();
-
-                if (isRiding)
-                    stepWithoutTurn();
-            } else {
-                updateRun();
-            }
-        }
-
         public boolean isDestroyableBlockForBullet(Block block) {
             if (block instanceof DestroyableBlock && !(block instanceof Spike)) return true;
             return weapon == BulletList.ROKET && block instanceof ConcreteWall;
-        }
-
-        public void ride(int direction) {
-            if (isOnBlock()) {
-                top();
-                if (Tank.this.direction == direction)
-                    if (hasNextBlock(direction) && !rotate) {
-                        createTrack();
-                        nextBlock(direction);
-                        updateRun();
-                    }
-            }
         }
 
         public void UP() {
@@ -889,64 +819,63 @@ public class Tank extends GameActor {
 
         public void AIR() {
             int air = Settings.TankUserSettings.plus_bullet_type2;
-            if (!automatic)
-				switch (air) {
-					case 1:
-						if (WeaponData.art > 0)
-							if (time > 1) {
-								int damage = 9 + WeaponData.Upgrade.art * 3;
-								int len = 7 * 2 + (WeaponData.Upgrade.art >= 3 ? 1 : 0) * 2;
-								Artiling art = new Artiling(goal_x, goal_y, len, direction);
-								art.damage = damage;
-								art.diameter = WeaponData.Upgrade.art == 5 ? 8 * 2 : 6 * 2;
-								GameStage.MT.bullet.addActor(art);
+            switch (air) {
+                case 1:
+                    if (WeaponData.art > 0)
+                        if (time > 1) {
+                            int damage = 9 + WeaponData.Upgrade.art * 3;
+                            int len = 7 * 2 + (WeaponData.Upgrade.art >= 3 ? 1 : 0) * 2;
+                            Artiling art = new Artiling(goal_x, goal_y, len, direction);
+                            art.damage = damage;
+                            art.diameter = WeaponData.Upgrade.art == 5 ? 8 * 2 : 6 * 2;
+                            GameStage.MT.bullet.addActor(art);
 
-								//GameStage.MT.mines.addActor(new MineUnity1(goal_x,goal_y));
-								WeaponData.art -= 1;
-								time = 0;
-							}
-							break;
-					case 2: 
-                        if (WeaponData.air > 0) {
-							GameStage.createAircraft();
-					}		
-				}
+                            //GameStage.MT.mines.addActor(new MineUnity1(goal_x,goal_y));
+                            WeaponData.art -= 1;
+                            time = 0;
+                        }
+                    break;
+                case 2:
+                    if (WeaponData.air > 0) {
+                        GameStage.createAircraft();
+                    }
+            }
         }
 
         public void MINES() {
             int mine = Settings.TankUserSettings.plus_bullet_type1;
             if (GameStage.world_mines[goal_x][goal_y] == null)
-				if (!automatic)
-					switch (mine) {
-                        case 1: 
-							if (WeaponData.mine1 > 0) {
-								GameStage.MT.mines.addActor(new MineUnity1(goal_x, goal_y));
-								WeaponData.mine1 -= 1;
-							}
-							break;
-                        case 2: if (WeaponData.mine2 > 0) {
-								GameStage.MT.mines.addActor(new MineUnity2(goal_x, goal_y));
-								WeaponData.mine2 -= 1;
-							}
-							break;
-                        case 3: 
-							if (WeaponData.tnt1 > 0) {
-								GameStage.MT.mines.addActor(new TNT1(goal_x, goal_y));
-								WeaponData.tnt1 -= 1;
-							}
-							break;
-                        case 4:
-							if (WeaponData.tnt2 > 0) {
-								GameStage.MT.mines.addActor(new TNT2(goal_x, goal_y));
-								WeaponData.tnt2 -= 1;
-							}
-							break;
-                        case 5: 
-							if (WeaponData.tnt3 > 0) {
-								GameStage.MT.mines.addActor(new TNT3(goal_x, goal_y));
-								WeaponData.tnt3 -= 1;
-							}
-                    }
+                switch (mine) {
+                    case 1:
+                        if (WeaponData.mine1 > 0) {
+                            GameStage.MT.mines.addActor(new MineUnity1(goal_x, goal_y));
+                            WeaponData.mine1 -= 1;
+                        }
+                        break;
+                    case 2:
+                        if (WeaponData.mine2 > 0) {
+                            GameStage.MT.mines.addActor(new MineUnity2(goal_x, goal_y));
+                            WeaponData.mine2 -= 1;
+                        }
+                        break;
+                    case 3:
+                        if (WeaponData.tnt1 > 0) {
+                            GameStage.MT.mines.addActor(new TNT1(goal_x, goal_y));
+                            WeaponData.tnt1 -= 1;
+                        }
+                        break;
+                    case 4:
+                        if (WeaponData.tnt2 > 0) {
+                            GameStage.MT.mines.addActor(new TNT2(goal_x, goal_y));
+                            WeaponData.tnt2 -= 1;
+                        }
+                        break;
+                    case 5:
+                        if (WeaponData.tnt3 > 0) {
+                            GameStage.MT.mines.addActor(new TNT3(goal_x, goal_y));
+                            WeaponData.tnt3 -= 1;
+                        }
+                }
 			SoundLoader.getInstance().getMineDeploy().play(Settings.volumeEffect);
         }
 
@@ -956,59 +885,43 @@ public class Tank extends GameActor {
         }
 
         private void createTrack() {
+            Track track = new Track(getCenterX(), getCenterY());
+            int orientation = 0;
             switch (direction) {
-                case DOWN: {
-                    if (lastDirection == LEFT) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.RIGHT_DOWN));
-                        break;
+                case DOWN:
+                    orientation = Track.VERTICAL;
+                    switch (lastDirection) {
+                        case LEFT: orientation = Track.RIGHT_DOWN; break;
+                        case RIGHT: orientation = Track.LEFT_DOWN; break;
                     }
-                    if (lastDirection == RIGHT) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.LEFT_DOWN));
-                        break;
-                    }
-                    GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.VERTICAL));
                     break;
-                }
-                case RIGHT: {
-                    if (lastDirection == UP) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.RIGHT_DOWN));
-                        break;
+                case RIGHT:
+                    orientation = Track.HORIZONTAL;
+                    switch (lastDirection) {
+                        case UP: orientation = Track.RIGHT_DOWN; break;
+                        case DOWN: orientation = Track.RIGHT_UP; break;
                     }
-                    if (lastDirection == DOWN) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.RIGHT_UP));
-                        break;
-                    }
-                    GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.HORIZONTAL));
                     break;
-                }
-                case UP: {
-                    if (lastDirection == RIGHT) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.LEFT_UP));
-                        break;
+                case UP:
+                    orientation = Track.VERTICAL;
+                    switch (lastDirection) {
+                        case LEFT: orientation = Track.RIGHT_UP; break;
+                        case RIGHT: orientation = Track.LEFT_UP; break;
                     }
-                    if (lastDirection == LEFT) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.RIGHT_UP));
-                        break;
-                    }
-                    GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.VERTICAL));
                     break;
-                }
-                case LEFT: {
-                    if (lastDirection == UP) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.LEFT_DOWN));
-                        break;
+                case LEFT:
+                    orientation = Track.HORIZONTAL;
+                    switch (lastDirection) {
+                        case UP: orientation = Track.LEFT_DOWN; break;
+                        case DOWN: orientation = Track.LEFT_UP; break;
                     }
-                    if (lastDirection == DOWN) {
-                        GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.LEFT_UP));
-                        break;
-                    }
-                    GameStage.MT.track.addActor(new Track(getCenterX(), getCenterY(), Track.HORIZONTAL));
                     break;
-                }
             }
+            track.setOrientation(orientation);
+            GameStage.MT.track.addActor(track);
         }
 
-        private void detectGround() {
+        public void detectGround() {
             if (!hasRide)
                 return;
 
@@ -1018,17 +931,17 @@ public class Tank extends GameActor {
             if (speedr == 0)
                 speedr = speed;
             if (GameStage.world_obj[goal_x][goal_y] instanceof Sand)
-                speed = _new_speed(2f);
+                speed = newSpeed(2f);
             else if (GameStage.world_obj[goal_x][goal_y] instanceof Grass)
                 speed = speedr;
             else if (GameStage.world_obj[goal_x][goal_y] instanceof Road)
-                speed = _new_speed(0.8f);
+                speed = newSpeed(0.8f);
             else if (GameStage.world_obj[goal_x][goal_y] instanceof Plate)
-                speed = _new_speed(0.8f);
+                speed = newSpeed(0.8f);
 					
         }
 
-        private float _new_speed(float scl) {
+        private float newSpeed(float scl) {
             return 2f / ((2f / speedr) * scl);
         }
 
@@ -1132,40 +1045,26 @@ public class Tank extends GameActor {
 
         private void nextBlock(int t) {
             int x = (int) getCenterX(), y = (int) getCenterY();
+            lastPoint = new Vector2(goal_x, goal_y);
             switch (t) {
-                case 1: {
-                    last_point = new Vector2(goal_x, goal_y);
-                    //GameStage.MT.track.addActor(new Track(goal_x, goal_y, 2));
+                case 1:
                     goal_x = x;
                     goal_y = y - block;
-                    GameStage.world_block[goal_x][goal_y] = id;
                     break;
-                }
-                case 2: {
-                    last_point = new Vector2(goal_x, goal_y);
-                    //GameStage.MT.track.addActor(new Track(goal_x, goal_y, 1));
+                case 2:
                     goal_x = x + block;
                     goal_y = y;
-                    GameStage.world_block[goal_x][goal_y] = id;
                     break;
-                }
-                case 3: {
-                    last_point = new Vector2(goal_x, goal_y);
-                    //GameStage.MT.track.addActor(new Track(goal_x, goal_y, 2));
+                case 3:
                     goal_x = x;
                     goal_y = y + block;
-                    GameStage.world_block[goal_x][goal_y] = id;
                     break;
-                }
-                case 4: {
-                    last_point = new Vector2(goal_x, goal_y);
-                    //GameStage.MT.track.addActor(new Track(goal_x, goal_y, 1));
+                case 4:
                     goal_x = x - block;
                     goal_y = y;
-                    GameStage.world_block[goal_x][goal_y] = id;
                     break;
-                }
             }
+            GameStage.world_block[goal_x][goal_y] = id;
         }
 
         private void nextBlock() {
@@ -1211,7 +1110,6 @@ public class Tank extends GameActor {
             }
         }
 
-
         public boolean isOnBlockWithoutTransform() {
             return isOnBlock(false);
         }
@@ -1238,72 +1136,68 @@ public class Tank extends GameActor {
                 if (isTransform) setCenterPosition(x, y);
                 GameStage.world_block[goal_x][goal_y] = id;
                 GameStage.world_tank[goal_x][goal_y] = Tank.this;
-                if (last_point != null) {
-                    GameStage.world_tank[(int) last_point.x][(int) last_point.y] = null;
-                    GameStage.world_block[(int) last_point.x][(int) last_point.y] = 0;
+                if (lastPoint != null) {
+                    GameStage.world_tank[(int) lastPoint.x][(int) lastPoint.y] = null;
+                    GameStage.world_block[(int) lastPoint.x][(int) lastPoint.y] = 0;
                 }
-                last_point = null;
+                lastPoint = null;
             }
             return b;
         }
     }
 
     public class Health extends Actor {
+        private TextureRegion[] regions;
+
         public Health() {
-            setSize(a * 2, 0.3f * ObjectVarable.size_block);
-			setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+            setSize(a * 2, 0.3f * ObjectVariables.size_block);
+			//setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+        }
+
+        public void setRegions(TextureRegion[] regions) {
+            this.regions = regions;
         }
 
         @Override
-        public void setSize(float width, float height) {
-            super.setSize(width, height);
-            health.setSize(width, height);
-        }
-
-        @Override
-        public void setPosition(float x, float y) {
-            health.setCenter(x, y);
-            super.setPosition(health.getX(), health.getY());
+        public void act(float delta) {
+            super.act(delta);
+            setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
-            setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
-			health.setRegion(h[Math.min(11, Math.max((int) ((12 * HP) / HPBackup) - 1, 0))]);
-            health.draw(batch);
+			batch.draw(regions[Math.min(11, Math.max((int) ((12 * HP) / HPBackup) - 1, 0))],
+                    getX() - getWidth() / 2, getY(),
+                    getWidth(), getHeight());
 		}
     }
 
     public class Ring extends Actor {
+        public static final int USER = 0;
+        public static final int ENEMY = 1;
+        public static final int SHIELD = 2;
+        public static final int SHIELD_DAMAGED = 3;
+        public static final int ALLY = 4;
+
+        private final TextureRegion[] rings = GameStage.TextureLoader.getRings()[0];
+        private int index;
         public Ring() {
-            setSize(ObjectVarable.size_block * 3, ObjectVarable.size_block * 3);
-            setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
-        }
-
-        @Override
-        public void setSize(float width, float height) {
-            ring.setSize(width, height);
-            super.setSize(width, height);
-        }
-
-        @Override
-        public void setPosition(float x, float y, int alignment) {
-            if (alignment == Align.center)
-                ring.setCenter(Tank.this.getCenterX(), Tank.this.getCenterY());
-            super.setPosition(x, y, alignment);
+            setSize(ObjectVariables.size_block * 3, ObjectVariables.size_block * 3);
+            //setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
             super.draw(batch, parentAlpha);
             setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
-            ring.setRegion(rings[HPShield > 0 ? 2 : ringId]);
-            ring.draw(batch);
+            batch.draw(rings[HPShield > 0 ? SHIELD : index],
+                    getX(), getY(),
+                    getWidth(), getHeight());
         }
 
         public void setRing(int index) {
-
+            this.index = index;
         }
     }
 }

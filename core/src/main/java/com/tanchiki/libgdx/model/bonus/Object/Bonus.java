@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.tnt.TNT2;
@@ -34,7 +34,7 @@ public class Bonus extends GameActor {
         anim = new Animation(0.5f / 3f, t[index[0]], t[index[1]], t[index[2]]);
         s = new Sprite(t[0]);
 		overlays = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
-        setSize(ObjectVarable.size_block * 2, ObjectVarable.size_block * 2);
+        setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
         setCenterPosition(x, y);
         GameStage.world_bonus[(int) x][(int) y] = this;
 		
@@ -51,15 +51,15 @@ public class Bonus extends GameActor {
             case WeaponData.Type.live:
                 init(new int[]{3, 4, 5}, WeaponData.Type.live, x, y);
                 break;
-            case ObjectVarable.coin_id:
-                init(new int[]{15, 16, 17}, ObjectVarable.coin_id, x, y);
+            case ObjectVariables.coin_id:
+                init(new int[]{15, 16, 17}, ObjectVariables.coin_id, x, y);
                 break;
             case WeaponData.Type.speed:
                 init(new int[]{0, 1, 2}, WeaponData.Type.speed, x, y);
 				//sound = SoundLoader.getInstance().getSpeedPickup();
                 break;
-            case ObjectVarable.star_id:
-                init(new int[]{12, 13, 14}, ObjectVarable.star_id, x, y);
+            case ObjectVariables.star_id:
+                init(new int[]{12, 13, 14}, ObjectVariables.star_id, x, y);
 				//sound = SoundLoader.getInstance().getStarPickup();
                 break;
             case WeaponData.Type.time:
@@ -82,7 +82,7 @@ public class Bonus extends GameActor {
         anim = new Animation(0.5f / 3f, t[index[0]], t[index[1]], t[index[2]]);
         s = new Sprite(t[0]);
 		overlays = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
-        setSize(ObjectVarable.size_block * 2, ObjectVarable.size_block * 2);
+        setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
         setCenterPosition(x, y);
         GameStage.world_bonus[(int) x][(int) y] = this;
 		
@@ -117,12 +117,12 @@ public class Bonus extends GameActor {
         if (tank != null) {
 			int count = 0;
 			switch (type_bonus) {
-				case WeaponData.Type.speed: ((Tank) tank).activate_speed_skill(); remove(); break;
+				case WeaponData.Type.speed: ((Tank) tank).activateSpeedSkill(); remove(); break;
 				case WeaponData.Type.time: if (tank instanceof TankUser) { GameStage.stop_time(((Tank) tank).fraction); remove(); } break;
 				case WeaponData.Type.fix: if (((Tank) tank).HP != ((Tank) tank).HPBackup) { ((Tank) tank).HP = ((Tank) tank).HPBackup; remove(); } break;
 				case WeaponData.Type.live: if (tank instanceof TankUser) { ++WeaponData.live; remove(); } break;
-				case ObjectVarable.coin_id: if (tank instanceof TankUser) { Settings.TankUserSettings.coin += 5; MainTerrain.getCurrentTerrain().coin += 5; remove(); } break;
-				case ObjectVarable.star_id: if (tank instanceof TankUser) { ++Settings.TankUserSettings.star; MainTerrain.getCurrentTerrain().star += 1; remove(); } break;
+				case ObjectVariables.coin_id: if (tank instanceof TankUser) { Settings.TankUserSettings.coin += 5; MainTerrain.getCurrentTerrain().coin += 5; remove(); } break;
+				case ObjectVariables.star_id: if (tank instanceof TankUser) { ++Settings.TankUserSettings.star; MainTerrain.getCurrentTerrain().star += 1; remove(); } break;
 				default: if (tank instanceof TankUser) {
 					ObjectClass.PanelStage.toasts.clear();
 					switch (MainTerrain.getCurrentTerrain().getParameters().getKey(123 + type_bonus - 1)) {

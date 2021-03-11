@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.buildes.*;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.*;
 import com.tanchiki.libgdx.util.ObjectClass;
@@ -155,7 +155,7 @@ public class MiniMap extends GameActor {
     }
 
     private void printTanks(ShapeRenderer shapes, GameActor a, float size) {
-        switch (((Tank) a).direction) {
+        switch (((Tank) a).getDirection()) {
             case Tank.DOWN:
                 shapes.triangle(getX() + a.getCenterX() / 2 * size, getY() + a.getCenterY() / 2 * size + size,
                         getX() + a.getCenterX() / 2 * size + size, getY() + a.getCenterY() / 2 * size + size,

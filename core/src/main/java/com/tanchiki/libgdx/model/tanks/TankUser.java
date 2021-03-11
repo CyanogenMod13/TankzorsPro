@@ -2,22 +2,21 @@ package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.model.buildes.Flag;
 import com.tanchiki.libgdx.model.bullets.*;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.*;
 
 
-public class TankUser extends Tank {
+public class TankUser extends DefaultTank {
     public Flag flag = null;
+    private final Animation<TextureRegion> animModern = new Animation<>(360 / 16f, GameStage.TextureLoader.getTankHeavy()[0]);
 
     public TankUser(float x, float y) {
-        super(x, y, ObjectVarable.tank_unity, ObjectClass.GameStage.TextureLoader.getTankLight(), 1);
-        if (WeaponData.modern_tank > 0)
-            anim = new Animation<>(360 / 16f, GameStage.TextureLoader.getTankHeavy()[0]);
-        automatic = false;
+        super(x, y, ObjectVariables.tank_ally, ObjectClass.GameStage.TextureLoader.getTankLight()[0], 1);
         Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         HPBackup = Settings.TankUserSettings.HPbackup;
         Settings.TankUserSettings.HP = (int) HPBackup;
@@ -28,149 +27,83 @@ public class TankUser extends Tank {
         HPShield = HPShieldBackup;
 
         speed = 0.2f;
-        ringId = 0;
-        ring.setRegion(rings[0]);
-		
-		//GameStage.cam.position.set(0, 30, 0);
+        ring.setRing(Ring.USER);
+        setAI(new UserAI());
     }
 
-	@Override
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        if (WeaponData.modern_tank > 0)
+            anim = animModern;
+        super.draw(batch, parentAlpha);
+    }
+
+    @Override
+    void incrementSize() {
+    }
+
+    @Override
+    void decrementSize() {
+    }
+
+    @Override
 	public void destroyTank(float damage) {
 		MainTerrain.getCurrentTerrain().damageUser += (int) damage;
 		super.destroyTank(damage);
 	}
-	
+
     @Override
-    protected void createBullet() {
-        switch (weapon) {
-            case 1: {
-                if (time > 0.8 / speed_skill) {
-                    if (WeaponData.light_bullet > 0) {
-                        Bullet bullet = new BulletLight(getCenterX(), getCenterY(), direction, fraction);
-                        bullet.parent = this;
-                        GameStage.MT.bullet.addActor(bullet);
-                        WeaponData.light_bullet -= 1;
-						MainTerrain.getCurrentTerrain().countFire++;
-                    }
-                    time = 0;
-                }
-                break;
-            }
-            case 2: {
-                if (time > 0.5 / speed_skill) {
-                    if (WeaponData.plazma > 0) {
-                        Bullet bullet = new BulletPluzma(getCenterX(), getCenterY(), direction, fraction);
-                        bullet.parent = this;
-                        GameStage.MT.bullet.addActor(bullet);
-                        WeaponData.plazma -= 1;
-						MainTerrain.getCurrentTerrain().countFire++;
-                    }
-                    time = 0;
-                }
-                break;
-            }
-			case 3: {
-					if (time > 0.8 / speed_skill) {
-						if (WeaponData.double_light_bullet > 0) {
-							switch (direction) {
-								case 1: 
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-									break;
-								case 2:
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-									break;
-								case 3: 
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-									break;
-								case 4:
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-									break;	
-							}
-							WeaponData.double_light_bullet -= 1;
-							MainTerrain.getCurrentTerrain().countFire++;
-						}
-						time = 0;
-					}
-					break;
-				}
-            case 4: {
-					if (time > 0.5 / speed_skill) {
-						if (WeaponData.double_palzma > 0) {
-							switch (direction) {
-								case 1: 
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-									break;
-								case 2:
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-									break;
-								case 3: 
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
-									break;
-								case 4:
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-									GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
-									break;	
-							}
-							WeaponData.double_palzma -= 1;
-							MainTerrain.getCurrentTerrain().countFire++;
-						}
-						time = 0;
-					}
-					break;
-				}
-            case 5: {
-                if (time > 0.8 / speed_skill) {
-                    if (WeaponData.bronet_bullet > 0) {
-                        Bullet bullet = new BronetBullet1(getCenterX(), getCenterY(), direction, fraction);
-                        bullet.parent = this;
-                        GameStage.MT.bullet.addActor(bullet);
-                        WeaponData.bronet_bullet -= 1;
-						MainTerrain.getCurrentTerrain().countFire++;
-                    }
-                    time = 0;
-                }
-                break;
-            }
-            case 6: {
-                if (time > 0.8 / speed_skill) {
-                    if (WeaponData.bronet_bullet2 > 0) {
-                        Bullet bullet = new BronetBullet2(getCenterX(), getCenterY(), direction, fraction);
-                        bullet.parent = this;
-                        GameStage.MT.bullet.addActor(bullet);
-                        WeaponData.bronet_bullet2 -= 1;
-						MainTerrain.getCurrentTerrain().countFire++;
-                    }
-                    time = 0;
-                }
-                break;
-            }
-            case 7: {
-                if (time > 1 / speed_skill) {
-                    if (WeaponData.rocket > 0) {
-                        Bullet bullet = new Roket(getCenterX(), getCenterY(), direction, fraction);
-                        bullet.parent = this;
-                        GameStage.MT.bullet.addActor(bullet);
-                        WeaponData.rocket -= 1;
-						MainTerrain.getCurrentTerrain().countFire++;
-                    }
-                    time = 0;
-                }
-                break;
-            }
-        }
+    void createLightBullet() {
+        super.createLightBullet();
+        WeaponData.light_bullet -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createPlazmaBullet() {
+        super.createPlazmaBullet();
+        WeaponData.plazma -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createDoubleLightBullet() {
+        super.createDoubleLightBullet();
+        WeaponData.double_light_bullet -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createDoublePlazmaBullet() {
+        super.createDoublePlazmaBullet();
+        WeaponData.double_palzma -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createBronetBullet1() {
+        super.createBronetBullet1();
+        WeaponData.bronet_bullet -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createBronetBullet2() {
+        super.createBronetBullet2();
+        WeaponData.bronet_bullet2 -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
+    void createRocket() {
+        super.createRocket();
+        WeaponData.rocket -= 1;
+        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     public void act(float delta) {
         updateMotion();
-        //System.out.println(getCenterX() + " " + getCenterY());
         super.act(delta);
 		Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         Settings.TankUserSettings.HP = (int) HP;
@@ -178,48 +111,22 @@ public class TankUser extends Tank {
 
         Settings.TankUserSettings.HPShield = (int) HPShield;
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
-		
-		//if (HP <= 0 && flag != null) flag.active = true;
-		//System.out.println(AI.goal_x + " " + AI.goal_y);
 		GameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
-        //GameStage.cam.position.set(Body.getPosition().x, Body.getPosition().y, 0);
-        // TODO: Implement this method
     }
 
     private Vec currentMotion = Vec.NONE;
 
     public void updateMotion() {
-        switch (currentMotion) {
-            case UP: {
-                if (AI.isOnBlockWithoutTransform()) {
-					top();
-				}
-                AI.isRiding = true;
-                break;
+        if (defaultAI.isOnBlockWithoutTransform()) {
+            defaultAI.isRiding = true;
+            switch (currentMotion) {
+                case UP: top(); break;
+                case LEFT: left(); break;
+                case DOWN: bottom(); break;
+                case RIGHT: right(); break;
+                default:
+                    defaultAI.isRiding = false;
             }
-            case LEFT: {
-                if (AI.isOnBlockWithoutTransform()) {
-					left();
-				}
-                AI.isRiding = true;
-                break;
-            }
-            case DOWN: {
-                if (AI.isOnBlockWithoutTransform()) {
-					bottom();
-				}	
-                AI.isRiding = true;
-                break;
-            }
-            case RIGHT: {
-                if (AI.isOnBlockWithoutTransform()) { 
-					right();
-				}	
-                AI.isRiding = true;
-                break;
-            }
-            default:
-                AI.isRiding = false;
         }
     }
 
@@ -227,7 +134,7 @@ public class TankUser extends Tank {
         currentMotion = vec;
     }
 
-    public static enum Vec {
+    public enum Vec {
         UP(Input.Keys.W), DOWN(Input.Keys.S), LEFT(Input.Keys.A), RIGHT(Input.Keys.D), NONE(0);
 
         public int key = Input.Keys.A;
@@ -261,6 +168,23 @@ public class TankUser extends Tank {
             ObjectClass.StoreStage.show();
         } else {
             ObjectClass.PanelStage.addToast("Вернитесь на базу!");
+        }
+    }
+
+    public class UserAI extends DefaultAI {
+        @Override
+        public void update() {
+            weapon = Settings.TankUserSettings.bullet_type;
+
+            if (isOnBlock()) {
+                updateDirection();
+                detectGround();
+
+                if (isRiding)
+                    stepWithoutTurn();
+            } else {
+                updateRun();
+            }
         }
     }
 }

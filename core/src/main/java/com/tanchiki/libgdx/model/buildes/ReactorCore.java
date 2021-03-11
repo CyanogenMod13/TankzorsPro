@@ -5,7 +5,7 @@ import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class ReactorCore extends Build {
     public ReactorCore(float x, float y, short f) {
@@ -29,7 +29,7 @@ public class ReactorCore extends Build {
 					Thread.sleep(200);
 				} catch (Exception e) {}	
                 try {
-                    GameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, 8 * ObjectVarable.size_block * 2, 10));
+                    GameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {}
                 /*try {
@@ -42,7 +42,7 @@ public class ReactorCore extends Build {
                 } catch (InterruptedException e) {
                 }*/
                 try {
-                    GameStage.MT.decor_ground.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVarable.size_block * 2, 10));
+                    GameStage.MT.decor_ground.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }
@@ -53,21 +53,21 @@ public class ReactorCore extends Build {
 
     public static class ReactorCoreUnity extends ReactorCore {
         public ReactorCoreUnity(float x, float y) {
-            super(x, y, ObjectVarable.tank_unity);
+            super(x, y, ObjectVariables.tank_ally);
             code_name = "reactor_unity";
-			ObjectVarable.all_size_reactor_enemy++;
+			ObjectVariables.all_size_reactor_enemy++;
         }
 
 		@Override
 		public void destroyBuilds() {
-			ObjectVarable.all_size_reactor_enemy--;
+			ObjectVariables.all_size_reactor_enemy--;
 			super.destroyBuilds();
 		}
     }
 
     public static class ReactorCoreEnemy extends ReactorCore {
         public ReactorCoreEnemy(float x, float y) {
-            super(x, y, ObjectVarable.tank_enemy);
+            super(x, y, ObjectVariables.tank_enemy);
             code_name = "reactor_enemy";
         }
     }

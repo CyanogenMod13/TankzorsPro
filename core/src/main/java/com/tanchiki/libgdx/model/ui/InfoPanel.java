@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.*;
@@ -59,11 +59,11 @@ public class InfoPanel extends Group {
         coin.draw(batch);
         star.draw(batch);
 
-        String text = "" + ObjectVarable.all_size_enemy;
+        String text = "" + ObjectVariables.all_size_enemies;
         float h = f.getData().getGlyph('A').height;
         f.draw(batch, text, getX() + padding, enemy.getY() + enemy.getHeight() / 2 + h / 2);
 
-        text = "" + ObjectVarable.all_size_unity;
+        text = "" + ObjectVariables.all_size_allies;
         //h = f.getBounds(text).height;
         f.draw(batch, text, getX() + padding, unity.getY() + unity.getHeight() / 2 + h / 2);
 
@@ -177,12 +177,12 @@ public class InfoPanel extends Group {
                     last_x = stime.getX();
                 }
 
-                if (GameStage.TankUser.speed_hack) {
+                if (GameStage.TankUser.speedHack) {
                     sspeed.setSize((InfoPanel.this.getHeight() / 4 - padding), (InfoPanel.this.getHeight() / 4 - padding));
                     sspeed.setPosition(last_x - layout.width - padding / 2 - sspeed.getWidth(), InfoPanel.this.getY() + InfoPanel.this.getHeight() - sspeed.getHeight() - padding - block.getHeight());
                     sspeed.draw(batch);
 						
-					int t = Math.round(30 - GameStage.TankUser.speed_time);
+					int t = Math.round(30 - GameStage.TankUser.speedTime);
                     s = "0:" + (t < 10 ? "0" : "") + t;
 					layout.setText(f, s);
                     //h = f.getBounds(s).height;

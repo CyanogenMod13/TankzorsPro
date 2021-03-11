@@ -2,7 +2,6 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
-import com.tanchiki.libgdx.model.terrains.Object.DestroyableBlock;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public class Cactus extends DestroyableBlock {

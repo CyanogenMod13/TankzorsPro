@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Clound extends GameActor {
     Sprite s;
@@ -37,7 +37,7 @@ public class Clound extends GameActor {
             }
         }
 
-        setWidth(ObjectVarable.size_block * 2 * 6);
+        setWidth(ObjectVariables.size_block * 2 * 6);
         setHeight((s.getHeight() * getWidth()) / s.getWidth());
         s.setSize(getWidth(), getHeight());
         s.setCenter(getCenterX(), getCenterY());
@@ -49,7 +49,7 @@ public class Clound extends GameActor {
     public void draw(Batch batch, float parentAlpha) {
         // TODO: Implement this method
         super.draw(batch, parentAlpha);
-        s2.setSize(getWidth() - ObjectVarable.size_block * 2, getHeight() - ObjectVarable.size_block * 2);
+        s2.setSize(getWidth() - ObjectVariables.size_block * 2, getHeight() - ObjectVariables.size_block * 2);
         s2.setCenter(getCenterX() + getWidth() / 1.5f, getCenterY() - getHeight() / 1.5f);
         s2.draw(batch);
         s.setSize(getWidth(), getHeight());

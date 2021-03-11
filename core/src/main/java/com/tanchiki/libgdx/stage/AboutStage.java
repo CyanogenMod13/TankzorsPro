@@ -123,10 +123,10 @@ public class AboutStage extends Stage {
 			int level = GameStage.next_level;
 			MapBinReader map = MapsDatabase.getInstance().getMap("map" + level);
 			
-			MainTerrain.getCurrentTerrain().coin += Math.max(ObjectVarable.level_diffculty, 1) * 40;
-			MainTerrain.getCurrentTerrain().star += Math.max(ObjectVarable.level_diffculty, 1) + 4;
-			Settings.TankUserSettings.coin += Math.max(ObjectVarable.level_diffculty, 1) * 40;
-			Settings.TankUserSettings.star += Math.max(ObjectVarable.level_diffculty, 1) + 4;
+			MainTerrain.getCurrentTerrain().coin += Math.max(ObjectVariables.level_difficulty, 1) * 40;
+			MainTerrain.getCurrentTerrain().star += Math.max(ObjectVariables.level_difficulty, 1) + 4;
+			Settings.TankUserSettings.coin += Math.max(ObjectVariables.level_difficulty, 1) * 40;
+			Settings.TankUserSettings.star += Math.max(ObjectVariables.level_difficulty, 1) + 4;
 			int bonus = Math.round(MainTerrain.getCurrentTerrain().coin * 0.05f * WeaponData.Upgrade.adding_percent);
 			Settings.TankUserSettings.coin += bonus;
 			int s = (int) MainTerrain.getCurrentTerrain().missionTime;

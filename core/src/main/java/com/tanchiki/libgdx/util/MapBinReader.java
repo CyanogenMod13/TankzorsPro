@@ -1,15 +1,15 @@
 package com.tanchiki.libgdx.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 public class MapBinReader {
-    InputStream stream;
-	
+    private ByteArrayInputStream stream;
 	private String mapName = "";
-	private String[] briefing = new String[2];
-	private String[] hints = new String[7];
-	private int[] sizeMapPart = new int[2];
-	private int[] parametersPart = new int[198];
+	private final String[] briefing = new String[2];
+	private final String[] hints = new String[7];
+	private final int[] sizeMapPart = new int[2];
+	private final int[] parametersPart = new int[198];
 	private int[] mapDataPart;
 	private int version;
 
@@ -25,7 +25,6 @@ public class MapBinReader {
 			for (int i = 0; i < briefing.length; i++) briefing[i] = FontLoader.format(readString(stream));
 			for (int i = 0; i < hints.length; i++) hints[i] = FontLoader.format(readString(stream));
 			version = parametersPart[0];
-			
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.terrains.Object;
+package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -10,15 +10,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public abstract class Block extends GameActor {
     protected GameStage GameStage;
-    private float a = ObjectVarable.size_block;
+    private float a = ObjectVariables.size_block;
     public Sprite s;
     private Animation anim;
     public float HP = 4;

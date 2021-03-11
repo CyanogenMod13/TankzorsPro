@@ -3,7 +3,7 @@ package com.tanchiki.libgdx.model.bullets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
-import com.tanchiki.libgdx.model.tanks.Object.Tank;
+import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.util.ObjectClass;
 
 public class BulletLight extends Bullet {

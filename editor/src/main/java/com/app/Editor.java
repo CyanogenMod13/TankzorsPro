@@ -6,7 +6,7 @@ import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.terrains.Sand;
 import com.tanchiki.libgdx.screens.GameScreen;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectVarable;
+import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 
 import javax.swing.*;
@@ -200,7 +200,7 @@ public class Editor extends JFrame {
 
                 container.add(new JLabel("Max Tanks"));
                 final JEditorPane maxTanks = new JEditorPane();
-                maxTanks.setText("" + ObjectVarable.max_tanks);
+                maxTanks.setText("" + ObjectVariables.max_tanks);
                 container.add(maxTanks);
 
                 container.add(new JLabel("Missions Check"));
@@ -229,7 +229,7 @@ public class Editor extends JFrame {
                 container.add(new JButton("Apply")).addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
-                        ObjectVarable.max_tanks = Integer.parseInt(maxTanks.getText());
+                        ObjectVariables.max_tanks = Integer.parseInt(maxTanks.getText());
                         MainTerrain.missions.clear();
                         for (int code : map.keySet())
                             if (map.get(code))

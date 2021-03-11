@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.kotcrab.vis.ui.VisUI;
+import com.tanchiki.libgdx.server.GameServer;
 import com.tanchiki.libgdx.stage.*;
 import com.tanchiki.libgdx.util.*;
 
@@ -25,7 +26,6 @@ public class GameScreen implements ApplicationListener {
 
 	@Override
 	public void create() {
-		ObjectVarable.init();
         FontLoader.init();
 		TextureLoader.load();
 		SoundLoader.load();
@@ -46,9 +46,9 @@ public class GameScreen implements ApplicationListener {
 			isLoading = false;
 		}
 		
-        Gdx.gl20.glClearColor(0, 0, 0, 0);
+        Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glClear(GL20.GL_DEPTH_BUFFER_BIT);
+        //Gdx.gl20.glClear(GL20.GL_DEPTH_BUFFER_BIT);
 		
 		if (TextureLoader.manager.update() && SoundLoader.manager.update() && GameStage != null)
 			draw();
@@ -142,6 +142,7 @@ public class GameScreen implements ApplicationListener {
         StoreStage = new StoreStage();
         MiniMapStage = new MiniMapStage();
 		PauseStage = new PauseStage();
+		GameServer.getInstance().waitForClient();
     }
 
     private void initInput() {
