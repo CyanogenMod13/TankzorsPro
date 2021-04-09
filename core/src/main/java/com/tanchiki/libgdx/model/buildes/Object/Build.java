@@ -46,11 +46,11 @@ abstract public class Build extends ObjBuild {
                 GameStage.world_block[(int) (x)][(int) (y - a)] = f;
                 GameStage.world_block[(int) (x + a)][(int) (y - a)] = f;
             }
-            if (GameStage.world_buildes != null) {
-                GameStage.world_buildes[(int) x][(int) y] = this;
-                GameStage.world_buildes[(int) (x + a)][(int) y] = this;
-                GameStage.world_buildes[(int) (x)][(int) (y - a)] = this;
-                GameStage.world_buildes[(int) (x + a)][(int) (y - a)] = this;
+            if (GameStage.worldBuilds != null) {
+                GameStage.worldBuilds[(int) x][(int) y] = this;
+                GameStage.worldBuilds[(int) (x + a)][(int) y] = this;
+                GameStage.worldBuilds[(int) (x)][(int) (y - a)] = this;
+                GameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = this;
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -130,11 +130,11 @@ abstract public class Build extends ObjBuild {
                     GameStage.world_block[(int) (x + a)][(int) (y - a)] = 0;
                 }
 
-                if (GameStage.world_buildes != null) {
-                    GameStage.world_buildes[(int) x][(int) y] = null;
-                    GameStage.world_buildes[(int) (x + a)][(int) y] = null;
-                    GameStage.world_buildes[(int) (x)][(int) (y - a)] = null;
-                    GameStage.world_buildes[(int) (x + a)][(int) (y - a)] = null;
+                if (GameStage.worldBuilds != null) {
+                    GameStage.worldBuilds[(int) x][(int) y] = null;
+                    GameStage.worldBuilds[(int) (x + a)][(int) y] = null;
+                    GameStage.worldBuilds[(int) (x)][(int) (y - a)] = null;
+                    GameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = null;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
             }

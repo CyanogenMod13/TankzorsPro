@@ -228,9 +228,9 @@ public class Tank extends GameActor {
         GameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
-    float timePlazma = 0.6f;
-    void createPlazmaBullet() {
-        GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY(), direction, fraction, this));
+    float timePlasma = 0.6f;
+    void createPlasmaBullet() {
+        GameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     void createDoubleLightBullet() {
@@ -248,27 +248,27 @@ public class Tank extends GameActor {
         }
     }
 
-    void createDoublePlazmaBullet() {
+    void createDoublePlasmaBullet() {
         switch (direction) {
             case 1:
             case 3:
-                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPlusma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPlusma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
                 break;
             case 2:
             case 4:
-                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-                GameStage.MT.bullet.addActor(new BulletPluzma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+                GameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
                 break;
         }
     }
 
-    void createBronetBullet1() {
-        GameStage.MT.bullet.addActor(new BronetBullet1(getCenterX(), getCenterY(), direction, fraction, this));
+    void createArmoredBullet1() {
+        GameStage.MT.bullet.addActor(new ArmoredBullet1(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
-    void createBronetBullet2() {
-        GameStage.MT.bullet.addActor(new BronetBullet2(getCenterX(), getCenterY(), direction, fraction, this));
+    void createArmoredBullet2() {
+        GameStage.MT.bullet.addActor(new ArmoredBullet2(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     float timeRocket = 1.2f;
@@ -285,8 +285,8 @@ public class Tank extends GameActor {
 					}
 					break;
             case 2:
-					if (time > timePlazma / speedSkill) {
-						createPlazmaBullet();
+					if (time > timePlasma / speedSkill) {
+						createPlasmaBullet();
 						time = 0;
 					}
 					break;
@@ -297,20 +297,20 @@ public class Tank extends GameActor {
 					}
 					break;
             case 4:
-					if (time > timePlazma / speedSkill) {
-						createDoublePlazmaBullet();
+					if (time > timePlasma / speedSkill) {
+						createDoublePlasmaBullet();
 						time = 0;
 					}
 					break;
             case 5:
 					if (time > timeBullet / speedSkill) {
-						createBronetBullet1();
+						createArmoredBullet1();
 						time = 0;
 					}
 					break;
             case 6:
 					if (time > timeBullet / speedSkill) {
-						createBronetBullet2();
+						createArmoredBullet2();
 						time = 0;
 					}
 					break;
@@ -432,6 +432,8 @@ public class Tank extends GameActor {
         updateRotation();
 		if (defaultAI != null)
 		    defaultAI.update();
+        ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
+        health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
         super.act(delta);
     }
 
@@ -1159,12 +1161,6 @@ public class Tank extends GameActor {
         }
 
         @Override
-        public void act(float delta) {
-            super.act(delta);
-            setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
-        }
-
-        @Override
         public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			batch.draw(regions[Math.min(11, Math.max((int) ((12 * HP) / HPBackup) - 1, 0))],
@@ -1190,7 +1186,6 @@ public class Tank extends GameActor {
         @Override
         public void draw(Batch batch, float parentAlpha) {
             super.draw(batch, parentAlpha);
-            setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
             batch.draw(rings[HPShield > 0 ? SHIELD : index],
                     getX(), getY(),
                     getWidth(), getHeight());

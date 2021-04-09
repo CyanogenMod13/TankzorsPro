@@ -49,11 +49,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.LEFT;
 
             private void move() {
-                GameStage.TankUser.setMotion(current);
+                GameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setMotion(TankUser.Vec.NONE);
+                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -100,11 +100,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.UP;
 
             private void move() {
-                GameStage.TankUser.setMotion(current);
+                GameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setMotion(TankUser.Vec.NONE);
+                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -151,11 +151,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.RIGHT;
 
             private void move() {
-                GameStage.TankUser.setMotion(current);
+                GameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setMotion(TankUser.Vec.NONE);
+                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -203,11 +203,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.DOWN;
 
             private void move() {
-                GameStage.TankUser.setMotion(current);
+                GameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setMotion(TankUser.Vec.NONE);
+                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override

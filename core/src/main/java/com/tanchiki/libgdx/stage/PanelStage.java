@@ -37,52 +37,57 @@ public class PanelStage extends Stage {
         addActor(toasts);
 
         addListener(new InputListener() {
-            int keycode;
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (GameStage.getInstance().TankUser != null)
                     switch (keycode) {
-                        case Input.Keys.A:
-                            this.keycode = keycode;
-                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.LEFT); break;
-                        case Input.Keys.W:
-                            this.keycode = keycode;
-                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.UP); break;
-                        case Input.Keys.S:
-                            this.keycode = keycode;
-                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.DOWN); break;
-                        case Input.Keys.D:
-                            this.keycode = keycode;
-                            GameStage.getInstance().TankUser.setMotion(TankUser.Vec.RIGHT); break;
-                        case Input.Keys.ESCAPE:
-                            if (!Settings.start_game || Settings.pause) break;
-                            Settings.pauseView = true;
-                            Settings.pause = true;
-                            break;
-                        case Input.Keys.Q:
-                            GameStage.getInstance().TankUser.enterHangar();
-                            break;
-                        case Input.Keys.E:
-                            ObjectClass.WeaponMenuStage.showMenu();
-                            break;
-                        case Input.Keys.R:
-                            GameStage.getInstance().TankUser.doRepair();
-                            break;
-                        case Input.Keys.NUMPAD_1:
-                            GameStage.getInstance().TankUser.defaultAI.BULLET(); break;
-                        case Input.Keys.NUMPAD_2:
-                            GameStage.getInstance().TankUser.defaultAI.MINES(); break;
-                        case Input.Keys.NUMPAD_3:
-                            GameStage.getInstance().TankUser.defaultAI.AIR(); break;
-
+                        case Input.Keys.A: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.LEFT); break;
+                        case Input.Keys.W: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.UP); break;
+                        case Input.Keys.S: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.DOWN); break;
+                        case Input.Keys.D: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.RIGHT); break;
                     }
                 return super.keyDown(event, keycode);
             }
 
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                if (GameStage.getInstance().TankUser != null && this.keycode == keycode)
-                    GameStage.getInstance().TankUser.setMotion(TankUser.Vec.NONE);
+                if (GameStage.getInstance().TankUser != null && keycode == GameStage.getInstance().TankUser.getCurrentStateMotion().key)
+                    GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.NONE);
+                return super.keyUp(event, keycode);
+            }
+        });
+        addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                switch (keycode) {
+                    case Input.Keys.ESCAPE:
+                        if (!Settings.start_game || Settings.pause) break;
+                        Settings.pauseView = true;
+                        Settings.pause = true;
+                        break;
+                    case Input.Keys.Q: GameStage.getInstance().TankUser.enterHangar(); break;
+                    case Input.Keys.E: ObjectClass.WeaponMenuStage.showMenu(); break;
+                    case Input.Keys.R: GameStage.getInstance().TankUser.doRepair(); break;
+                }
+                return super.keyDown(event, keycode);
+            }
+        });
+        addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (GameStage.getInstance().TankUser != null)
+                    switch (keycode) {
+                        case Input.Keys.NUMPAD_1: GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.BULLET); break;
+                        case Input.Keys.NUMPAD_2: GameStage.getInstance().TankUser.defaultAI.MINES(); break;
+                        case Input.Keys.NUMPAD_3: GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.AIR); break;
+                    }
+                return super.keyDown(event, keycode);
+            }
+
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                if (GameStage.getInstance().TankUser != null && keycode == GameStage.getInstance().TankUser.getCurrentStateFire().key)
+                    GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.NONE);
                 return super.keyUp(event, keycode);
             }
         });
@@ -92,7 +97,7 @@ public class PanelStage extends Stage {
         toasts.addActor(new ToastGame(text));
     }
 	
-	private class PauseButton extends TextButton {
+	private static class PauseButton extends TextButton {
 		TextureRegionDrawable reg1 = new TextureRegionDrawable(new Texture("texture/ui/black/pause.png"));
 		TextureRegionDrawable reg2 = new TextureRegionDrawable(new Texture("texture/ui/black/pause_h.png"));
 		
@@ -118,7 +123,7 @@ public class PanelStage extends Stage {
 			if (WeaponData.radar == 0) {
 				setPosition(0, Gdx.graphics.getHeight() - getHeight());
 			} else {
-				setPosition(0, Gdx.graphics.getHeight() - getHeight() - Gdx.graphics.getHeight() / 3);
+				setPosition(0, Gdx.graphics.getHeight() - getHeight() - Gdx.graphics.getHeight() / 3f);
 			}
 		}
 	}

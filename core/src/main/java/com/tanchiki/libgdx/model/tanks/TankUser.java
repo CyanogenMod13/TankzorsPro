@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.model.buildes.Flag;
-import com.tanchiki.libgdx.model.bullets.*;
-import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.*;
 
@@ -60,8 +58,8 @@ public class TankUser extends DefaultTank {
     }
 
     @Override
-    void createPlazmaBullet() {
-        super.createPlazmaBullet();
+    void createPlasmaBullet() {
+        super.createPlasmaBullet();
         WeaponData.plazma -= 1;
         MainTerrain.getCurrentTerrain().countFire++;
     }
@@ -74,22 +72,22 @@ public class TankUser extends DefaultTank {
     }
 
     @Override
-    void createDoublePlazmaBullet() {
-        super.createDoublePlazmaBullet();
+    void createDoublePlasmaBullet() {
+        super.createDoublePlasmaBullet();
         WeaponData.double_palzma -= 1;
         MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
-    void createBronetBullet1() {
-        super.createBronetBullet1();
+    void createArmoredBullet1() {
+        super.createArmoredBullet1();
         WeaponData.bronet_bullet -= 1;
         MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
-    void createBronetBullet2() {
-        super.createBronetBullet2();
+    void createArmoredBullet2() {
+        super.createArmoredBullet2();
         WeaponData.bronet_bullet2 -= 1;
         MainTerrain.getCurrentTerrain().countFire++;
     }
@@ -103,7 +101,8 @@ public class TankUser extends DefaultTank {
 
     @Override
     public void act(float delta) {
-        updateMotion();
+        updateStateMotion();
+        updateStateFire();
         super.act(delta);
 		Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         Settings.TankUserSettings.HP = (int) HP;
@@ -114,12 +113,12 @@ public class TankUser extends DefaultTank {
 		GameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
     }
 
-    private Vec currentMotion = Vec.NONE;
+    private Vec currentStateMotion = Vec.NONE;
 
-    public void updateMotion() {
+    public void updateStateMotion() {
         if (defaultAI.isOnBlockWithoutTransform()) {
             defaultAI.isRiding = true;
-            switch (currentMotion) {
+            switch (currentStateMotion) {
                 case UP: top(); break;
                 case LEFT: left(); break;
                 case DOWN: bottom(); break;
@@ -130,16 +129,48 @@ public class TankUser extends DefaultTank {
         }
     }
 
-    public void setMotion(Vec vec) {
-        currentMotion = vec;
+    public void setStateMotion(Vec vec) {
+        currentStateMotion = vec;
+    }
+
+    public Vec getCurrentStateMotion() {
+        return currentStateMotion;
     }
 
     public enum Vec {
         UP(Input.Keys.W), DOWN(Input.Keys.S), LEFT(Input.Keys.A), RIGHT(Input.Keys.D), NONE(0);
 
-        public int key = Input.Keys.A;
+        public final int key;
 
         Vec(int key) {
+            this.key = key;
+        }
+    }
+
+    private Fire currentStateFire = Fire.NONE;
+
+    private void updateStateFire() {
+        switch (currentStateFire) {
+            case NONE: /* NONE */ break;
+            case AIR: defaultAI.AIR(); break;
+            case BULLET: defaultAI.BULLET(); break;
+        }
+    }
+
+    public void setStateFire(Fire fire) {
+        currentStateFire = fire;
+    }
+
+    public Fire getCurrentStateFire() {
+        return currentStateFire;
+    }
+
+    public enum Fire {
+        BULLET(Input.Keys.NUMPAD_1), AIR(Input.Keys.NUMPAD_3), NONE(0);
+
+        public final int key;
+
+        Fire(int key) {
             this.key = key;
         }
     }
@@ -164,7 +195,7 @@ public class TankUser extends DefaultTank {
     }
 
     public void enterHangar() {
-        if (GameStage.world_buildes[(int) getCenterX()][(int) getCenterY()] != null) {
+        if (GameStage.worldBuilds[(int) getCenterX()][(int) getCenterY()] != null) {
             ObjectClass.StoreStage.show();
         } else {
             ObjectClass.PanelStage.addToast("Вернитесь на базу!");

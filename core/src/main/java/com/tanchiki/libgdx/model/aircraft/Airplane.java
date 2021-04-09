@@ -10,7 +10,7 @@ import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
-public class airplane extends GameActor {
+public class Airplane extends GameActor {
     Sprite plane;
     Sprite back;
     Sprite point;
@@ -21,7 +21,7 @@ public class airplane extends GameActor {
     int radius;
 	int damage = 10;
 
-    public airplane(float targetX, float targetY, int count, int damage) {
+    public Airplane(float targetX, float targetY, int count, int damage) {
 		this.damage = damage;
         this.radius = (damage <= 16) ? 6 * 2 : 8 * 2;
         this.count = count;

@@ -7,8 +7,9 @@ import com.tanchiki.libgdx.screens.GameScreen;
 public class Game {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.height = 20 * 30;
-        cfg.width = 20 * 60;
+        cfg.height *= 2;
+        cfg.width *= 2;
+        //cfg.fullscreen = true;
         cfg.title = "Tankzors Pro";
         new LwjglApplication(new GameScreen(), cfg);
     }

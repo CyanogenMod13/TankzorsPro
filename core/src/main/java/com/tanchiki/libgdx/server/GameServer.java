@@ -31,6 +31,15 @@ public class GameServer {
         }
     }
 
+    public String[] getListClient() {
+        synchronized (sockets) {
+            String[] s = new String[sockets.size()];
+            for (int i = 0; i < s.length; i++)
+                s[i] = sockets.get(i).toString();
+            return s;
+        }
+    }
+
     public void waitForClient() {
         if (isWaiting) throw new IllegalStateException();
         isWaiting = true;

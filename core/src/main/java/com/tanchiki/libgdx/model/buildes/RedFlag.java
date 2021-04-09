@@ -41,7 +41,7 @@ public class RedFlag extends Flag {
 				case 41:
 				case 42:	
 					//System.out.println(GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()]);
-					if (GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()] instanceof AngarUnity) { 
+					if (GameStage.getInstance().worldBuilds[(int) getCenterX()][(int) getCenterY()] instanceof AngarUnity) {
 						win();
 						remove();
 					} break;

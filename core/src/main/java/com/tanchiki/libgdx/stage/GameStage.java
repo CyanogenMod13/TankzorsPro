@@ -2,7 +2,6 @@ package com.tanchiki.libgdx.stage;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.tanchiki.libgdx.model.aircraft.airplane;
+import com.tanchiki.libgdx.model.aircraft.Airplane;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.tanks.Tank;
@@ -35,57 +34,33 @@ public class GameStage extends Stage {
     public TextureLoader TextureLoader;
     public OrthographicCamera cam;
     public MainTerrain MT = null;
-    ;
     public TankUser TankUser;
-    private Vector2 cam_pos, cam_pos_x, cam_pos_y;
 
-    public boolean clear_body = false;
+    public int[][] world_block;
 
-    private float time = 10;
+    public Actor[][] world_mines;
 
-    private Vector2 cam_pos_for_move = new Vector2(0, 0);
+    public Object[][] world_obj;
 
-    public int world_block[][];
+    public Tank[][] world_tank;
 
-    public Actor world_mines[][];
+    public int[][] world_nodes;
 
-    public Object world_obj[][];
+    public Block[][] world_physic_block;
 
-    public Tank world_tank[][];
+    public Actor[][] world_bonus;
 
-    public int world_nodes[][];
-
-    public Block world_physic_block[][];
-
-    public Actor world_bonus[][];
-
-    public ObjBuild world_buildes[][];
+    public ObjBuild[][] worldBuilds;
 
     public Bullet[][] world_bullets_unity, world_bullets_enemy;
 	
 	public Trigger[][] world_trigger;
 
-    public Preferences mh = null;
-
-    public String load_world = null;
-
-    public int last_id = 0;
-
     public int world_wight, world_height;
-
-    boolean debug = false;
-
     public Actor touchActor = null;
-
     boolean createAircraft = false;
-
     public static int next_level = 0;
-
     public static float timer_enemy = 0, timer_unity = 0;
-
-    public static boolean stop_time = false, stop_time_for_enemy = false, stop_time_for_unity = false;
-
-    public Rectangle camArea;
 
     public GestureDetector.GestureListener listener = new Listener();
 
@@ -101,12 +76,11 @@ public class GameStage extends Stage {
         ObjectClass.GameStage = this;
         loadMap();
 
-        //int common_divisor = gcd(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		float h = Gdx.graphics.getHeight();
 		float w = Gdx.graphics.getWidth();
 		float vw = 64;
 		float vh = vw * (h / w);
-        cam = new OrthographicCamera(vw, vh);//25.6f, 25.6f * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+        cam = new OrthographicCamera(vw, vh);
         System.out.println("Camera viewport " + vw + " " + vh);
         cam.position.set(0, 0, 0);
 		areaVisible = new Rectangle(0, 0, vw, vh);
@@ -115,31 +89,8 @@ public class GameStage extends Stage {
         getViewport().setCamera(cam);
         TextureLoader = ObjectClass.TextureLoader;
 
-        //disposeTerrain();
         if (!Settings.edit_map_mode)
             createTerrain("map_background");
-        //addActor(new ToastGame("hello",29*ObjectVarable.size_block*2,8*ObjectVarable.size_block*2));
-    }
-
-    public static int gcd(int a, int b) {
-        return (b == 0) ? a : gcd(b, a % b);
-    }
-
-    private final int EDIT_MAP = 0, GAME_MAP = 1, MULTIPLAY_MAP = 2;
-
-    public void setMode(final int mode) {
-        switch (mode) {
-            case EDIT_MAP: {
-                setDebugAll(true);
-                break;
-            }
-            case GAME_MAP: {
-                break;
-            }
-            case MULTIPLAY_MAP: {
-                break;
-            }
-        }
     }
 
     public void createAircraft() {
@@ -180,6 +131,7 @@ public class GameStage extends Stage {
         try {
             MT.loadMap(n);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         addActor(MT);
         return MT;
@@ -190,11 +142,6 @@ public class GameStage extends Stage {
         MT = new MainTerrain();
         try {
             MT.loadMap(n);
-            /*for (Actor a : MT.ground.getChildren())
-                if (a instanceof Sand) {
-                    Sand s = (Sand) a;
-                    s.init();
-                }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,20 +162,6 @@ public class GameStage extends Stage {
         }
     }
 
-    public void moveCam(float x, float y) {
-        if (!Settings.fixed_move_camera) return;
-        /*float h = cam.viewportHeight * cam.zoom;
-		float w = cam.viewportWidth * cam.zoom;
-		Rectangle rect = new Rectangle(0, 0, world_wight, world_height);
-		if (rect.contains(x + w / 2 - 1, y) && rect.contains(x - w / 2 - 1, y))
-			cam.position.x = x;
-		if (rect.contains(x, y + h / 2 - 1) && rect.contains(x, y - h / 2 - 1))
-			cam.position.y = y;*/
-		cam.position.x = x;
-		cam.position.y = y;
-        //cam.update();
-    }
-
 	float a = 0;
 	float deltaX;
 	float deltaY;
@@ -241,11 +174,10 @@ public class GameStage extends Stage {
         float sin = (float) Math.sin(angle);
 		float dis = new Vector2(cam.position.x, cam.position.y).dst(x, y);
         a = Math.min(1, (int) (dis));
-        //cam.position.set(cam.position.x + cos*speed,cam.position.y + sin*speed,0);
 
         deltaX = cos * a * speed * dis;
         deltaY = sin * a * speed * dis;
-        //cam.position.set(x, y, 0);
+
        	cam.translate(deltaX, deltaY);
 		int rx = (int) (cam.position.x * 10);
 		int ry = (int) (cam.position.y * 10);
@@ -272,43 +204,15 @@ public class GameStage extends Stage {
         }
     }
 
-    /*@Override
-    public void draw()
-    {
-        cam_pos = new Vector2(cam.position.x, cam.position.y);
-        cam_pos_x = new Vector2(cam_pos.x - (cam.viewportWidth / 2 * cam.zoom + ObjectVarable.size_block*2), cam_pos.x + (cam.viewportWidth / 2 * cam.zoom + ObjectVarable.size_block * 2));
-        cam_pos_y = new Vector2(cam_pos.y - (cam.viewportHeight / 2 * cam.zoom + ObjectVarable.size_block * 2), cam_pos.y + (cam.viewportHeight / 2 * cam.zoom + ObjectVarable.size_block * 2));
-        getBatch().begin();
-        for(Actor a:getActors())
-        if (cam_pos_x.x <= a.getCenterX() && cam_pos_x.y >= a.getCenterX() && cam_pos_y.x <= a.getCenterY() && cam_pos_y.y >= a.getCenterY())
-        {
-            a.draw(getBatch(),1);
-        }
-        getBatch().end();
-    }
-    */
-
     public static void stop_time(short f) {
 		timer_enemy = 0;
 		Tank.stop_enemy = true;
-        /*switch (f) {
-            case ObjectVarable.tank_enemy: {
-                timer_enemy = 0;
-                Tank.stop_enemy = true;
-                break;
-            }
-            case ObjectVarable.tank_unity: {
-                timer_unity = 0;
-                Tank.stop_unity = true;
-                break;
-            }
-        }*/
     }
 
     public void updateAirplane() {
         if (createAircraft) {
             if (touchActor != null) {
-                MT.decor.addActor(new airplane(airplaneX, airplaneY, 5 + (WeaponData.Upgrade.air == 3 ? 2 : 0), 12 + WeaponData.Upgrade.air * 4));
+                MT.decor.addActor(new Airplane(airplaneX, airplaneY, 5 + (WeaponData.Upgrade.air == 3 ? 2 : 0), 12 + WeaponData.Upgrade.air * 4));
                 createAircraft = false;
                 Settings.pause = false;
                 WeaponData.air -= 1;
@@ -334,8 +238,6 @@ public class GameStage extends Stage {
 
         super.act(delta);
     }
-
-    int count = 0;
 	
 	private void GPUOptimization(Group group) {
 		areaVisible.setCenter(cam.position.x, cam.position.y);
@@ -354,7 +256,6 @@ public class GameStage extends Stage {
         long d = System.currentTimeMillis();
         if (MT != null && !Settings.edit_map_mode)
             Clound.random(delta);
-        time += delta;
         updateAirplane();
 
 		GPUOptimization(MT.root);
@@ -491,7 +392,5 @@ public class GameStage extends Stage {
         public void pinchStop() {
 
         }
-
-
     }
 }

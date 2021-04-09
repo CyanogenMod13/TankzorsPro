@@ -209,7 +209,7 @@ public class Bullet extends GameActor {
             destroyBullet();
         }
 
-        ObjBuild objbuild = GameStage.world_buildes[x][y];
+        ObjBuild objbuild = GameStage.worldBuilds[x][y];
         Build build = objbuild instanceof Build ? (Build) objbuild : null;
         if (build != null)
             if (build.fraction != fraction) {

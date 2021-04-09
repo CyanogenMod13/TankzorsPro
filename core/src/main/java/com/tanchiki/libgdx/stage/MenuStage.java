@@ -16,9 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.widget.ScrollableTextArea;
-import com.kotcrab.vis.ui.widget.VisSlider;
-import com.kotcrab.vis.ui.widget.VisTable;
+import com.badlogic.gdx.utils.Array;
+import com.kotcrab.vis.ui.util.adapter.SimpleListAdapter;
+import com.kotcrab.vis.ui.widget.*;
 import com.tanchiki.libgdx.server.GameServer;
 import com.tanchiki.libgdx.util.*;
 
@@ -89,8 +89,7 @@ public class MenuStage extends Stage {
 				public void run(int idx) {
 					switch (idx) {
 						case 4:
-							System.exit(0);
-							break;
+							System.exit(0); break;
 						default: 
 							super.run(idx);
 					}
@@ -216,8 +215,7 @@ public class MenuStage extends Stage {
 			"Продолжить",
 			"Новая игра",
 			"Загрузить игру",
-			"Сетевой режим (клиент)",
-			"Сетевой режим (сервер)",
+			"Сетевой режим",
 			"Назад"
 		};
 			
@@ -225,6 +223,7 @@ public class MenuStage extends Stage {
             super(root, parent);
 			setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
 			put(2, new LoadMenu(root, this));
+			put(3, new NetworkMenu(root, this));
 			put(names.length - 1, parent);
 			init(names, new ViewTable.Listener() {
 					@Override
@@ -247,11 +246,6 @@ public class MenuStage extends Stage {
 								GameStage.getInstance().startLevel(GameStage.next_level + 1);
 								Settings.pause = true;
 								AboutStage.getInstance().show();
-								break;
-							case 3:
-								GameServer server = GameServer.getInstance();
-								server.stopWaiting();
-
 								break;
 							default: 
 								super.run(idx);
@@ -323,15 +317,50 @@ public class MenuStage extends Stage {
 
 	private static class NetworkMenu extends ViewTable {
 		private String[] names = {
+				"Создать сервер",
+				"Подключится к серверу",
 				"Назад"
 		};
 
     	public NetworkMenu(Table root, ViewTable parent) {
     		super(root, parent);
 			setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
-			put(0, parent);
-
+			put(1, new ConnectMenu(root, this));
+			put(0, new CreateServerMenu(root, this));
+			put(names.length - 1, parent);
 			init(names);
+		}
+
+		private class ConnectMenu extends ViewTable {
+			private final String[] names = {
+					"Назад"
+			};
+    		ConnectMenu(Table root, ViewTable parent) {
+    			super(root, parent);
+				setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
+				Label.LabelStyle labelStyle = new Label.LabelStyle(FontLoader.f24, Color.WHITE);
+				TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle(FontLoader.f24, Color.WHITE, null, null, new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
+				add(new Label("IP", labelStyle));
+				add(new TextField("127.0.0.1", textFieldStyle)).fill().row();
+				add(new Label("Port", labelStyle));
+				add(new TextField("5123", textFieldStyle)).fill().row();
+				put(names.length - 1, parent);
+				button("Connect", new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						
+					}
+				});
+    			addSeparator().fill();
+				init(names);
+			}
+		}
+
+		private class CreateServerMenu extends ViewTable {
+    		CreateServerMenu(Table root, ViewTable parent) {
+    			super(root, parent);
+
+			}
 		}
 	}
 

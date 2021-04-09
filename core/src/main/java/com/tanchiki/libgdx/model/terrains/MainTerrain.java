@@ -6,11 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.tanchiki.libgdx.model.bonus.*;
+import com.tanchiki.libgdx.model.bonus.Object.Bonus;
 import com.tanchiki.libgdx.model.buildes.*;
 import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
 import com.tanchiki.libgdx.model.mine.MineEnemy1;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
+import com.tanchiki.libgdx.model.mine.Object.Mine;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.Turret;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
@@ -183,7 +185,7 @@ public class MainTerrain extends Group implements Disposable {
         GameStage.world_mines = new Actor[(int) pointXY[0]][(int) pointXY[1]];
         GameStage.world_wight = (int) pointXY[0];
         GameStage.world_height = (int) pointXY[1];
-        GameStage.world_buildes = new ObjBuild[(int) pointXY[0]][(int) pointXY[1]];
+        GameStage.worldBuilds = new ObjBuild[(int) pointXY[0]][(int) pointXY[1]];
         GameStage.world_bonus = new Actor[(int) pointXY[0]][(int) pointXY[1]];
         GameStage.world_bullets_enemy = new Bullet[(int) pointXY[0]][(int) pointXY[1]];
         GameStage.world_bullets_unity = new Bullet[(int) pointXY[0]][(int) pointXY[1]];
@@ -706,6 +708,22 @@ public class MainTerrain extends Group implements Disposable {
 		
 		public String getBriefing(int index) {
 			return str[index];
+		}
+	}
+
+	public static class GridMapData {
+    	public static class Cell {
+			int block;
+			int node;
+			Object object;
+			Tank tank;
+			Mine mine;
+			Block physicBlock;
+			Bonus bonus;
+			ObjBuild build;
+			Bullet bulletAlly;
+			Bullet bulletEnemy;
+
 		}
 	}
 }

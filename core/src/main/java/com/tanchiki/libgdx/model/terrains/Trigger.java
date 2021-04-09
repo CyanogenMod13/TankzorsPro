@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import com.tanchiki.libgdx.model.aircraft.airplane;
+import com.tanchiki.libgdx.model.aircraft.Airplane;
 import com.tanchiki.libgdx.model.buildes.AngarEnemy;
 import com.tanchiki.libgdx.model.buildes.AngarUnity;
 import com.tanchiki.libgdx.model.bullets.Object.Bullet;
@@ -545,7 +545,7 @@ public class Trigger extends Actor {
 			
 			if (damage == 0) damage = 18;
 			
-			airplane airplane = new airplane(x0, y0, 3, damage);
+			Airplane airplane = new Airplane(x0, y0, 3, damage);
 			MainTerrain.getCurrentTerrain().decor.addActor(airplane);
 		}
 		

@@ -137,7 +137,7 @@ public class BiggestExplosion extends GameGroup {
 					remove();
 				}
 
-				Actor bb = GameStage.world_buildes[x][y];
+				Actor bb = GameStage.worldBuilds[x][y];
 				if (bb != null && bb instanceof Build) {
 					((Build) bb).HP -= damage;
 					remove();

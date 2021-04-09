@@ -41,7 +41,7 @@ public class AngarUnity extends SubBuilds {
 		index = LAST_INDEX++;
 		lastIndex = index;
         code_name = "angar_unity";
-        GameStage.world_buildes[(int) x][(int) y] = this;
+        GameStage.worldBuilds[(int) x][(int) y] = this;
 		if (index < 5) {
 			spawnCount = prm.getKey(141 + index);
 			spawnAI = prm.getKey(146 + index);

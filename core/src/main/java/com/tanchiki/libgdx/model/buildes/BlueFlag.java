@@ -1,6 +1,6 @@
 package com.tanchiki.libgdx.model.buildes;
 
-import com.tanchiki.libgdx.model.aircraft.airplane;
+import com.tanchiki.libgdx.model.aircraft.Airplane;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectClass;
@@ -31,7 +31,7 @@ public class BlueFlag extends Flag {
 			default: if (index < 3) {
 				int x0 = MainTerrain.getCurrentTerrain().getParameters().getKey(27 + index) * 2;
 				int y0 = GameStage.getInstance().world_height - MainTerrain.getCurrentTerrain().getParameters().getKey(28 + index) * 2;
-				MainTerrain.getCurrentTerrain().decor.addActor(new airplane(x0, y0, 3, 10));
+				MainTerrain.getCurrentTerrain().decor.addActor(new Airplane(x0, y0, 3, 10));
 			}	
 		}
 	}

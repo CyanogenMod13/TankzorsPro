@@ -102,7 +102,7 @@ public class TextureLoader {
 		explRed = manager.get("texture/explosion/expl_big_red.png");
 		explPlazma = manager.get("texture/explosion/expl_big_plasma.png");
 		split();
-	}//throws Exception
+	}
     
 	public static void load() {
 		manager.load("texture/ui/icons.png", Texture.class);
