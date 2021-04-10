@@ -27,3 +27,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew desktop:distZip
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Package
+        path: build/distribution/
