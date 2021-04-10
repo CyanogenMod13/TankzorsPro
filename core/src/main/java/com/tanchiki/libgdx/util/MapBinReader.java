@@ -1,10 +1,12 @@
 package com.tanchiki.libgdx.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PushbackInputStream;
 
 public class MapBinReader {
-    private ByteArrayInputStream stream;
+	private int[] data;
 	private String mapName = "";
 	private final String[] briefing = new String[2];
 	private final String[] hints = new String[7];
@@ -15,38 +17,46 @@ public class MapBinReader {
 
     public MapBinReader(InputStream stream) {
         try {
-			stream.read();
-			mapName = FontLoader.format(readStringName(stream));
-			for (int i = 0; i < sizeMapPart.length; i++) sizeMapPart[i] = stream.read();
-			stream.read();
-			for (int i = 0; i < parametersPart.length; i++) parametersPart[i] = stream.read();
+        	data = new int[stream.available()];
+        	for (int i = 0; i < data.length; i++)
+        		data[i] = stream.read();
+			next();
+			mapName = FontLoader.format(readStringName());
+			for (int i = 0; i < sizeMapPart.length; i++) sizeMapPart[i] = next();
+			next();
+			for (int i = 0; i < parametersPart.length; i++) parametersPart[i] = next();
 			mapDataPart = new int[sizeMapPart[0] * sizeMapPart[1]];
-			for (int i = 0; i < mapDataPart.length; i++) mapDataPart[i] = stream.read();
-			for (int i = 0; i < briefing.length; i++) briefing[i] = FontLoader.format(readString(stream));
-			for (int i = 0; i < hints.length; i++) hints[i] = FontLoader.format(readString(stream));
+			for (int i = 0; i < mapDataPart.length; i++) mapDataPart[i] = next();
+			for (int i = 0; i < briefing.length; i++) briefing[i] = FontLoader.format(readString());
+			for (int i = 0; i < hints.length; i++) hints[i] = FontLoader.format(readString());
 			version = parametersPart[0];
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-	
-	private String readStringName(InputStream in) throws Exception {
-		in.read();
-		int len = (in.read()) / 2;
-		String data = "";
+
+    private int pos;
+    private int next() {
+    	return data[pos++];
+	}
+
+	private String readStringName() {
+		next();
+		int len = next() / 2;
+		StringBuilder data = new StringBuilder();
 		for (int i = 0; i < len; i++) {
-			data += (char) (in.read() * 256 + in.read());
+			data.append((char) (next() * 256 + next()));
 		}
-		return data;
+		return data.toString();
 	}
 	
-	private String readString(InputStream in) throws Exception {
-		int len = (in.read() * 256 + in.read()) / 2;
-		String data = "";
+	private String readString() {
+		int len = (next() * 256 + next()) / 2;
+		StringBuilder data = new StringBuilder();
 		for (int i = 0; i < len; i++) {
-			data += (char) (in.read() * 256 + in.read());
+			data.append((char) (next() * 256 + next()));
 		}
-		return data;
+		return data.toString();
 	}
 	
 	public int[] getSizeMapPart() {
@@ -71,6 +81,10 @@ public class MapBinReader {
 	
 	public int[] getMapDataPart() {
 		return mapDataPart;
+	}
+
+	public int[] getData() {
+		return data.clone();
 	}
 	
 	public int getVersion() {
