@@ -29,5 +29,5 @@ jobs:
       run: ./gradlew desktop:distZip
     - uses: actions/upload-artifact@v2
       with:
-        name: Package
-        path: build/distributions/desktop-1.1.zip
+        name: desktop-1.1.zip
+        path: desktop/build/distributions
