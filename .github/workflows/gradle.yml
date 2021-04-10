@@ -30,4 +30,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Package
-        path: build/distribution/desktop-1.1.zip
+        path: build/distributions/desktop-1.1.zip
