@@ -1,11 +1,7 @@
 package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.model.buildes.Object.SubBuilds;
-import com.tanchiki.libgdx.model.tanks.Tank;
-import com.tanchiki.libgdx.model.tanks.TankHeavy;
-import com.tanchiki.libgdx.model.tanks.TankKamikaze;
-import com.tanchiki.libgdx.model.tanks.TankLight;
-import com.tanchiki.libgdx.model.tanks.TankSiege;
+import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;

@@ -16,8 +16,6 @@ import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
 import com.tanchiki.libgdx.model.mine.MineUnity2;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.model.terrains.Block;
-import com.tanchiki.libgdx.model.terrains.DestroyableBlock;
 import com.tanchiki.libgdx.model.tnt.TNT1;
 import com.tanchiki.libgdx.model.tnt.TNT2;
 import com.tanchiki.libgdx.model.tnt.TNT3;

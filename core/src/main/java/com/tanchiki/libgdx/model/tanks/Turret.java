@@ -2,13 +2,10 @@ package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tanchiki.libgdx.model.bullets.*;
 import com.tanchiki.libgdx.model.terrains.IronWall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
-
-import java.util.Comparator;
 
 public class Turret extends NonRidingTank {
 	public static final int[][] prm = {
