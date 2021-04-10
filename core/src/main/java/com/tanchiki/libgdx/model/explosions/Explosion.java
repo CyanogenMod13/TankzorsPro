@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.explosions.Object;
+package com.tanchiki.libgdx.model.explosions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;

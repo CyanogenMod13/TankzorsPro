@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.model.bonus;
 
-import com.tanchiki.libgdx.model.bonus.Object.Bonus;
 import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.WeaponData;
 

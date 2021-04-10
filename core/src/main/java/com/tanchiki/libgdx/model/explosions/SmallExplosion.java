@@ -2,7 +2,6 @@ package com.tanchiki.libgdx.model.explosions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.tanchiki.libgdx.model.explosions.Object.Explosion;
 
 public class SmallExplosion extends Explosion {
     public SmallExplosion(float x, float y, TextureRegion[][] r) {

@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.model.buildes.Object.Build;
-import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
+import com.tanchiki.libgdx.model.buildes.Build;
+import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.*;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
@@ -271,7 +271,7 @@ public class Tank extends GameActor {
 
     float timeRocket = 1.2f;
     void createRocket() {
-        GameStage.MT.bullet.addActor(new Roket(getCenterX(), getCenterY(), direction, fraction, this));
+        GameStage.MT.bullet.addActor(new Rocket(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     protected void createBullet() {
@@ -321,6 +321,15 @@ public class Tank extends GameActor {
         }
     }
 
+    protected void explodeTankAnimation() {
+        int x = (int) getCenterX();
+        int y = (int) getCenterY();
+        x += x % 2;
+        y += y % 2;
+
+        GameStage.MT.explosions.addActor(new NormalExplosion(x, y, GameStage.TextureLoader.getExpl()));
+    }
+
     public void destroyTank(float damage) {
         float damage1 = 0;
         HPShield -= damage;
@@ -347,7 +356,7 @@ public class Tank extends GameActor {
                     Settings.TankUserSettings.star++;
                 }
             }
-            GameStage.MT.explosions.addActor(new NormalExplosion(Math.round(getCenterX()), Math.round(getCenterY()), GameStage.TextureLoader.getExpl()));
+            explodeTankAnimation();
         }
     }
 
@@ -766,7 +775,7 @@ public class Tank extends GameActor {
 
         public boolean isDestroyableBlockForBullet(Block block) {
             if (block instanceof DestroyableBlock && !(block instanceof Spike)) return true;
-            return weapon == BulletList.ROKET && block instanceof ConcreteWall;
+            return weapon == BulletList.ROCKET && block instanceof ConcreteWall;
         }
 
         public void UP() {

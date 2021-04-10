@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.buildes.Object;
+package com.tanchiki.libgdx.model.buildes;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;

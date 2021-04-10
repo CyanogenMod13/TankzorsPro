@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.buildes.Object;
+package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.graphics.GameActor;
 

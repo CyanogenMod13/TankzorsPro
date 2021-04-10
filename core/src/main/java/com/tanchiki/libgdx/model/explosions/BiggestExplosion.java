@@ -3,7 +3,7 @@ package com.tanchiki.libgdx.model.explosions;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.graphics.GameGroup;
-import com.tanchiki.libgdx.model.buildes.Object.Build;
+import com.tanchiki.libgdx.model.buildes.Build;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.terrains.Block;
 import com.tanchiki.libgdx.model.terrains.Concrete3Wall;

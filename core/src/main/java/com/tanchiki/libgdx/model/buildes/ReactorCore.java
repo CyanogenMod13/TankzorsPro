@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.model.buildes;
 
-import com.tanchiki.libgdx.model.buildes.Object.Build;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;

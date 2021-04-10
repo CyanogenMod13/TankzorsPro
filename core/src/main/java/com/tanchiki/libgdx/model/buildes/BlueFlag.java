@@ -11,7 +11,7 @@ public class BlueFlag extends Flag {
 	public static int LAST_INDEX = 0;
 	public static int COUNT = 0;
 	
-	public int index = 0;
+	public int index;
 	
     public BlueFlag(float x, float y) {
         super(x, y, 0);
@@ -27,7 +27,10 @@ public class BlueFlag extends Flag {
 			case 35:
 			case 36:
 			case 37: 
-				if (COUNT == 0) win(); else ObjectClass.PanelStage.addToast("Отлично, ищем дальше!"); break;
+				if (COUNT == 0)
+					win();
+				else
+					ObjectClass.PanelStage.addToast("Отлично, ищем дальше!"); break;
 			default: if (index < 3) {
 				int x0 = MainTerrain.getCurrentTerrain().getParameters().getKey(27 + index) * 2;
 				int y0 = GameStage.getInstance().world_height - MainTerrain.getCurrentTerrain().getParameters().getKey(28 + index) * 2;

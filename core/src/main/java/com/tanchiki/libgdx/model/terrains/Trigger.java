@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.aircraft.Airplane;
 import com.tanchiki.libgdx.model.buildes.AngarEnemy;
 import com.tanchiki.libgdx.model.buildes.AngarUnity;
-import com.tanchiki.libgdx.model.bullets.Object.Bullet;
+import com.tanchiki.libgdx.model.bullets.Bullet;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;

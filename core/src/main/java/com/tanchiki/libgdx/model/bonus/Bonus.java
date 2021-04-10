@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.bonus.Object;
+package com.tanchiki.libgdx.model.bonus;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;

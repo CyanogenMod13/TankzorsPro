@@ -1,6 +1,6 @@
 package com.tanchiki.libgdx.model.terrains;
 
-import com.tanchiki.libgdx.model.bullets.Roket;
+import com.tanchiki.libgdx.model.bullets.Rocket;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 
 public class ConcreteWall extends Block {
@@ -11,7 +11,7 @@ public class ConcreteWall extends Block {
 
     @Override
     public void destroyWall() {
-        if (bullet instanceof Roket) {
+        if (bullet instanceof Rocket) {
             if (GameStage.world_block != null)
                 GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
             remove();

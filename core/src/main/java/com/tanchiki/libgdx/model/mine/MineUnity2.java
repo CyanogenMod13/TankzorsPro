@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.model.mine;
 
-import com.tanchiki.libgdx.model.mine.Object.Mine;
 import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 

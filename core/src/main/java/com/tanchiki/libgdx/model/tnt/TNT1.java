@@ -1,6 +1,5 @@
 package com.tanchiki.libgdx.model.tnt;
 
-import com.tanchiki.libgdx.model.tnt.Object.TNT;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.WeaponData;
 

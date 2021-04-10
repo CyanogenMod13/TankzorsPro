@@ -1,7 +1,6 @@
 package com.tanchiki.libgdx.model.bonus;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.model.bonus.Object.Bonus;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public class Box extends Bonus {

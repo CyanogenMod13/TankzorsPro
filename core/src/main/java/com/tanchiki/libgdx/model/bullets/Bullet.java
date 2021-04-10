@@ -1,4 +1,4 @@
-package com.tanchiki.libgdx.model.bullets.Object;
+package com.tanchiki.libgdx.model.bullets;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.model.buildes.Object.Build;
-import com.tanchiki.libgdx.model.buildes.Object.ObjBuild;
+import com.tanchiki.libgdx.model.buildes.Build;
+import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.explosions.SmallExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
@@ -157,8 +157,10 @@ public class Bullet extends GameActor {
         destroyBullet();
         speed(delta);
 
-        x = Math.round(getCenterX());
-        y = Math.round(getCenterY());
+        x = (int) getCenterX();
+        y = (int) getCenterY();
+        x += x % 2;
+        y += y % 2;
 
         if (!(x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)) return;
 
@@ -213,7 +215,7 @@ public class Bullet extends GameActor {
         Build build = objbuild instanceof Build ? (Build) objbuild : null;
         if (build != null)
             if (build.fraction != fraction) {
-				if (objbuild instanceof Build && parent instanceof TankUser) ((Build) objbuild).give_coin = true;
+				if (objbuild != null && parent instanceof TankUser) ((Build) objbuild).give_coin = true;
                 final float buildHP = build.HP;
                 build.HP -= Math.max(HP, 0);
                 HP -= Math.max(buildHP, 0);
