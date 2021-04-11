@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Palm extends Decorate {
@@ -13,10 +12,10 @@ public class Palm extends Decorate {
     public Sprite s2;
     protected TextureRegion[] t;
     private float a = ObjectVariables.size_block;
-    private GameStage g = ObjectClass.GameStage;
+    private GameStage g = GameStage.getInstance();
 
     public Palm(float x, float y) {
-        TextureRegion[][] r = ObjectClass.GameStage.TextureLoader.getPalms();
+        TextureRegion[][] r = GameStage.getInstance().TextureLoader.getPalms();
         t = new TextureRegion[5];
         for (int i = 0; i < 5; i++) {
             t[i] = r[0][i];

@@ -14,14 +14,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.ui.*;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
 
 public class PanelStage extends Stage {
+    private static PanelStage panelStage = null;
+    public static PanelStage getInstance() {
+        if (panelStage == null) panelStage = new PanelStage();
+        return panelStage;
+    }
+
     public Group toasts;
-    public PanelStage() {
-        ObjectClass.PanelStage = this;
+    private PanelStage() {
+        PanelStage.panelStage = this;
+
         toasts = new Group();
         addActor(new CornerOverlayer());
         addActor(new TSButton());
@@ -66,7 +72,7 @@ public class PanelStage extends Stage {
                         Settings.pause = true;
                         break;
                     case Input.Keys.Q: GameStage.getInstance().TankUser.enterHangar(); break;
-                    case Input.Keys.E: ObjectClass.WeaponMenuStage.showMenu(); break;
+                    case Input.Keys.E: WeaponMenuStage.getInstance().showMenu(); break;
                     case Input.Keys.R: GameStage.getInstance().TankUser.doRepair(); break;
                 }
                 return super.keyDown(event, keycode);

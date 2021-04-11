@@ -3,7 +3,7 @@ package com.tanchiki.libgdx.model.buildes;
 import com.tanchiki.libgdx.model.aircraft.Airplane;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.SoundLoader;
 
@@ -30,7 +30,7 @@ public class BlueFlag extends Flag {
 				if (COUNT == 0)
 					win();
 				else
-					ObjectClass.PanelStage.addToast("Отлично, ищем дальше!"); break;
+					PanelStage.getInstance().addToast("Отлично, ищем дальше!"); break;
 			default: if (index < 3) {
 				int x0 = MainTerrain.getCurrentTerrain().getParameters().getKey(27 + index) * 2;
 				int y0 = GameStage.getInstance().world_height - MainTerrain.getCurrentTerrain().getParameters().getKey(28 + index) * 2;

@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Airplane extends GameActor {
@@ -41,7 +40,7 @@ public class Airplane extends GameActor {
 
         this.targetX = targetX;
         this.targetY = targetY;
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
 
         plane = new Sprite(GameStage.TextureLoader.getAirplane()[0][0]);
         back = new Sprite(GameStage.TextureLoader.getAirplane()[0][1]);

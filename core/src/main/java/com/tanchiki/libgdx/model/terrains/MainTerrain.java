@@ -6,17 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.tanchiki.libgdx.model.bonus.*;
-import com.tanchiki.libgdx.model.bonus.Bonus;
 import com.tanchiki.libgdx.model.buildes.*;
-import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Bullet;
+import com.tanchiki.libgdx.model.mine.Mine;
 import com.tanchiki.libgdx.model.mine.MineEnemy1;
 import com.tanchiki.libgdx.model.mine.MineUnity1;
-import com.tanchiki.libgdx.model.mine.Mine;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.Turret;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.*;
 import com.tanchiki.libgdx.util.astar.AStar;
 import com.tanchiki.libgdx.util.astar.AStarNode;
@@ -70,7 +69,7 @@ public class MainTerrain extends Group implements Disposable {
 	
     public MainTerrain() {
         currentTerrain = this;
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
         ground = new Group();
         tanks = new Group();
         walls = new Group();
@@ -117,8 +116,8 @@ public class MainTerrain extends Group implements Disposable {
         GameStage.TankUser = null;
 
         if (Settings.start_game) {
-            ObjectClass.PanelStage.toasts.clear();
-            ObjectClass.PanelStage.addToast("Миссия " + (com.tanchiki.libgdx.stage.GameStage.next_level + 1));
+            PanelStage.getInstance().toasts.clear();
+            PanelStage.getInstance().addToast("Миссия " + (com.tanchiki.libgdx.stage.GameStage.next_level + 1));
 			MusicLoader.getInstance().getTrack((com.tanchiki.libgdx.stage.GameStage.next_level % 5) + 1).play();
         } else {
 			MusicLoader.getInstance().getIntro().play();

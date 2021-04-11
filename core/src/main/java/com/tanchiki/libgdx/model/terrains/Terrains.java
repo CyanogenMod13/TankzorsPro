@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Terrains extends GameActor {
@@ -15,12 +14,12 @@ public class Terrains extends GameActor {
     protected TextureRegion[] t;
     private float a = ObjectVariables.size_block;
     protected float size = a * 2;
-    protected GameStage g = ObjectClass.GameStage;
+    protected GameStage g = GameStage.getInstance();
     public Object last_block = null;
 	public boolean modify = true;
 	
     public Terrains(float x, float y) {
-        t = ObjectClass.GameStage.TextureLoader.getTerrains()[0];
+        t = GameStage.getInstance().TextureLoader.getTerrains()[0];
         s = new Sprite(t[0]);
         setSize(a * 2, a * 2);
         setCenterPosition(x, y);

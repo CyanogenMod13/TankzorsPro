@@ -12,7 +12,6 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
 
@@ -29,8 +28,8 @@ public abstract class Block extends GameActor {
 	public Sound sound = SoundLoader.getInstance().getHitWall();
 	
     public Block(float x, float y) {
-        GameStage = ObjectClass.GameStage;
-        t = ObjectClass.GameStage.TextureLoader.getWalls()[0];
+        GameStage = GameStage.getInstance();
+        t = GameStage.getInstance().TextureLoader.getWalls()[0];
         s = new Sprite(t[0]);
         setCenterPosition(x, y);
 

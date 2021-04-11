@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class TNT extends GameActor {
@@ -21,7 +20,7 @@ public class TNT extends GameActor {
     public TNT(float x, float y, float damage, int radius) {
         this.damage = damage;
         this.radius = radius;
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
         t = GameStage.TextureLoader.getIcons()[0];
         s = new Sprite(t[0]);
         setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);

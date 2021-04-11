@@ -167,7 +167,7 @@ public class TextureLoader {
 	}
 
     public static void init() {
-        ObjectClass.TextureLoader = getInstance();
+        getInstance();
     }
 
     public TextureRegion[][] getOverlayCorner() {

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Explosion extends GameActor {
@@ -21,7 +20,7 @@ public class Explosion extends GameActor {
 	public float duration;
 
     public Explosion(float x, float y, TextureRegion[][] r) {
-        this.GameStage = ObjectClass.GameStage;
+        this.GameStage = GameStage.getInstance();
         
         s = new Sprite(r[0][3]);
         s.setSize(a * 3.5f, a * 3.5f);

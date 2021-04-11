@@ -6,15 +6,21 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.model.buildes.Flag;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.stage.PanelStage;
+import com.tanchiki.libgdx.stage.StoreStage;
+import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.SoundLoader;
+import com.tanchiki.libgdx.util.WeaponData;
 
 
 public class TankUser extends DefaultTank {
     public Flag flag = null;
-    private final Animation<TextureRegion> animModern = new Animation<>(360 / 16f, GameStage.TextureLoader.getTankHeavy()[0]);
+    private final Animation<TextureRegion> animModern = new Animation<>(360 / 16f, gameStage.TextureLoader.getTankHeavy()[0]);
 
     public TankUser(float x, float y) {
-        super(x, y, ObjectVariables.tank_ally, ObjectClass.GameStage.TextureLoader.getTankLight()[0], 1);
+        super(x, y, ObjectVariables.tank_ally, GameStage.getInstance().TextureLoader.getTankLight()[0], 1);
         Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         HPBackup = Settings.TankUserSettings.HPbackup;
         Settings.TankUserSettings.HP = (int) HPBackup;
@@ -110,7 +116,7 @@ public class TankUser extends DefaultTank {
 
         Settings.TankUserSettings.HPShield = (int) HPShield;
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
-		GameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
+		gameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
     }
 
     private Vec currentStateMotion = Vec.NONE;
@@ -182,23 +188,23 @@ public class TankUser extends DefaultTank {
 	}
 
 	public void doRepair() {
-        if (GameStage.TankUser.HP != GameStage.TankUser.HPBackup)
+        if (gameStage.TankUser.HP != gameStage.TankUser.HPBackup)
             if (WeaponData.fix > 0) {
-                GameStage.TankUser.HP = GameStage.TankUser.HPBackup;
+                gameStage.TankUser.HP = gameStage.TankUser.HPBackup;
                 WeaponData.fix -= 1;
                 SoundLoader.getInstance().getRepairPickup().play(Settings.volumeEffect);
             } else {
-                ObjectClass.PanelStage.addToast("Рем. комплект закончился");
+                PanelStage.getInstance().addToast("Рем. комплект закончился");
             }
         else
-            ObjectClass.PanelStage.addToast("Танк не нуждаеться в ремонте");
+            PanelStage.getInstance().addToast("Танк не нуждаеться в ремонте");
     }
 
     public void enterHangar() {
-        if (GameStage.worldBuilds[(int) getCenterX()][(int) getCenterY()] != null) {
-            ObjectClass.StoreStage.show();
+        if (gameStage.worldBuilds[(int) getCenterX()][(int) getCenterY()] != null) {
+            StoreStage.getInstance().show();
         } else {
-            ObjectClass.PanelStage.addToast("Вернитесь на базу!");
+            PanelStage.getInstance().addToast("Вернитесь на базу!");
         }
     }
 

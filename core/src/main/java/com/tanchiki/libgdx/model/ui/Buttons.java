@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.tanchiki.libgdx.graphics.GameGroup;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 
 public class Buttons extends GameGroup {
     SpriteDrawable t, t1;
@@ -21,7 +20,7 @@ public class Buttons extends GameGroup {
     TextButton button4;
     TextButton button5;
     TextButton.TextButtonStyle s1;
-    GameStage GameStage = ObjectClass.GameStage;
+    GameStage gameStage = GameStage.getInstance();
     float size = Gdx.graphics.getHeight() / 7.2f;
 
     public Buttons() {
@@ -49,11 +48,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.LEFT;
 
             private void move() {
-                GameStage.TankUser.setStateMotion(current);
+                gameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -100,11 +99,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.UP;
 
             private void move() {
-                GameStage.TankUser.setStateMotion(current);
+                gameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -151,11 +150,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.RIGHT;
 
             private void move() {
-                GameStage.TankUser.setStateMotion(current);
+                gameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -203,11 +202,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.DOWN;
 
             private void move() {
-                GameStage.TankUser.setStateMotion(current);
+                gameStage.TankUser.setStateMotion(current);
             }
 
             private void stop() {
-                GameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override

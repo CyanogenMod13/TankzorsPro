@@ -15,7 +15,7 @@ import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
@@ -95,7 +95,7 @@ public class Trigger extends Actor {
 		setPosition(x, y, Align.center);
 		s.setSize(2, 2);
 		s.setCenter(x, y);
-		ObjectClass.GameStage.world_trigger[(int) x][(int) y] = this;
+		GameStage.getInstance().world_trigger[(int) x][(int) y] = this;
 		register.put(index + 1, this);
 		
 		if (type == 20 && param - 128 >= 0) MissionCompleted.show = false;
@@ -145,7 +145,7 @@ public class Trigger extends Actor {
 	private void function() {
 		enabled = multiEnabled;
 		active = false;
-		//ObjectClass.PanelStage.addToast("trigger " + type + " param " + param + " multi " + multiEnabled);
+		//PanelStage.getInstance().addToast("trigger " + type + " param " + param + " multi " + multiEnabled);
 		switch (type) {
 			case 1: Function.createBlocks(x, y - 2 * 2, param, true); break;
 			case 2: Function.createBlocks(x - 2 * 2, y, param, false); break;
@@ -205,7 +205,7 @@ public class Trigger extends Actor {
 	private void onClick() {
 		if (sensitivity == 0) return;
 		
-		Tank tank = ObjectClass.GameStage.world_tank[(int) x][(int) y];
+		Tank tank = GameStage.getInstance().world_tank[(int) x][(int) y];
 		if (tank != null && !isClick)
 		if ((tank instanceof TankUser) && byUser || 
 			(tank.fraction == ObjectVariables.tank_enemy) && byEnemy ||
@@ -218,14 +218,14 @@ public class Trigger extends Actor {
 		if (tank == null) isClick = false;
 		
 		if (tank == null && byBullet) {
-			Bullet bulletEnemy = ObjectClass.GameStage.world_bullets_enemy[x][y];	
+			Bullet bulletEnemy = GameStage.getInstance().world_bullets_enemy[x][y];
 			if (bulletEnemy != null && !isClick) {
 				actived();
 				isClick = true;
 				return;
 			}
 
-			Bullet bulletUnity = ObjectClass.GameStage.world_bullets_unity[x][y];	
+			Bullet bulletUnity = GameStage.getInstance().world_bullets_unity[x][y];
 			if (bulletUnity != null && !isClick) {
 				actived();
 				isClick = true;
@@ -594,7 +594,7 @@ public class Trigger extends Actor {
 		}
 		
 		public static void showToast(int param) {
-			ObjectClass.PanelStage.addToast(MainTerrain.getCurrentTerrain().getBriefings().getBriefing(param - 1));
+			PanelStage.getInstance().addToast(MainTerrain.getCurrentTerrain().getBriefings().getBriefing(param - 1));
 		}
 		
 		public static void activateTrigger(final Trigger trigger, int param) {

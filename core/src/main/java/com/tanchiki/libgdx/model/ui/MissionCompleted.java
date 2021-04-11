@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.stage.AboutStage;
 import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.SavePreferences;
 import com.tanchiki.libgdx.util.Settings;
 
@@ -28,12 +28,12 @@ public class MissionCompleted {
 	
 	public static void show(int mode, String msg) {
 		if (!isShow) {
-			Stage stage = ObjectClass.PanelStage;
+			Stage stage = PanelStage.getInstance();
 			switch (mode) {
 				case MISSION_COMPLETED:
 					isMissionCompleted = true;
 					if (!show) return;
-					ObjectClass.PanelStage.addToast(msg);
+					PanelStage.getInstance().addToast(msg);
 					TextButton button = new TextButton((char) 514 + " Нажмите чтобы продолжить", new TextButton.TextButtonStyle(
 														   null,
 														   new TextureRegionDrawable(new Texture("texture/ui/billet.png")),
@@ -66,10 +66,10 @@ public class MissionCompleted {
 			AboutStage.getInstance().showEnd();
             ++GameStage.next_level;
             
-            //ObjectClass.GameStage.TankUser.HP = 0;
+            //GameStage.getInstance().TankUser.HP = 0;
             /*Settings.start_game = false;
             Settings.show_main_menu = true;
-            ObjectClass.GameStage.createTerrain("map_background");*/
+            GameStage.getInstance().createTerrain("map_background");*/
 			SavePreferences.getInstance().saveContinues();
 			button.remove();
         }
@@ -82,11 +82,11 @@ public class MissionCompleted {
         public void clicked(InputEvent event, float x, float y) {
             // TODO: Implement this method
             super.clicked(event, x, y);
-            //ObjectClass.GameStage.TankUser.HP = 0;
+            //GameStage.getInstance().TankUser.HP = 0;
 
             Settings.start_game = false;
             Settings.show_main_menu = true;
-            ObjectClass.GameStage.createTerrain("map_background");
+            GameStage.getInstance().createTerrain("map_background");
         }
 
     }

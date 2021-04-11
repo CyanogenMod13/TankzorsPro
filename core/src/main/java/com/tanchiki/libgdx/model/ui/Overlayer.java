@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Overlayer extends GameActor {
@@ -15,7 +14,7 @@ public class Overlayer extends GameActor {
         setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
         setCenterPosition(x, y);
 
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
         if (fraction == ObjectVariables.tank_ally)
             overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][0]);
         if (fraction == ObjectVariables.tank_enemy)

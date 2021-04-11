@@ -10,7 +10,6 @@ import com.tanchiki.libgdx.model.terrains.Concrete3Wall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.terrains.Trigger;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class BiggestExplosion extends GameGroup {
@@ -24,7 +23,7 @@ public class BiggestExplosion extends GameGroup {
     public BiggestExplosion(float x, float y, int radius, float damage) {
 
         this.damage = damage;
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
         int r = (int) (radius - a) / 2;
 
         float time_xx = 0;

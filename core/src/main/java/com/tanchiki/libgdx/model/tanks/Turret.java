@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.model.terrains.IronWall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Turret extends NonRidingTank {
 	public static final int[][] prm = {
@@ -22,7 +22,7 @@ public class Turret extends NonRidingTank {
 	};
 	
     public Turret(float x, float y, short f) {
-        super(x, y, f, ObjectClass.TextureLoader.getTurrets()[0], 5);
+        super(x, y, f, TextureLoader.getInstance().getTurrets()[0], 5);
         setAI(new DefaultAI() {
 			@Override
 			public boolean isUnDestroyableBlock(Actor block) {

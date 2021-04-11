@@ -19,13 +19,16 @@ import com.tanchiki.libgdx.model.terrains.DestroyableBlock;
 import com.tanchiki.libgdx.model.terrains.IronWall;
 import com.tanchiki.libgdx.model.terrains.Spike;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.SoundLoader;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Bullet extends GameActor {
     //Body Body;
     Sprite s;
     TextureRegion[] t;
-    protected GameStage GameStage;
+    protected GameStage gameStage;
     float speed;
     public float HP = 1;
     public float fraction;
@@ -48,7 +51,7 @@ public class Bullet extends GameActor {
         this.angle = angle;
         fraction = f;
         this.speed = speed;
-        GameStage = ObjectClass.GameStage;
+        gameStage = gameStage.getInstance();
         t = new TextureRegion[4];
 
         for (int i = 0; i < 4; i++) {
@@ -61,8 +64,8 @@ public class Bullet extends GameActor {
         setSize(s.getWidth(), s.getHeight());
         setCenterPosition(x, y);
         pos.set(Math.round(getCenterX()), Math.round(getCenterY()));
-        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
-        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
 		body.setSize(2, 2);
     }
 
@@ -86,20 +89,20 @@ public class Bullet extends GameActor {
 
     public void destroyBullet() {
         if (HP <= 0) {
-            GameStage.MT.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
+            gameStage.MT.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
 
             if (fraction == ObjectVariables.tank_ally)
-                if (pos.x >= 0 && pos.x < GameStage.world_wight && pos.y >= 0 && pos.y < GameStage.world_height)
-                    GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
+                if (pos.x >= 0 && pos.x < gameStage.world_wight && pos.y >= 0 && pos.y < gameStage.world_height)
+                    gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
             if (fraction == ObjectVariables.tank_enemy)
-                if (pos.x >= 0 && pos.x < GameStage.world_wight && pos.y >= 0 && pos.y < GameStage.world_height)
-                    GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
+                if (pos.x >= 0 && pos.x < gameStage.world_wight && pos.y >= 0 && pos.y < gameStage.world_height)
+                    gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
             if (fraction == ObjectVariables.tank_ally)
-                if (x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)
-                    GameStage.world_bullets_unity[x][y] = null;
+                if (x >= 0 && x < gameStage.world_wight && y >= 0 && y < gameStage.world_height)
+                    gameStage.world_bullets_unity[x][y] = null;
             if (fraction == ObjectVariables.tank_enemy)
-                if (x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)
-                    GameStage.world_bullets_enemy[x][y] = null;
+                if (x >= 0 && x < gameStage.world_wight && y >= 0 && y < gameStage.world_height)
+                    gameStage.world_bullets_enemy[x][y] = null;
             remove();
         }
     }
@@ -147,7 +150,7 @@ public class Bullet extends GameActor {
 		
         isPlay = false;
 
-        if (!GameStage.MT.rect.contains(getCenterX(), getCenterY())) {
+        if (!gameStage.MT.rect.contains(getCenterX(), getCenterY())) {
             //Body.setUserData("delete");
             HP = 0;
             destroyBullet();
@@ -162,15 +165,15 @@ public class Bullet extends GameActor {
         x += x % 2;
         y += y % 2;
 
-        if (!(x >= 0 && x < GameStage.world_wight && y >= 0 && y < GameStage.world_height)) return;
+        if (!(x >= 0 && x < gameStage.world_wight && y >= 0 && y < gameStage.world_height)) return;
 
-        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
-        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
+        if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = null;
+        if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = null;
         pos.set(x, y);
-        if (fraction == ObjectVariables.tank_ally) GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
-        if (fraction == ObjectVariables.tank_enemy) GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
+        if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
 
-        Tank tank = GameStage.MT.hashTanks.get(GameStage.world_block[x][y]);
+        Tank tank = gameStage.MT.hashTanks.get(gameStage.world_block[x][y]);
         if (tank != null)
             if (tank.fraction != fraction) {
                 body.setCenter(tank.getCenterX(), tank.getCenterY());
@@ -190,7 +193,7 @@ public class Bullet extends GameActor {
 				}
             }
 
-        Bullet bullet = (fraction == ObjectVariables.tank_enemy) ? GameStage.world_bullets_unity[(int) pos.x][(int) pos.y] : GameStage.world_bullets_enemy[(int) pos.x][(int) pos.y];
+        Bullet bullet = (fraction == ObjectVariables.tank_enemy) ? gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] : gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y];
         if (bullet != null) {
             final float bulletHP = bullet.HP;
             bullet.HP -= Math.max(HP, 0);
@@ -199,7 +202,7 @@ public class Bullet extends GameActor {
             destroyBullet();
         }
 
-        Block block = GameStage.world_physic_block[x][y];
+        Block block = gameStage.world_physic_block[x][y];
         if (block != null && !(block instanceof Spike) && !(parent instanceof Turret) || block instanceof IronWall) {
             block.bullet = this;
             final float blockHP = block.HP;
@@ -211,7 +214,7 @@ public class Bullet extends GameActor {
             destroyBullet();
         }
 
-        ObjBuild objbuild = GameStage.worldBuilds[x][y];
+        ObjBuild objbuild = gameStage.worldBuilds[x][y];
         Build build = objbuild instanceof Build ? (Build) objbuild : null;
         if (build != null)
             if (build.fraction != fraction) {

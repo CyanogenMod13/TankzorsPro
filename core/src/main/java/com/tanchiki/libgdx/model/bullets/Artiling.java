@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Artiling extends Bullet {
     float x, y;
@@ -22,7 +23,12 @@ public class Artiling extends Bullet {
 	public int diameter = 6 * 2;
 
     public Artiling(float x, float y, float distance, int angle) {
-        super(x, y, angle, 0.2f, ObjectVariables.tank_ally, new Array<TextureRegion>(new TextureRegion[]{ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12], ObjectClass.GameStage.TextureLoader.getBullets()[0][12]}));
+        super(x, y, angle, 0.2f, ObjectVariables.tank_ally, new Array<>(new TextureRegion[]{
+        		GameStage.getInstance().TextureLoader.getBullets()[0][12],
+				GameStage.getInstance().TextureLoader.getBullets()[0][12],
+				GameStage.getInstance().TextureLoader.getBullets()[0][12],
+				GameStage.getInstance().TextureLoader.getBullets()[0][12]
+        }));
         this.x = x;
         this.y = y;
 		
@@ -32,10 +38,10 @@ public class Artiling extends Bullet {
 		dst2 = distance * distance;
 		radius = distance / 2;
 		
-        ball = new Sprite(ObjectClass.TextureLoader.getBullets()[0][22]);
-		ball1 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][21]);
-		ball2 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][20]);
-		ball3 = new Sprite(ObjectClass.TextureLoader.getBullets()[0][19]);
+        ball = new Sprite(TextureLoader.getInstance().getBullets()[0][22]);
+		ball1 = new Sprite(TextureLoader.getInstance().getBullets()[0][21]);
+		ball2 = new Sprite(TextureLoader.getInstance().getBullets()[0][20]);
+		ball3 = new Sprite(TextureLoader.getInstance().getBullets()[0][19]);
         ball.setSize(ball.getWidth() / 10 * ObjectVariables.size_block, ball.getHeight() / 10 * ObjectVariables.size_block);
 		ball1.setSize(ball1.getWidth() / 10 * ObjectVariables.size_block, ball1.getHeight() / 10 * ObjectVariables.size_block);
 		ball2.setSize(ball2.getWidth() / 10 * ObjectVariables.size_block, ball2.getHeight() / 10 * ObjectVariables.size_block);
@@ -98,7 +104,7 @@ public class Artiling extends Bullet {
 		y += y % 2;
 		
 		if (Vector2.dst2(x, y, this.x, this.y) >= dst2 && !expl) {
-			GameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, diameter, damage));
+			gameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, diameter, damage));
 			expl = true;
 		}
 		

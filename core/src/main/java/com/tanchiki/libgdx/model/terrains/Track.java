@@ -3,11 +3,11 @@ package com.tanchiki.libgdx.model.terrains;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Track extends GameActor {
-    protected TextureRegion[] t = ObjectClass.GameStage.TextureLoader.getTracks()[0];
+    protected TextureRegion[] t = TextureLoader.getInstance().getTracks()[0];
     private float a = ObjectVariables.size_block;
     private float HP = 1;
     private int index;

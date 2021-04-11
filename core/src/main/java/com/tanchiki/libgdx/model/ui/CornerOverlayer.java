@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class CornerOverlayer extends Actor {
     Sprite leftUpperCorner;
@@ -15,10 +15,10 @@ public class CornerOverlayer extends Actor {
     float size = Gdx.graphics.getWidth() / 7.2f;
 
     public CornerOverlayer() {
-        leftUpperCorner = new Sprite(ObjectClass.TextureLoader.getOverlayCorner()[0][1]);
-        rightUpperCorner = new Sprite(ObjectClass.TextureLoader.getOverlayCorner()[0][2]);
-        leftLowerCorner = new Sprite(ObjectClass.TextureLoader.getOverlayCorner()[0][0]);
-        rightLowerCorner = new Sprite(ObjectClass.TextureLoader.getOverlayCorner()[0][3]);
+        leftUpperCorner = new Sprite(TextureLoader.getInstance().getOverlayCorner()[0][1]);
+        rightUpperCorner = new Sprite(TextureLoader.getInstance().getOverlayCorner()[0][2]);
+        leftLowerCorner = new Sprite(TextureLoader.getInstance().getOverlayCorner()[0][0]);
+        rightLowerCorner = new Sprite(TextureLoader.getInstance().getOverlayCorner()[0][3]);
     }
 
     @Override

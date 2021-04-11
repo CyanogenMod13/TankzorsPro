@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public abstract class Flag extends ObjBuild {
     public Sprite s;
@@ -20,7 +21,7 @@ public abstract class Flag extends ObjBuild {
 	public boolean active = true;
 	
     public Flag(float x, float y, int color) {
-        r = ObjectClass.TextureLoader.getBuildings()[0];
+        r = TextureLoader.getInstance().getBuildings()[0];
         s = new Sprite(r[color + 2]);
         switch (color) {
             case 0: {
@@ -57,8 +58,8 @@ public abstract class Flag extends ObjBuild {
     @Override
     public void setCenterPosition(float x, float y) {
         // TODO: Implement this method
-        //ObjectClass.GameStage.world_buildes[(int) getCenterX()][(int) getCenterY()] = null;
-        //ObjectClass.GameStage.world_buildes[(int) x][(int) y] = this;
+        //GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()] = null;
+        //GameStage.getInstance().world_buildes[(int) x][(int) y] = this;
         super.setCenterPosition(x, y);
     }
 	
@@ -66,7 +67,7 @@ public abstract class Flag extends ObjBuild {
 	
 	@Override
 	public void act(float delta) {
-		if (ObjectClass.GameStage.world_tank[(int) getCenterX()][(int) getCenterY()] instanceof TankUser && active) clicked();
+		if (GameStage.getInstance().world_tank[(int) getCenterX()][(int) getCenterY()] instanceof TankUser && active) clicked();
 		super.act(delta);
 	}
 	

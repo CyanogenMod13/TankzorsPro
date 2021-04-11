@@ -7,7 +7,6 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Mine extends GameActor {
@@ -18,7 +17,7 @@ public class Mine extends GameActor {
     private float size = ObjectVariables.size_block * 2;
 
     public Mine(float x, float y, float damage, int fraction, TextureRegion t) {
-        this.GameStage = ObjectClass.GameStage;
+        this.GameStage = GameStage.getInstance();
         this.fraction = fraction;
         this.damage = damage;
         s = new Sprite(t);

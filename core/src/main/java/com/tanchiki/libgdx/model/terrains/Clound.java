@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Clound extends GameActor {
@@ -17,7 +17,7 @@ public class Clound extends GameActor {
 
     public Clound(float x, float y) {
         setCenterPosition(x, y);
-        TextureRegion[] t = ObjectClass.GameStage.TextureLoader.getClouds()[0];
+        TextureRegion[] t = GameStage.getInstance().TextureLoader.getClouds()[0];
         int i = MathUtils.random(1, 3);
         switch (i) {
             case 1: {
@@ -62,7 +62,7 @@ public class Clound extends GameActor {
         time += d;
         if (time >= t) {
             t = MathUtils.random(3f, 60f);
-            ObjectClass.GameStage.MT.decor.addActor(new Clound(MathUtils.random(0, ObjectClass.GameStage.world_wight), -10));
+            GameStage.getInstance().MT.decor.addActor(new Clound(MathUtils.random(0, GameStage.getInstance().world_wight), -10));
             time = 0;
         }
     }
@@ -71,7 +71,7 @@ public class Clound extends GameActor {
     public void act(float delta) {
         // TODO: Implement this method
         super.act(delta);
-        if (s.getX() > ObjectClass.GameStage.world_wight)
+        if (s.getX() > GameStage.getInstance().world_wight)
             remove();
         float angle = 45 * MathUtils.degreesToRadians;
         float deltaX = MathUtils.cos(angle) / 30;

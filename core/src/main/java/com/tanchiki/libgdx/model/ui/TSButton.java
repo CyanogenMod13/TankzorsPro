@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.MiniMapStage;
+import com.tanchiki.libgdx.stage.WeaponMenuStage;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
 
@@ -30,7 +30,7 @@ public class TSButton extends Table {
     TextButtonStyle style;
 
     public TSButton() {
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
 
         Texture texture = new Texture("texture/ui/knob.png");
         Sprite sp1 = new Sprite(texture);
@@ -73,7 +73,7 @@ public class TSButton extends Table {
             public void clicked(InputEvent e, float x, float y) {
                 super.clicked(e, x, y);
                 //Settings.pause = true;
-                ObjectClass.WeaponMenuStage.showMenu();
+                WeaponMenuStage.getInstance().showMenu();
             }
         });
 

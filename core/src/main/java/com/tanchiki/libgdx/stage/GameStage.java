@@ -24,7 +24,7 @@ import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.*;
 
 public class GameStage extends Stage {
-    public static GameStage gameStage = null;
+    private static GameStage gameStage = null;
     public static GameStage getInstance() {
         if (gameStage == null) gameStage = new GameStage();
         return gameStage;
@@ -70,9 +70,10 @@ public class GameStage extends Stage {
 	
 	private Rectangle areaVisible;
 
-    public GameStage() {
+    private GameStage() {
+        GameStage.gameStage = this;
+
 		SavePreferences.getInstance().loadSettings();
-        ObjectClass.GameStage = this;
         loadMap();
 
 		float h = Gdx.graphics.getHeight();
@@ -86,7 +87,7 @@ public class GameStage extends Stage {
         cam.zoom = 1f / Settings.zoom;
         cam.update();
         getViewport().setCamera(cam);
-        TextureLoader = ObjectClass.TextureLoader;
+        TextureLoader = TextureLoader.getInstance();
 
         if (!Settings.edit_map_mode)
             createTerrain("map_background");
@@ -117,7 +118,7 @@ public class GameStage extends Stage {
 
         Settings.show_main_menu = false;
         Settings.start_game = true;
-        ObjectClass.GameStage.createTerrain("map" + (num - 1));
+        GameStage.getInstance().createTerrain("map" + (num - 1));
     }
 
     public void destroyLevel() {

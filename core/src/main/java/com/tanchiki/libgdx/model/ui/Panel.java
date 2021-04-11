@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
 
 public class Panel extends Actor {
     Sprite s;
@@ -15,7 +14,7 @@ public class Panel extends Actor {
     GameStage GameStage;
 
     public Panel() {
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
         s = new Sprite();
         s.setSize(s.getWidth() * 2, s.getHeight() * 2);
         f = FontLoader.f16;

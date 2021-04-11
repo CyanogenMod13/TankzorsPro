@@ -7,13 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class TextTable extends TextArea {
     public Array<String> texts = new Array<String>();
 
     public TextTable(String... t) {
-        super("", new TextArea.TextFieldStyle(FontLoader.f20, Color.WHITE, null, null, new TextureRegionDrawable(ObjectClass.GameStage.TextureLoader.getIcons()[0][14])));
+        super("", new TextArea.TextFieldStyle(FontLoader.f20, Color.WHITE, null, null, new TextureRegionDrawable(TextureLoader.getInstance().getIcons()[0][14])));
         setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 5);
         setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - getHeight());
         texts.addAll(t);

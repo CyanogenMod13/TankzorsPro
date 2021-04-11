@@ -3,14 +3,19 @@ package com.tanchiki.libgdx.stage;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.tanchiki.libgdx.model.ui.StoreMenu;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.Settings;
 
 public class StoreStage extends Stage {
+    private static StoreStage storeStage = null;
+    public static StoreStage getInstance() {
+        if (storeStage == null) storeStage = new StoreStage();
+        return storeStage;
+    }
+
     private StoreMenu storeMenu = new StoreMenu();
-	
-    public StoreStage() {
-        ObjectClass.StoreStage = this;
+
+    private StoreStage() {
+        StoreStage.storeStage = this;
     }
 
     public void show() {

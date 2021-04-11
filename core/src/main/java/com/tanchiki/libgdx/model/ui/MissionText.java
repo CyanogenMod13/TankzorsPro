@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.tanchiki.libgdx.graphics.GameGroup;
 import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
 
 public class MissionText extends GameGroup {
     private static Label num;
@@ -51,7 +50,7 @@ public class MissionText extends GameGroup {
 
 
     public static void show(int number, String name) {
-        PanelStage p = ObjectClass.PanelStage;
+        PanelStage p = PanelStage.getInstance();
 
         if (obj != null)
             obj.remove();

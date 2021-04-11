@@ -27,12 +27,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MenuStage extends Stage {
+	private static MenuStage menuStage = null;
+	public static MenuStage getInstance() {
+		if (menuStage == null) menuStage = new MenuStage();
+		return menuStage;
+	}
+
     private Texture intro = new Texture("texture/ui/intro_logo.png");
 
 	private Table viewRoot;
 	
-    public MenuStage() {
-		//addActor(new Background());
+    private MenuStage() {
+		MenuStage.menuStage = this;
 		
 		viewRoot = new Table();
        	viewRoot.setSize(getWidth(), getHeight());

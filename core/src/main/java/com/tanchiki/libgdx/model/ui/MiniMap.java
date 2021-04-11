@@ -12,7 +12,7 @@ import com.tanchiki.libgdx.model.buildes.*;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.*;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.WeaponData;
 
 public class MiniMap extends GameActor {
@@ -45,10 +45,10 @@ public class MiniMap extends GameActor {
         ShapeRenderer.ShapeType currenttype = shapes.getCurrentType();
         shapes.set(ShapeRenderer.ShapeType.Filled);
 
-        float size = getHeight() / (ObjectClass.GameStage.world_height / 2);
-        setWidth(ObjectClass.GameStage.world_wight / 2 * size);
+        float size = getHeight() / (GameStage.getInstance().world_height / 2);
+        setWidth(GameStage.getInstance().world_wight / 2 * size);
 
-        MainTerrain m = ObjectClass.GameStage.MT;
+        MainTerrain m = GameStage.getInstance().MT;
 
         Array<Actor> ground = m.ground.getChildren();
         for (int i = 0; i < ground.size; i++) {
@@ -183,10 +183,10 @@ public class MiniMap extends GameActor {
 
     public static void show() {
         /*map = new MiniMap();
-        Vector3 pos = ObjectClass.GameStage.cam.position;
+        Vector3 pos = GameStage.getInstance().cam.position;
         map.setCenterPosition(pos.x, pos.y);
         Settings.pause = true;
-        ObjectClass.GameStage.addActor(map);*/
+        GameStage.getInstance().addActor(map);*/
     }
 
     public static void hide() {

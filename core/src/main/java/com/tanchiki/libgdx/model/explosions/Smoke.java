@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Smoke extends GameActor {
     float alpha = 1;
@@ -14,7 +15,7 @@ public class Smoke extends GameActor {
     public Smoke(float x, float y) {
         setSize(1.5f * 2, 1.5f * 2);
         setCenterPosition(x, y);
-        TextureRegion[] t = ObjectClass.GameStage.TextureLoader.getExpl()[0];
+        TextureRegion[] t = TextureLoader.getInstance().getExpl()[0];
         s = new Sprite(t[15]);
         s.setSize(getWidth(), getHeight());
         s.setCenter(getCenterX(), getCenterY());

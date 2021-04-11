@@ -14,8 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 import java.util.LinkedList;
 
@@ -24,7 +25,7 @@ public class DialogView extends Table {
 
     private TextArea textArea;
 
-    private TextureRegion[] r = ObjectClass.GameStage.TextureLoader.getIcons()[0];
+    private TextureRegion[] r = TextureLoader.getInstance().getIcons()[0];
 
     private TextureRegionDrawable d = new TextureRegionDrawable(new TextureRegion(new Texture("texture/ui/billet.png")));
 

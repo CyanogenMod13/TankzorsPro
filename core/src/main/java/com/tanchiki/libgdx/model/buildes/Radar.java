@@ -2,21 +2,21 @@ package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Radar extends Build {
     public Radar(float x, float y, short f) {
-        super(x, y, ObjectClass.GameStage.TextureLoader.getBuilds()[0][0], f);
+        super(x, y, GameStage.getInstance().TextureLoader.getBuilds()[0][0], f);
 		HP = HPbackup = MainTerrain.getCurrentTerrain().getParameters().getKey(126);
     }
 
     @Override
     public void destroyBuilds() {
-        GameStage.MT.explosions.addActor(new NormalExplosion(x, y, GameStage.TextureLoader.getExpl()));
-		GameStage.MT.explosions.addActor(new NormalExplosion(x + a, y, GameStage.TextureLoader.getExpl()));
-		GameStage.MT.explosions.addActor(new NormalExplosion(x, y - a, GameStage.TextureLoader.getExpl()));
-		GameStage.MT.explosions.addActor(new NormalExplosion(x + a, y - a, GameStage.TextureLoader.getExpl()));
+        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, gameStage.TextureLoader.getExpl()));
+		gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y, gameStage.TextureLoader.getExpl()));
+		gameStage.MT.explosions.addActor(new NormalExplosion(x, y - a, gameStage.TextureLoader.getExpl()));
+		gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y - a, gameStage.TextureLoader.getExpl()));
         Health.remove();
         remove();
     }

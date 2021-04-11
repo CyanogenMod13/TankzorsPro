@@ -2,7 +2,7 @@ package com.tanchiki.libgdx.model.buildes;
 
 import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class AngarEnemy extends SubBuilds {
 	public int activity = 1;
 	
     public AngarEnemy(float x, float y) {
-        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][1], ObjectVariables.tank_enemy);
+        super(x, y, GameStage.getInstance().TextureLoader.getBuildings()[0][1], ObjectVariables.tank_enemy);
 		if (LAST_INDEX == 0) register = new HashMap<>();
         code_name = "angar_enemy";
 		index = LAST_INDEX++;
@@ -48,7 +48,7 @@ public class AngarEnemy extends SubBuilds {
     public void act(float delta) {
 		LAST_INDEX = 0;
 		
-		if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy && GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0)
+		if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy && gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0)
 			time += delta;
 		
 		if (activity == 1)

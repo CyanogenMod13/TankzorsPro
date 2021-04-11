@@ -12,14 +12,14 @@ import com.tanchiki.libgdx.stage.*;
 import com.tanchiki.libgdx.util.*;
 
 public class GameScreen implements ApplicationListener {
-    GameStage GameStage;
-    PanelStage PanelStage;
-    MenuStage MenuStage;
-    MiniMapStage MiniMapStage;
-    StoreStage StoreStage;
-    WeaponMenuStage WeaponMenuStage;
+    GameStage gameStage;
+    PanelStage panelStage;
+    MenuStage menuStage;
+    MiniMapStage miniMapStage;
+    StoreStage storeStage;
+    WeaponMenuStage weaponMenuStage;
 	LoadingStage LoadingStage;
-	PauseStage PauseStage;
+	PauseStage pauseStage;
 	
     public InputMultiplexer input;
     public boolean isLoading = true;
@@ -29,8 +29,7 @@ public class GameScreen implements ApplicationListener {
         FontLoader.init();
 		TextureLoader.load();
 		SoundLoader.load();
-		ObjectClass.GameScreen = this;
-		
+
 		LoadingStage = new LoadingStage();
 	}
 
@@ -44,13 +43,14 @@ public class GameScreen implements ApplicationListener {
 		if (TextureLoader.manager.update() && SoundLoader.manager.update() && isLoading) {
 			init();
 			isLoading = false;
+			System.out.println(isLoading);
 		}
 		
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //Gdx.gl20.glClear(GL20.GL_DEPTH_BUFFER_BIT);
 		
-		if (TextureLoader.manager.update() && SoundLoader.manager.update() && GameStage != null)
+		if (TextureLoader.manager.update() && SoundLoader.manager.update() && gameStage != null)
 			draw();
 		else {
 			LoadingStage.act();
@@ -75,50 +75,50 @@ public class GameScreen implements ApplicationListener {
 
 	private void draw() {
 		final float fps = Gdx.graphics.getDeltaTime();
-		if (GameStage == null) return;
-		GameStage.drawStage(fps);
+		if (gameStage == null) return;
+		gameStage.drawStage(fps);
 
 		if (!Settings.pause && Settings.start_game) {
-			PanelStage.getRoot().setTouchable(Touchable.enabled);
-			PanelStage.act();
-			PanelStage.draw();
+			panelStage.getRoot().setTouchable(Touchable.enabled);
+			panelStage.act();
+			panelStage.draw();
 		} else {
-			PanelStage.getRoot().setTouchable(Touchable.disabled);
+			panelStage.getRoot().setTouchable(Touchable.disabled);
 		}
 
 		if (Settings.show_map) {
-			MiniMapStage.act();
-			MiniMapStage.draw();
+			miniMapStage.act();
+			miniMapStage.draw();
 		}
 
-		WeaponMenuStage.act();
-		WeaponMenuStage.draw();
+		weaponMenuStage.act();
+		weaponMenuStage.draw();
 
 		if (Settings.show_main_menu) {
-			MenuStage.getRoot().setTouchable(Touchable.enabled);
-			MenuStage.act();
-			MenuStage.draw();
+			menuStage.getRoot().setTouchable(Touchable.enabled);
+			menuStage.act();
+			menuStage.draw();
 		} else {
-			MenuStage.getRoot().setTouchable(Touchable.disabled);
+			menuStage.getRoot().setTouchable(Touchable.disabled);
 		}
 
 		if (Settings.store_menu) {
-			StoreStage.getRoot().setTouchable(Touchable.enabled);
-			StoreStage.act();
-			StoreStage.draw();
+			storeStage.getRoot().setTouchable(Touchable.enabled);
+			storeStage.act();
+			storeStage.draw();
 		} else {
-			StoreStage.getRoot().setTouchable(Touchable.disabled);
+			storeStage.getRoot().setTouchable(Touchable.disabled);
 		}
 		if (Settings.pause && !Settings.pauseView) {
 			AboutStage.getInstance().act();
 			AboutStage.getInstance().draw();
 		}
 		if (Settings.pauseView) {
-			PauseStage.getRoot().setTouchable(Touchable.enabled);
-			PauseStage.act();
-			PauseStage.draw();
+			pauseStage.getRoot().setTouchable(Touchable.enabled);
+			pauseStage.act();
+			pauseStage.draw();
 		} else {
-			PauseStage.getRoot().setTouchable(Touchable.disabled);
+			pauseStage.getRoot().setTouchable(Touchable.disabled);
 		}
 	}
 
@@ -126,37 +126,34 @@ public class GameScreen implements ApplicationListener {
 		if (!VisUI.isLoaded()) VisUI.load(VisUI.SkinScale.X2);
 
         TextureLoader.init();
-        ObjectClass.init();
-        SkinLoader.init();
 
         initStage();
         initInput();
     }
 
     private void initStage() {
-        GameStage = new GameStage();
-		GameStage.gameStage = GameStage;
-        PanelStage = new PanelStage();
-        WeaponMenuStage = new WeaponMenuStage();
-        MenuStage = new MenuStage();
-        StoreStage = new StoreStage();
-        MiniMapStage = new MiniMapStage();
-		PauseStage = new PauseStage();
+        gameStage = GameStage.getInstance();
+        panelStage = PanelStage.getInstance();
+        weaponMenuStage = WeaponMenuStage.getInstance();
+        menuStage = MenuStage.getInstance();
+        storeStage = StoreStage.getInstance();
+        miniMapStage = new MiniMapStage();
+		pauseStage = PauseStage.getInstance();
 		GameServer.getInstance().waitForClient();
     }
 
     private void initInput() {
         input = new InputMultiplexer();
 
-        input.addProcessor(PauseStage);
-        input.addProcessor(MenuStage);
-        input.addProcessor(WeaponMenuStage);
+        input.addProcessor(pauseStage);
+        input.addProcessor(menuStage);
+        input.addProcessor(weaponMenuStage);
 		input.addProcessor(AboutStage.getInstance());
-        input.addProcessor(PanelStage);
-        input.addProcessor(StoreStage);
-        if (Settings.edit_map_mode) input.addProcessor(new GestureDetector(GameStage.listener));
-        input.addProcessor(GameStage);
-        input.addProcessor(MiniMapStage);		
+        input.addProcessor(panelStage);
+        input.addProcessor(storeStage);
+        if (Settings.edit_map_mode) input.addProcessor(new GestureDetector(gameStage.listener));
+        input.addProcessor(gameStage);
+        input.addProcessor(miniMapStage);
 
         Gdx.input.setCatchBackKey(true);
         Gdx.input.setInputProcessor(input);

@@ -4,15 +4,22 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.SavePreferences;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 public class PauseStage extends Stage {
+	private static PauseStage pauseStage = null;
+	public static PauseStage getInstance() {
+		if (pauseStage == null) pauseStage = new PauseStage();
+		return pauseStage;
+	}
+
 	private Table viewRoot;
 	
-	public PauseStage() {
+	private PauseStage() {
+		PauseStage.pauseStage = this;
+
 		viewRoot = new Table();
        	viewRoot.setSize(getWidth(), getHeight());
 		viewRoot.setPosition(0, 0);
@@ -57,7 +64,7 @@ public class PauseStage extends Stage {
 								Settings.pause = false;
 								Settings.start_game = false;
 								Settings.show_main_menu = true;
-								ObjectClass.GameStage.createTerrain("map_background");
+								GameStage.getInstance().createTerrain("map_background");
 								break;
 							default: 
 								super.run(idx);

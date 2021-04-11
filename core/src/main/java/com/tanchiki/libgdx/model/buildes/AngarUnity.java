@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
-import com.tanchiki.libgdx.util.ObjectClass;
+import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.WeaponData;
@@ -33,13 +33,13 @@ public class AngarUnity extends SubBuilds {
 	public int activity = 1;
 	
     public AngarUnity(float x, float y) {
-        super(x, y, ObjectClass.GameStage.TextureLoader.getBuildings()[0][0], ObjectVariables.tank_ally);
+        super(x, y, GameStage.getInstance().TextureLoader.getBuildings()[0][0], ObjectVariables.tank_ally);
 		setCenterPosition(x, y);
 		if (LAST_INDEX == 0) register = new HashMap<>();
 		index = LAST_INDEX++;
 		lastIndex = index;
         code_name = "angar_unity";
-        GameStage.worldBuilds[(int) x][(int) y] = this;
+        gameStage.worldBuilds[(int) x][(int) y] = this;
 		if (index < 5) {
 			spawnCount = prm.getKey(141 + index);
 			spawnAI = prm.getKey(146 + index);
@@ -68,34 +68,34 @@ public class AngarUnity extends SubBuilds {
 		LAST_INDEX = 0;
 		
         super.act(delta);
-		if (GameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || GameStage.TankUser != null && GameStage.TankUser.HP <= 0))
+		if (gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || gameStage.TankUser != null && gameStage.TankUser.HP <= 0))
         	time += delta;
 
         if (time >= 1) {
 			
             if (Settings.start_game && (nextIndexSpawn == -1 || index == nextIndexSpawn)) {
-                if (GameStage.TankUser == null) {
-                    GameStage.TankUser = new TankUser(getCenterX(), getCenterY());
-                    GameStage.MT.tanks_unity.addActor(GameStage.TankUser);
+                if (gameStage.TankUser == null) {
+                    gameStage.TankUser = new TankUser(getCenterX(), getCenterY());
+                    gameStage.MT.tanks_unity.addActor(gameStage.TankUser);
 					if (ourSpawn == 0) nextIndexSpawn = -1;
 					time = 0;
                     return;
                 }
 
-                if (GameStage.TankUser.HP <= 0) {
+                if (gameStage.TankUser.HP <= 0) {
                     if (WeaponData.live > 0 && MainTerrain.Mission.CODE != 66) {
-                        TankUser t = GameStage.TankUser;
+                        TankUser t = gameStage.TankUser;
                         //t.destroyTank();
                         if (t.flag != null) t.flag.active = true;
-                        GameStage.MT.health.addActor(t.health);
-                        GameStage.MT.ring.addActor(t.ring);
+                        gameStage.MT.health.addActor(t.health);
+                        gameStage.MT.ring.addActor(t.ring);
                         t.setCenterPosition(getCenterX(), getCenterY());
                         t.defaultAI.goal_x = (int) getCenterX();
                         t.defaultAI.goal_y = (int) getCenterY();
                         t.HP = t.HPBackup;
                         Settings.TankUserSettings.HPShieldBackup = 0;
 
-                        GameStage.MT.tanks_unity.addActor(t);
+                        gameStage.MT.tanks_unity.addActor(t);
                         WeaponData.live--;
 						if (ourSpawn == 0) nextIndexSpawn = -1;
 						time = 0;
@@ -104,7 +104,7 @@ public class AngarUnity extends SubBuilds {
 						if (MainTerrain.Mission.CODE == 66) MissionCompleted.show(MissionCompleted.MISSION_COMPLETED);
 						MissionCompleted.show(MissionCompleted.MISSION_FAILED);
                         missionCompleted = null;
-                        GameStage.MT.mission.remove();
+                        gameStage.MT.mission.remove();
                     }
                 }
             }

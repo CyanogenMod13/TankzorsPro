@@ -56,7 +56,7 @@ public class AboutStage extends Stage {
 		Settings.pause = true;
 		Settings.start_game = false;
 		Settings.show_main_menu = false;
-		ObjectClass.GameStage.createTerrain("map_background");
+		GameStage.getInstance().createTerrain("map_background");
 		table.clear();
 		table.center().add(new EndGameView()).row();
 	}
@@ -178,7 +178,7 @@ public class AboutStage extends Stage {
 						Settings.pause = false;
 						Settings.start_game = false;
 						Settings.show_main_menu = true;
-						ObjectClass.GameStage.createTerrain("map_background");
+						GameStage.getInstance().createTerrain("map_background");
 					}
 				});
 		}
@@ -210,7 +210,7 @@ public class AboutStage extends Stage {
 						Settings.pause = false;
 						Settings.start_game = false;
 						Settings.show_main_menu = true;
-						ObjectClass.GameStage.createTerrain("map_background");
+						GameStage.getInstance().createTerrain("map_background");
 					}
 				});
 		}

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
+import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.*;
 
 public class InfoPanel extends Group {
@@ -21,12 +22,12 @@ public class InfoPanel extends Group {
 		GlyphLayout layout = new GlyphLayout();
 		layout.setText(f, "A");
 		
-        GameStage = ObjectClass.GameStage;
+        GameStage = GameStage.getInstance();
 
         setSize(Gdx.graphics.getHeight() / 7.2f, Gdx.graphics.getHeight() / 4);
         setPosition(Gdx.graphics.getWidth() - getWidth(), Gdx.graphics.getHeight() - getHeight());
 
-        background = new Sprite(ObjectClass.GameStage.TextureLoader.getIcons()[0][14]);
+        background = new Sprite(GameStage.getInstance().TextureLoader.getIcons()[0][14]);
         background.setSize(getWidth(), getHeight());
         background.setPosition(getX(), getY());
 
@@ -38,15 +39,15 @@ public class InfoPanel extends Group {
         unity.setSize(enemy.getWidth(), enemy.getHeight());
         unity.setPosition(enemy.getX(), enemy.getY() - enemy.getHeight() - padding);
 
-        star = new Sprite(ObjectClass.GameStage.TextureLoader.getBonus()[0][12]);
+        star = new Sprite(GameStage.getInstance().TextureLoader.getBonus()[0][12]);
         star.setSize(enemy.getWidth(), enemy.getHeight());
         star.setPosition(enemy.getX(), enemy.getY() - enemy.getHeight() * 2 - padding * 2);
 
-        coin = new Sprite(ObjectClass.GameStage.TextureLoader.getBonus()[0][15]);
+        coin = new Sprite(GameStage.getInstance().TextureLoader.getBonus()[0][15]);
         coin.setSize(enemy.getWidth(), enemy.getHeight());
         coin.setPosition(enemy.getX(), enemy.getY() - enemy.getHeight() * 3 - padding * 3);
 		
-        ObjectClass.PanelStage.addActor(new PanelHealth());
+        PanelStage.getInstance().addActor(new PanelHealth());
     }
 
     @Override

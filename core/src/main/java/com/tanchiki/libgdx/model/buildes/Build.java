@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectClass;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
 
 abstract public class Build extends ObjBuild {
     public float a = ObjectVariables.size_block * 2;
-    public GameStage GameStage;
+    public GameStage gameStage;
     private float size;
     private Sprite s;
     private float time;
@@ -29,40 +28,40 @@ abstract public class Build extends ObjBuild {
         this.fraction = f;
         this.x = x;
         this.y = y;
-        GameStage = ObjectClass.GameStage;
+        gameStage = gameStage.getInstance();
         s = new Sprite(r);
         size = (s.getHeight() * a) / s.getWidth();
         setCenterPosition(x, y);
         try {
-            if (GameStage.world_nodes != null) {
-                GameStage.world_nodes[(int) x][(int) y] = 1;
-                GameStage.world_nodes[(int) (x + a)][(int) y] = 1;
-                GameStage.world_nodes[(int) (x)][(int) (y - a)] = 1;
-                GameStage.world_nodes[(int) (x + a)][(int) (y - a)] = 1;
+            if (gameStage.world_nodes != null) {
+                gameStage.world_nodes[(int) x][(int) y] = 1;
+                gameStage.world_nodes[(int) (x + a)][(int) y] = 1;
+                gameStage.world_nodes[(int) (x)][(int) (y - a)] = 1;
+                gameStage.world_nodes[(int) (x + a)][(int) (y - a)] = 1;
             }
-            if (GameStage.world_block != null) {
-                GameStage.world_block[(int) x][(int) y] = f;
-                GameStage.world_block[(int) (x + a)][(int) y] = f;
-                GameStage.world_block[(int) (x)][(int) (y - a)] = f;
-                GameStage.world_block[(int) (x + a)][(int) (y - a)] = f;
+            if (gameStage.world_block != null) {
+                gameStage.world_block[(int) x][(int) y] = f;
+                gameStage.world_block[(int) (x + a)][(int) y] = f;
+                gameStage.world_block[(int) (x)][(int) (y - a)] = f;
+                gameStage.world_block[(int) (x + a)][(int) (y - a)] = f;
             }
-            if (GameStage.worldBuilds != null) {
-                GameStage.worldBuilds[(int) x][(int) y] = this;
-                GameStage.worldBuilds[(int) (x + a)][(int) y] = this;
-                GameStage.worldBuilds[(int) (x)][(int) (y - a)] = this;
-                GameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = this;
+            if (gameStage.worldBuilds != null) {
+                gameStage.worldBuilds[(int) x][(int) y] = this;
+                gameStage.worldBuilds[(int) (x + a)][(int) y] = this;
+                gameStage.worldBuilds[(int) (x)][(int) (y - a)] = this;
+                gameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = this;
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
         }
         Health = new Health();
 
-        GameStage.MT.health.addActor(Health);
+        gameStage.MT.health.addActor(Health);
         //overlayer = new Overlayer(Body[0].getPosition().x + a / 2, Body[0].getPosition().y - a / 2,f);
         if (fraction == ObjectVariables.tank_ally)
-            overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][0]);
+            overlayer = new Sprite(gameStage.TextureLoader.getOverlayers()[0][0]);
         if (fraction == ObjectVariables.tank_enemy)
-            overlayer = new Sprite(GameStage.TextureLoader.getOverlayers()[0][1]);
+            overlayer = new Sprite(gameStage.TextureLoader.getOverlayers()[0][1]);
 			
 		overlayer.setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
 		overlayer.setCenter(x + a / 2, y - a / 2);
@@ -117,24 +116,24 @@ abstract public class Build extends ObjBuild {
 			}
             destroyBuilds();
             try {
-                if (GameStage.world_nodes != null) {
-                    GameStage.world_nodes[(int) x][(int) y] = 0;
-                    GameStage.world_nodes[(int) (x + a)][(int) y] = 0;
-                    GameStage.world_nodes[(int) (x)][(int) (y - a)] = 0;
-                    GameStage.world_nodes[(int) (x + a)][(int) (y - a)] = 0;
+                if (gameStage.world_nodes != null) {
+                    gameStage.world_nodes[(int) x][(int) y] = 0;
+                    gameStage.world_nodes[(int) (x + a)][(int) y] = 0;
+                    gameStage.world_nodes[(int) (x)][(int) (y - a)] = 0;
+                    gameStage.world_nodes[(int) (x + a)][(int) (y - a)] = 0;
                 }
-                if (GameStage.world_block != null) {
-                    GameStage.world_block[(int) x][(int) y] = 0;
-                    GameStage.world_block[(int) (x + a)][(int) y] = 0;
-                    GameStage.world_block[(int) (x)][(int) (y - a)] = 0;
-                    GameStage.world_block[(int) (x + a)][(int) (y - a)] = 0;
+                if (gameStage.world_block != null) {
+                    gameStage.world_block[(int) x][(int) y] = 0;
+                    gameStage.world_block[(int) (x + a)][(int) y] = 0;
+                    gameStage.world_block[(int) (x)][(int) (y - a)] = 0;
+                    gameStage.world_block[(int) (x + a)][(int) (y - a)] = 0;
                 }
 
-                if (GameStage.worldBuilds != null) {
-                    GameStage.worldBuilds[(int) x][(int) y] = null;
-                    GameStage.worldBuilds[(int) (x + a)][(int) y] = null;
-                    GameStage.worldBuilds[(int) (x)][(int) (y - a)] = null;
-                    GameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = null;
+                if (gameStage.worldBuilds != null) {
+                    gameStage.worldBuilds[(int) x][(int) y] = null;
+                    gameStage.worldBuilds[(int) (x + a)][(int) y] = null;
+                    gameStage.worldBuilds[(int) (x)][(int) (y - a)] = null;
+                    gameStage.worldBuilds[(int) (x + a)][(int) (y - a)] = null;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
             }
@@ -150,10 +149,10 @@ abstract public class Build extends ObjBuild {
 
         public Health() {
             if (fraction == ObjectVariables.tank_enemy) {
-                h = GameStage.TextureLoader.getHealthRed()[0];
+                h = gameStage.TextureLoader.getHealthRed()[0];
             }
             if (fraction == ObjectVariables.tank_ally) {
-                h = GameStage.TextureLoader.getHealthYell()[0];
+                h = gameStage.TextureLoader.getHealthYell()[0];
             }
             helth = new Sprite(h[11]);
 			helth.setSize(a * 2, 0.3f);

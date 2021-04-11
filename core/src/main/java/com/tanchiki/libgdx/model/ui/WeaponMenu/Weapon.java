@@ -10,7 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.*;
+import com.tanchiki.libgdx.stage.WeaponMenuStage;
+import com.tanchiki.libgdx.util.FontLoader;
+import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.WeaponData;
 
 public class Weapon extends GameActor {
     public float w = Gdx.graphics.getWidth() / 10;
@@ -31,7 +35,7 @@ public class Weapon extends GameActor {
         setSize(h, h);
         this.icon = icon;
         this.count = count;
-        r = ObjectClass.GameStage.TextureLoader.getIcons()[0];
+        r = GameStage.getInstance().TextureLoader.getIcons()[0];
         s = new Sprite(r[icon]);
         background = new Sprite(r[14]);
         background.setAlpha(0.5f);
@@ -59,7 +63,7 @@ public class Weapon extends GameActor {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            TankUser t = ObjectClass.GameStage.TankUser;
+            TankUser t = GameStage.getInstance().TankUser;
             // TODO: Implement this method
             super.clicked(event, x, y);
             if (t != null)
@@ -67,43 +71,43 @@ public class Weapon extends GameActor {
                     case WeaponData.Type.light_bullet: {
                         Settings.TankUserSettings.bullet_type = 1;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.plazma: {
                         Settings.TankUserSettings.bullet_type = 2;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 					case WeaponData.Type.double_light_bullet: {
 							Settings.TankUserSettings.bullet_type = 3;
 							Settings.pause = false;
-							ObjectClass.WeaponMenuStage.hideMenu();
+							WeaponMenuStage.getInstance().hideMenu();
 							break;
 						}
 					case WeaponData.Type.double_plazma_bullet: {
 							Settings.TankUserSettings.bullet_type = 4;
 							Settings.pause = false;
-							ObjectClass.WeaponMenuStage.hideMenu();
+							WeaponMenuStage.getInstance().hideMenu();
 							break;
 						}	
                     case WeaponData.Type.bronet_bullet: {
                         Settings.TankUserSettings.bullet_type = 5;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.bronet_bullet2: {
                         Settings.TankUserSettings.bullet_type = 6;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.rocket: {
                         Settings.TankUserSettings.bullet_type = 7;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 
@@ -111,61 +115,61 @@ public class Weapon extends GameActor {
                     case WeaponData.Type.mine1: {
                         Settings.TankUserSettings.plus_bullet_type1 = 1;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 
                     case WeaponData.Type.mine2: {
                         Settings.TankUserSettings.plus_bullet_type1 = 2;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 
                     case WeaponData.Type.tnt1: {
                         Settings.TankUserSettings.plus_bullet_type1 = 3;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 
                     case WeaponData.Type.tnt2: {
                         Settings.TankUserSettings.plus_bullet_type1 = 4;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
 
                     case WeaponData.Type.tnt3: {
                         Settings.TankUserSettings.plus_bullet_type1 = 5;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.art: {
                         Settings.TankUserSettings.plus_bullet_type2 = 1;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.air: {
                         Settings.TankUserSettings.plus_bullet_type2 = 2;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.time: {
                         WeaponData.time -= 1;
                         GameStage.stop_time(ObjectVariables.tank_ally);
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.speed: {
                         WeaponData.speed -= 1;
-                        ObjectClass.GameStage.TankUser.activateSpeedSkill();
+                        GameStage.getInstance().TankUser.activateSpeedSkill();
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.shield: {
@@ -175,20 +179,20 @@ public class Weapon extends GameActor {
                         Settings.TankUserSettings.HPShieldBackup += d;
                         WeaponData.shield -= d;
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                     case WeaponData.Type.fix: {
-                        GameStage GameStage = ObjectClass.GameStage;
-                        if (GameStage.TankUser != null) {
-                            if (GameStage.TankUser.HP != GameStage.TankUser.HPBackup)
+                        GameStage gameStage = GameStage.getInstance();
+                        if (gameStage.TankUser != null) {
+                            if (gameStage.TankUser.HP != gameStage.TankUser.HPBackup)
                                 if (WeaponData.fix > 0) {
-                                    GameStage.TankUser.HP = GameStage.TankUser.HPBackup;
+                                    gameStage.TankUser.HP = gameStage.TankUser.HPBackup;
                                     WeaponData.fix -= 1;
                                 }
                         }
                         Settings.pause = false;
-                        ObjectClass.WeaponMenuStage.hideMenu();
+                        WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
                 }

@@ -2,21 +2,20 @@ package com.tanchiki.libgdx.stage;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.tanchiki.libgdx.model.ui.WeaponMenu.Container;
-import com.tanchiki.libgdx.util.ObjectClass;
 
 public class WeaponMenuStage extends Stage {
-    public WeaponMenuStage() {
-        //super(ObjectClass.viewport,new SpriteBatch());
-        //setDebugAll(true);
-        ObjectClass.WeaponMenuStage = this;
+    private static WeaponMenuStage weaponMenuStage = null;
+    public static WeaponMenuStage getInstance() {
+        if (weaponMenuStage == null) weaponMenuStage = new WeaponMenuStage();
+        return weaponMenuStage;
+    }
+
+    private WeaponMenuStage() {
+        WeaponMenuStage.weaponMenuStage = this;
     }
 
     public void showMenu() {
-        //Gdx.input.setInputProcessor(this);
-		Container container = new Container();
-		//container.setX(container.x - container.getWidth());
-		//container.addAction(Actions.moveTo(0, container.getY(), 1f, Interpolation.fade));
-        addActor(container);
+		addActor(new Container());
     }
 
     public void hideMenu() {
