@@ -8,6 +8,7 @@ import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 abstract public class Build extends ObjBuild {
     public float a = ObjectVariables.size_block * 2;
@@ -21,8 +22,8 @@ abstract public class Build extends ObjBuild {
     public Health Health;
     public float x, y;
     public Sprite overlayer;
-	public boolean give_coin = false;
-	public int coin_price;
+    public boolean give_coin = false;
+    public int coin_price;
 
     public Build(float x, float y, TextureRegion r, short f) {
         this.fraction = f;
@@ -59,20 +60,20 @@ abstract public class Build extends ObjBuild {
         gameStage.MT.health.addActor(Health);
         //overlayer = new Overlayer(Body[0].getPosition().x + a / 2, Body[0].getPosition().y - a / 2,f);
         if (fraction == ObjectVariables.tank_ally)
-            overlayer = new Sprite(gameStage.TextureLoader.getOverlayers()[0][0]);
+            overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][0]);
         if (fraction == ObjectVariables.tank_enemy)
-            overlayer = new Sprite(gameStage.TextureLoader.getOverlayers()[0][1]);
-			
-		overlayer.setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
-		overlayer.setCenter(x + a / 2, y - a / 2);
-		
-		s.setSize(a * 2.5f, size * 2.5f);
+            overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][1]);
+
+        overlayer.setSize(6 * ObjectVariables.size_block * 2, 6 * ObjectVariables.size_block * 2);
+        overlayer.setCenter(x + a / 2, y - a / 2);
+
+        s.setSize(a * 2.5f, size * 2.5f);
         s.setCenter(x + a / 2, y - a / 2);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         if (!Settings.edit_map_mode) {
             overlayer.draw(batch);
@@ -108,12 +109,12 @@ abstract public class Build extends ObjBuild {
     @Override
     public void act(float delta) {
         //time += delta;
-		coin_price = (int) HPbackup * 10;
+        coin_price = (int) HPbackup * 10;
         if (HP <= 0) {
-			if (give_coin) {
-				MainTerrain.getCurrentTerrain().coin += coin_price;
-				Settings.TankUserSettings.coin += coin_price;
-			}
+            if (give_coin) {
+                MainTerrain.getCurrentTerrain().coin += coin_price;
+                Settings.TankUserSettings.coin += coin_price;
+            }
             destroyBuilds();
             try {
                 if (gameStage.world_nodes != null) {
@@ -139,7 +140,7 @@ abstract public class Build extends ObjBuild {
             }
         }
         //Health.act(delta);
-        // TODO: Implement this method
+
         super.act(delta);
     }
 
@@ -149,29 +150,29 @@ abstract public class Build extends ObjBuild {
 
         public Health() {
             if (fraction == ObjectVariables.tank_enemy) {
-                h = gameStage.TextureLoader.getHealthRed()[0];
+                h = TextureLoader.getInstance().getHealthRed()[0];
             }
             if (fraction == ObjectVariables.tank_ally) {
-                h = gameStage.TextureLoader.getHealthYell()[0];
+                h = TextureLoader.getInstance().getHealthYell()[0];
             }
             helth = new Sprite(h[11]);
-			helth.setSize(a * 2, 0.3f);
-			helth.setCenter(x + a / 2, y + a + 0.1f);
-			//helth.setRegion(h[Math.max((int) ((12 * HP) / HPbackup) - 1, 0)]);
-			setSize(helth.getWidth(), helth.getHeight());
-			setPosition(helth.getX(), helth.getY());
+            helth.setSize(a * 2, 0.3f);
+            helth.setCenter(x + a / 2, y + a + 0.1f);
+            //helth.setRegion(h[Math.max((int) ((12 * HP) / HPbackup) - 1, 0)]);
+            setSize(helth.getWidth(), helth.getHeight());
+            setPosition(helth.getX(), helth.getY());
         }
 
-		@Override
-		public void act(float delta) {
-			helth.setSize(a * 2, 0.3f);
-			helth.setCenter(x + a / 2, y + a + 0.1f);
-			helth.setRegion(h[Math.max((int) ((12 * HP) / HPbackup) - 1, 0)]);
-			setSize(helth.getWidth(), helth.getHeight());
-			setPosition(helth.getX(), helth.getY());
-			// TODO: Implement this method
-			super.act(delta);
-		}
+        @Override
+        public void act(float delta) {
+            helth.setSize(a * 2, 0.3f);
+            helth.setCenter(x + a / 2, y + a + 0.1f);
+            helth.setRegion(h[Math.max((int) ((12 * HP) / HPbackup) - 1, 0)]);
+            setSize(helth.getWidth(), helth.getHeight());
+            setPosition(helth.getX(), helth.getY());
+
+            super.act(delta);
+        }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {

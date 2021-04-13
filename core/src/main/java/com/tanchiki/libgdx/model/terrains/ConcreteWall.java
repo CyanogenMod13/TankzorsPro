@@ -2,6 +2,7 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.tanchiki.libgdx.model.bullets.Rocket;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class ConcreteWall extends Block {
     public ConcreteWall(float x, float y) {
@@ -16,7 +17,7 @@ public class ConcreteWall extends Block {
                 GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
             remove();
             GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
-            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), GameStage.TextureLoader.getExpl()));
+            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
         }
     }
 }

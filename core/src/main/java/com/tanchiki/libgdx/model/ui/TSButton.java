@@ -18,6 +18,7 @@ import com.tanchiki.libgdx.stage.MiniMapStage;
 import com.tanchiki.libgdx.stage.WeaponMenuStage;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.Settings;
+import com.tanchiki.libgdx.util.TextureLoader;
 import com.tanchiki.libgdx.util.WeaponData;
 
 public class TSButton extends Table {
@@ -105,13 +106,12 @@ public class TSButton extends Table {
                 }
 
             });
-            t = GameStage.TextureLoader.getIcons()[0];
+            t = TextureLoader.getInstance().getIcons()[0];
             s = new Sprite(t[0]);
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setPosition(this.getX(), this.getY());
@@ -138,13 +138,13 @@ public class TSButton extends Table {
                 }
 
             });
-            t = GameStage.TextureLoader.getIcons()[0];
+            t = TextureLoader.getInstance().getIcons()[0];
             s = new Sprite(t[0]);
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));
@@ -183,13 +183,13 @@ public class TSButton extends Table {
                 }
 
             });
-            t = GameStage.TextureLoader.getIcons()[0];
+            t = TextureLoader.getInstance().getIcons()[0];
             s = new Sprite(t[0]);
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));
@@ -250,13 +250,13 @@ public class TSButton extends Table {
                     touch = false;
                 }
             });
-            t = GameStage.TextureLoader.getIcons()[0];
+            t = TextureLoader.getInstance().getIcons()[0];
             s = new Sprite(t[0]);
         }
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));
@@ -267,16 +267,16 @@ public class TSButton extends Table {
                     s.setRegion(t[WeaponData.Type.light_bullet]);
                     break;
                 }
-				case 2: {
-						count = WeaponData.plazma;
-						s.setRegion(t[WeaponData.Type.plazma]);
-						break;
-					}
-				case 3: {
-						count = WeaponData.double_light_bullet;
-						s.setRegion(t[WeaponData.Type.double_light_bullet]);
-						break;
-					}	
+                case 2: {
+                    count = WeaponData.plazma;
+                    s.setRegion(t[WeaponData.Type.plazma]);
+                    break;
+                }
+                case 3: {
+                    count = WeaponData.double_light_bullet;
+                    s.setRegion(t[WeaponData.Type.double_light_bullet]);
+                    break;
+                }
                 case 4: {
                     count = WeaponData.double_palzma;
                     s.setRegion(t[WeaponData.Type.double_plazma_bullet]);

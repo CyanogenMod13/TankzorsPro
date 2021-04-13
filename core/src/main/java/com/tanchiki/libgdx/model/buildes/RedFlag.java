@@ -7,45 +7,46 @@ import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.SoundLoader;
 
 public class RedFlag extends Flag {
-	public static boolean died = false;
-	
+    public static boolean died = false;
+
     public RedFlag(float x, float y) {
         super(x, y, 1);
     }
-	
-	@Override
-	void clicked() {
-		GameStage.getInstance().TankUser.flag = this;
-		SoundLoader.getInstance().getFlagPickup().play(Settings.volumeEffect);
-		active = false;
-	}
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		if (active) super.draw(batch, parentAlpha);
-	}
-	
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-		if (died) {
-			active = true;
-			died = false;
-		}
-		
-		if (!active) {
-			setCenterPosition(GameStage.getInstance().TankUser.defaultAI.goal_x, GameStage.getInstance().TankUser.defaultAI.goal_y);
-			switch (MainTerrain.Mission.CODE) {
-				case 3:
-				case 40:
-				case 41:
-				case 42:	
-					//System.out.println(GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()]);
-					if (GameStage.getInstance().worldBuilds[(int) getCenterX()][(int) getCenterY()] instanceof AngarUnity) {
-						win();
-						remove();
-					} break;
-			}
-		}	
-	}
+    @Override
+    void clicked() {
+        GameStage.getInstance().TankUser.flag = this;
+        SoundLoader.getInstance().getFlagPickup().play(Settings.volumeEffect);
+        active = false;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        if (active) super.draw(batch, parentAlpha);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        if (died) {
+            active = true;
+            died = false;
+        }
+
+        if (!active) {
+            setCenterPosition(GameStage.getInstance().TankUser.defaultAI.goal_x, GameStage.getInstance().TankUser.defaultAI.goal_y);
+            switch (MainTerrain.Mission.CODE) {
+                case 3:
+                case 40:
+                case 41:
+                case 42:
+                    //System.out.println(GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()]);
+                    if (GameStage.getInstance().worldBuilds[(int) getCenterX()][(int) getCenterY()] instanceof AngarUnity) {
+                        win();
+                        remove();
+                    }
+                    break;
+            }
+        }
+    }
 }

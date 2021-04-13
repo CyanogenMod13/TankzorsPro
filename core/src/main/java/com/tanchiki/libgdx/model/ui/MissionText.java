@@ -44,7 +44,7 @@ public class MissionText extends GameGroup {
             remove();
 
         time += delta;
-        // TODO: Implement this method
+
         super.act(delta);
     }
 

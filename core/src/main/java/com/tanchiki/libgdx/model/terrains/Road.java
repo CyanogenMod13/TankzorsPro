@@ -72,7 +72,7 @@ public class Road extends Terrains {
     public void draw(Batch batch, float parentAlpha) {
         if (isDraw)
             init();
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
     }*/
 

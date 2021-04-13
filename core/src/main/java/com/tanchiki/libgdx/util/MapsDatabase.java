@@ -13,9 +13,10 @@ public class MapsDatabase {
     }
 
     HashMap<String, MapBinReader> database = new HashMap<>();
-	int size;
+    int size;
 
-    private MapsDatabase() {}
+    private MapsDatabase() {
+    }
 
     public void putMap(String name, InputStream stream) {
         MapBinReader parser = new MapBinReader(stream);
@@ -23,7 +24,7 @@ public class MapsDatabase {
     }
 
     public void putMap(String name, MapBinReader parser) {
-		size++;
+        size++;
         database.put(name, parser);
     }
 

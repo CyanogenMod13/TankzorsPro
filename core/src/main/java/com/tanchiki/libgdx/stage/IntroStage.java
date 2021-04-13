@@ -43,7 +43,7 @@ public class IntroStage extends Stage {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             s.draw(batch);
         }
@@ -51,7 +51,7 @@ public class IntroStage extends Stage {
         @Override
         public void act(float delta) {
 
-            // TODO: Implement this method
+
             super.act(delta);
         }
 
@@ -72,7 +72,7 @@ public class IntroStage extends Stage {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             s.draw(batch);
         }
@@ -92,7 +92,7 @@ public class IntroStage extends Stage {
             else
                 alpha -= delta;
 
-            // TODO: Implement this method
+
             super.act(delta);
         }
 
@@ -112,7 +112,7 @@ public class IntroStage extends Stage {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             //s.setSize(getWidth(),getHeight());
             s.draw(batch);

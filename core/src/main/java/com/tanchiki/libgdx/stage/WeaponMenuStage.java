@@ -5,6 +5,7 @@ import com.tanchiki.libgdx.model.ui.WeaponMenu.Container;
 
 public class WeaponMenuStage extends Stage {
     private static WeaponMenuStage weaponMenuStage = null;
+
     public static WeaponMenuStage getInstance() {
         if (weaponMenuStage == null) weaponMenuStage = new WeaponMenuStage();
         return weaponMenuStage;
@@ -15,7 +16,7 @@ public class WeaponMenuStage extends Stage {
     }
 
     public void showMenu() {
-		addActor(new Container());
+        addActor(new Container());
     }
 
     public void hideMenu() {

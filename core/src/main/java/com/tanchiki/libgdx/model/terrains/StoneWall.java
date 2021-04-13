@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class StoneWall extends DestroyableBlock {
     public StoneWall(float x, float y) {
@@ -32,7 +33,7 @@ public class StoneWall extends DestroyableBlock {
                 GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
             remove();
             GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
-            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), GameStage.TextureLoader.getExpl()));
+            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
         }
     }
 }

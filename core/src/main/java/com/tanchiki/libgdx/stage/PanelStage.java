@@ -19,12 +19,14 @@ import com.tanchiki.libgdx.util.WeaponData;
 
 public class PanelStage extends Stage {
     private static PanelStage panelStage = null;
+
     public static PanelStage getInstance() {
         if (panelStage == null) panelStage = new PanelStage();
         return panelStage;
     }
 
     public Group toasts;
+
     private PanelStage() {
         PanelStage.panelStage = this;
 
@@ -47,10 +49,18 @@ public class PanelStage extends Stage {
             public boolean keyDown(InputEvent event, int keycode) {
                 if (GameStage.getInstance().TankUser != null)
                     switch (keycode) {
-                        case Input.Keys.A: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.LEFT); break;
-                        case Input.Keys.W: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.UP); break;
-                        case Input.Keys.S: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.DOWN); break;
-                        case Input.Keys.D: GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.RIGHT); break;
+                        case Input.Keys.A:
+                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.LEFT);
+                            break;
+                        case Input.Keys.W:
+                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.UP);
+                            break;
+                        case Input.Keys.S:
+                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.DOWN);
+                            break;
+                        case Input.Keys.D:
+                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.RIGHT);
+                            break;
                     }
                 return super.keyDown(event, keycode);
             }
@@ -71,9 +81,15 @@ public class PanelStage extends Stage {
                         Settings.pauseView = true;
                         Settings.pause = true;
                         break;
-                    case Input.Keys.Q: GameStage.getInstance().TankUser.enterHangar(); break;
-                    case Input.Keys.E: WeaponMenuStage.getInstance().showMenu(); break;
-                    case Input.Keys.R: GameStage.getInstance().TankUser.doRepair(); break;
+                    case Input.Keys.Q:
+                        GameStage.getInstance().TankUser.enterHangar();
+                        break;
+                    case Input.Keys.E:
+                        WeaponMenuStage.getInstance().showMenu();
+                        break;
+                    case Input.Keys.R:
+                        GameStage.getInstance().TankUser.doRepair();
+                        break;
                 }
                 return super.keyDown(event, keycode);
             }
@@ -83,9 +99,15 @@ public class PanelStage extends Stage {
             public boolean keyDown(InputEvent event, int keycode) {
                 if (GameStage.getInstance().TankUser != null)
                     switch (keycode) {
-                        case Input.Keys.NUMPAD_1: GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.BULLET); break;
-                        case Input.Keys.NUMPAD_2: GameStage.getInstance().TankUser.defaultAI.MINES(); break;
-                        case Input.Keys.NUMPAD_3: GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.AIR); break;
+                        case Input.Keys.NUMPAD_1:
+                            GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.BULLET);
+                            break;
+                        case Input.Keys.NUMPAD_2:
+                            GameStage.getInstance().TankUser.defaultAI.MINES();
+                            break;
+                        case Input.Keys.NUMPAD_3:
+                            GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.AIR);
+                            break;
                     }
                 return super.keyDown(event, keycode);
             }
@@ -102,35 +124,35 @@ public class PanelStage extends Stage {
     public void addToast(String text) {
         toasts.addActor(new ToastGame(text));
     }
-	
-	private static class PauseButton extends TextButton {
-		TextureRegionDrawable reg1 = new TextureRegionDrawable(new Texture("texture/ui/black/pause.png"));
-		TextureRegionDrawable reg2 = new TextureRegionDrawable(new Texture("texture/ui/black/pause_h.png"));
-		
-		public PauseButton() {
-			super("", new TextButton.TextButtonStyle(null, null, null, new BitmapFont()));
-			getStyle().up = reg1;
-			getStyle().checked = reg1;
-			getStyle().down = reg2;
-			
-			setSize(Gdx.graphics.getHeight() / 7.2f, Gdx.graphics.getHeight() / 7.2f);
-			addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent e, float x, float y) {
-						super.clicked(e, x, y);
-						Settings.pauseView = true;
-						Settings.pause = true;
-					}
-				});
-		}
 
-		@Override
-		public void act(float delta) {
-			if (WeaponData.radar == 0) {
-				setPosition(0, Gdx.graphics.getHeight() - getHeight());
-			} else {
-				setPosition(0, Gdx.graphics.getHeight() - getHeight() - Gdx.graphics.getHeight() / 3f);
-			}
-		}
-	}
+    private static class PauseButton extends TextButton {
+        TextureRegionDrawable reg1 = new TextureRegionDrawable(new Texture("texture/ui/black/pause.png"));
+        TextureRegionDrawable reg2 = new TextureRegionDrawable(new Texture("texture/ui/black/pause_h.png"));
+
+        public PauseButton() {
+            super("", new TextButton.TextButtonStyle(null, null, null, new BitmapFont()));
+            getStyle().up = reg1;
+            getStyle().checked = reg1;
+            getStyle().down = reg2;
+
+            setSize(Gdx.graphics.getHeight() / 7.2f, Gdx.graphics.getHeight() / 7.2f);
+            addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent e, float x, float y) {
+                    super.clicked(e, x, y);
+                    Settings.pauseView = true;
+                    Settings.pause = true;
+                }
+            });
+        }
+
+        @Override
+        public void act(float delta) {
+            if (WeaponData.radar == 0) {
+                setPosition(0, Gdx.graphics.getHeight() - getHeight());
+            } else {
+                setPosition(0, Gdx.graphics.getHeight() - getHeight() - Gdx.graphics.getHeight() / 3f);
+            }
+        }
+    }
 }

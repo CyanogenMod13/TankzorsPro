@@ -8,12 +8,12 @@ public class ObjectVariables {
     public static final short tank_enemy = -0x0001;
 
     public static int max_tanks = 0;
-	
-	public static int max_tanks_enemy = 0;
-	
-	public static int max_tanks_ally = 0;
-	
-	public static int level_difficulty = 0;
+
+    public static int max_tanks_enemy = 0;
+
+    public static int max_tanks_ally = 0;
+
+    public static int level_difficulty = 0;
 
     public static int size_enemies = 0;
 
@@ -22,22 +22,22 @@ public class ObjectVariables {
     public static int all_size_enemies = 0;
 
     public static int all_size_allies = 0;
-	
-	public static int all_size_boss_enemies = 0;
-	
-	public static int all_size_boss_allies = 0;
-	
-	public static int all_size_radar_enemy = 0;
-	
-	public static int all_size_radar_allies = 0;
-	
-	public static int all_size_reactor_enemy = 0;
-	
-	public static int all_size_turrets_enemy = 0;
-	
-	public static int[] tanks_type_enemy = null;
-	
-	public static int[] tanks_type_ally = null;
+
+    public static int all_size_boss_enemies = 0;
+
+    public static int all_size_boss_allies = 0;
+
+    public static int all_size_radar_enemy = 0;
+
+    public static int all_size_radar_allies = 0;
+
+    public static int all_size_reactor_enemy = 0;
+
+    public static int all_size_turrets_enemy = 0;
+
+    public static int[] tanks_type_enemy = null;
+
+    public static int[] tanks_type_ally = null;
 
     public static final int coin_id = 100, star_id = 101;
 

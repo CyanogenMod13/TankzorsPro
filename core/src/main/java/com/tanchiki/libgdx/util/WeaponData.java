@@ -2,10 +2,10 @@ package com.tanchiki.libgdx.util;
 
 public class WeaponData {
     public static int light_bullet = 100;
-	
-	public static int double_light_bullet = 0;
-	
-	public static int double_palzma = 0;
+
+    public static int double_light_bullet = 0;
+
+    public static int double_palzma = 0;
 
     public static int bronet_bullet = 0;
 
@@ -54,7 +54,7 @@ public class WeaponData {
     public static int brone1 = 0;
 
     public static int brone2 = 0;
-	
+
     public static class Upgrade {
         public static int bullet = 0;
 
@@ -73,17 +73,17 @@ public class WeaponData {
         public static int brone = 0;
 
         public static int tank_unity = 0;
-		
-		public static int adding_percent = 0;
+
+        public static int adding_percent = 0;
     }
 
     public static class Type {
         public static final int light_bullet = 4;
-		
-		public static final int double_light_bullet = 6;
 
-		public static final int double_plazma_bullet = 7;
-		
+        public static final int double_light_bullet = 6;
+
+        public static final int double_plazma_bullet = 7;
+
         public static final int bronet_bullet = 15;
 
         public static final int bronet_bullet2 = 16;

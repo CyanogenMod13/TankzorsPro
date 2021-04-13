@@ -21,7 +21,7 @@ public class JoyStick extends Touchpad {
 
     public JoyStick() {
         super(0, new Touchpad.TouchpadStyle());
-		setDeadzone(size / 2);
+        setDeadzone(size / 2);
         Texture texture = new Texture("texture/ui/knob.png");
         Sprite sp1 = new Sprite(texture);
         sp1.setSize(size, size);
@@ -29,8 +29,8 @@ public class JoyStick extends Touchpad {
         //this.center();
         t = new SpriteDrawable(sp1);
         t1 = new SpriteDrawable(sp2);
-		getStyle().background = t1;
-		getStyle().knob = t;
+        getStyle().background = t1;
+        getStyle().knob = t;
         setSize(size * 2, size * 2);
         setPosition(size / 2, size / 2);
         addListener(new DragListener() {

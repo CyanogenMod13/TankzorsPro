@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Palm extends Decorate {
     public Sprite s;
@@ -15,7 +16,7 @@ public class Palm extends Decorate {
     private GameStage g = GameStage.getInstance();
 
     public Palm(float x, float y) {
-        TextureRegion[][] r = GameStage.getInstance().TextureLoader.getPalms();
+        TextureRegion[][] r = TextureLoader.getInstance().getPalms();
         t = new TextureRegion[5];
         for (int i = 0; i < 5; i++) {
             t[i] = r[0][i];
@@ -28,7 +29,7 @@ public class Palm extends Decorate {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setSize(a * 8, a * 8);
         s.setCenter(getCenterX(), getCenterY());

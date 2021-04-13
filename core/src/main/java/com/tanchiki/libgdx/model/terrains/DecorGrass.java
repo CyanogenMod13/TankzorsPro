@@ -36,7 +36,7 @@ public class DecorGrass {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             s.setRegion(t[10]);
             setCenterPosition(x, y);
             super.draw(batch, parentAlpha);
@@ -66,7 +66,7 @@ public class DecorGrass {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             s.setRegion(t[6]);
             setCenterPosition(x, y);
             super.draw(batch, parentAlpha);
@@ -96,7 +96,7 @@ public class DecorGrass {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             s.setRegion(t[14]);
             setCenterPosition(x, y);
             super.draw(batch, parentAlpha);

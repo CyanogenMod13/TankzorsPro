@@ -19,19 +19,19 @@ public class AStarNode {
 
     @Override
     public String toString() {
-        // TODO: Implement this method
+
         return toString;
     }
 
     @Override
     public int hashCode() {
-        // TODO: Implement this method
+
         return hashCode;
     }
 
     @Override
     public boolean equals(Object obj) {
-        // TODO: Implement this method
+
         return hashCode == obj.hashCode();
     }
 

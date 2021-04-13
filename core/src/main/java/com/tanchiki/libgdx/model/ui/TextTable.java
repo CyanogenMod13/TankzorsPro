@@ -36,7 +36,7 @@ public class TextTable extends TextArea {
             remove();
         }
         time += delta;
-        // TODO: Implement this method
+
         super.act(delta);
     }
 }

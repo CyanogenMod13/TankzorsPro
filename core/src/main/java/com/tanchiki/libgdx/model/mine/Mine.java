@@ -8,6 +8,7 @@ import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Mine extends GameActor {
     GameStage GameStage;
@@ -28,7 +29,7 @@ public class Mine extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
         s.setPosition(getX(), getY());
@@ -41,12 +42,12 @@ public class Mine extends GameActor {
         if (t != null) {
             if (t.fraction == fraction) {
                 t.destroyTank(damage);
-                GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), GameStage.TextureLoader.getExpl()));
+                GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
                 GameStage.world_mines[(int) getCenterX()][(int) getCenterY()] = null;
                 remove();
             }
         }
-        // TODO: Implement this method
+
         super.act(delta);
     }
 

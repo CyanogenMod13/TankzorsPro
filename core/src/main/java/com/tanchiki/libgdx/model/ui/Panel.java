@@ -23,7 +23,7 @@ public class Panel extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setPosition(Gdx.graphics.getWidth() - s.getWidth(), Gdx.graphics.getHeight() - s.getHeight());
         s.draw(batch);

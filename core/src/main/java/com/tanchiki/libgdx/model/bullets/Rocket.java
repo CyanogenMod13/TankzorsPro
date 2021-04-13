@@ -7,9 +7,9 @@ import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Rocket extends Bullet {
-	
+
     public Rocket(float x, float y, int angle, float f) {
-        super(x, y, angle, 0, f, new Array<>(new TextureRegion[] {
+        super(x, y, angle, 0, f, new Array<>(new TextureRegion[]{
                 TextureLoader.getInstance().getBullets()[0][8],
                 TextureLoader.getInstance().getBullets()[0][9],
                 TextureLoader.getInstance().getBullets()[0][10],
@@ -18,11 +18,11 @@ public class Rocket extends Bullet {
         HP = 9;
         a = 2 / 20f;
         a2 = 2 / 3f;
-		sound = SoundLoader.getInstance().getShellRocket();
+        sound = SoundLoader.getInstance().getShellRocket();
     }
-	
-	public Rocket(float x, float y, int angle, float f, Tank tank) {
-		this(x, y, angle, f);
-		parent = tank;
-	}
+
+    public Rocket(float x, float y, int angle, float f, Tank tank) {
+        this(x, y, angle, f);
+        parent = tank;
+    }
 }

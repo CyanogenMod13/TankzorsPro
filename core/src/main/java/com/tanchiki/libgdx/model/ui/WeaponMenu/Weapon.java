@@ -11,10 +11,7 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.WeaponMenuStage;
-import com.tanchiki.libgdx.util.FontLoader;
-import com.tanchiki.libgdx.util.ObjectVariables;
-import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.util.WeaponData;
+import com.tanchiki.libgdx.util.*;
 
 public class Weapon extends GameActor {
     public float w = Gdx.graphics.getWidth() / 10;
@@ -35,7 +32,7 @@ public class Weapon extends GameActor {
         setSize(h, h);
         this.icon = icon;
         this.count = count;
-        r = GameStage.getInstance().TextureLoader.getIcons()[0];
+        r = TextureLoader.getInstance().getIcons()[0];
         s = new Sprite(r[icon]);
         background = new Sprite(r[14]);
         background.setAlpha(0.5f);
@@ -46,7 +43,6 @@ public class Weapon extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
         super.draw(batch, parentAlpha);
         background.setSize(getWidth(), getHeight());
         background.setPosition(getX(), getY());
@@ -64,7 +60,7 @@ public class Weapon extends GameActor {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             TankUser t = GameStage.getInstance().TankUser;
-            // TODO: Implement this method
+
             super.clicked(event, x, y);
             if (t != null)
                 switch (icon) {
@@ -80,18 +76,18 @@ public class Weapon extends GameActor {
                         WeaponMenuStage.getInstance().hideMenu();
                         break;
                     }
-					case WeaponData.Type.double_light_bullet: {
-							Settings.TankUserSettings.bullet_type = 3;
-							Settings.pause = false;
-							WeaponMenuStage.getInstance().hideMenu();
-							break;
-						}
-					case WeaponData.Type.double_plazma_bullet: {
-							Settings.TankUserSettings.bullet_type = 4;
-							Settings.pause = false;
-							WeaponMenuStage.getInstance().hideMenu();
-							break;
-						}	
+                    case WeaponData.Type.double_light_bullet: {
+                        Settings.TankUserSettings.bullet_type = 3;
+                        Settings.pause = false;
+                        WeaponMenuStage.getInstance().hideMenu();
+                        break;
+                    }
+                    case WeaponData.Type.double_plazma_bullet: {
+                        Settings.TankUserSettings.bullet_type = 4;
+                        Settings.pause = false;
+                        WeaponMenuStage.getInstance().hideMenu();
+                        break;
+                    }
                     case WeaponData.Type.bronet_bullet: {
                         Settings.TankUserSettings.bullet_type = 5;
                         Settings.pause = false;

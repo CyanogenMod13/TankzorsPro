@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Clound extends GameActor {
     Sprite s;
@@ -17,7 +18,7 @@ public class Clound extends GameActor {
 
     public Clound(float x, float y) {
         setCenterPosition(x, y);
-        TextureRegion[] t = GameStage.getInstance().TextureLoader.getClouds()[0];
+        TextureRegion[] t = TextureLoader.getInstance().getClouds()[0];
         int i = MathUtils.random(1, 3);
         switch (i) {
             case 1: {
@@ -47,7 +48,7 @@ public class Clound extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s2.setSize(getWidth() - ObjectVariables.size_block * 2, getHeight() - ObjectVariables.size_block * 2);
         s2.setCenter(getCenterX() + getWidth() / 1.5f, getCenterY() - getHeight() / 1.5f);
@@ -69,7 +70,7 @@ public class Clound extends GameActor {
 
     @Override
     public void act(float delta) {
-        // TODO: Implement this method
+
         super.act(delta);
         if (s.getX() > GameStage.getInstance().world_wight)
             remove();

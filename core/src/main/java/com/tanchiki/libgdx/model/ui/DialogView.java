@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
 
@@ -68,7 +67,7 @@ public class DialogView extends Table {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            // TODO: Implement this method
+
             super.clicked(event, x, y);
             OnClick(event, x, y);
         }

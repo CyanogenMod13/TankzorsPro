@@ -32,12 +32,24 @@ public class Track extends GameActor {
     public void setOrientation(int rot) {
         int index = -1;
         switch (rot) {
-            case VERTICAL: index = 4; break;
-            case HORIZONTAL: index = 0; break;
-            case RIGHT_DOWN: index = 14; break;
-            case LEFT_DOWN: index = 17; break;
-            case RIGHT_UP: index = 11; break;
-            case LEFT_UP: index = 8; break;
+            case VERTICAL:
+                index = 4;
+                break;
+            case HORIZONTAL:
+                index = 0;
+                break;
+            case RIGHT_DOWN:
+                index = 14;
+                break;
+            case LEFT_DOWN:
+                index = 17;
+                break;
+            case RIGHT_UP:
+                index = 11;
+                break;
+            case LEFT_UP:
+                index = 8;
+                break;
         }
         this.index = index;
     }

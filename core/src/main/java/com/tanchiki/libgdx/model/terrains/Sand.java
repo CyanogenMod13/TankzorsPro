@@ -19,7 +19,7 @@ public class Sand extends Terrains {
 
     public void postInit() {
         modify = false;
-		
+
         try {
             if ((g.world_obj[(int) (x + size)][(int) y] instanceof Grass) &&
                     (g.world_obj[(int) (x)][(int) (y - size)] instanceof Grass)) {
@@ -129,7 +129,7 @@ public class Sand extends Terrains {
         } catch (ArrayIndexOutOfBoundsException e) {
         }
 
-		modify = true;
+        modify = true;
         s.setRegion(t[random5]);
     }
 

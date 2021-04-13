@@ -17,17 +17,17 @@ public class Explosion extends GameActor {
     public Sprite s;
     protected float time = 0;
     public static float dtime;
-	public float duration;
+    public float duration;
 
     public Explosion(float x, float y, TextureRegion[][] r) {
         this.GameStage = GameStage.getInstance();
-        
+
         s = new Sprite(r[0][3]);
         s.setSize(a * 3.5f, a * 3.5f);
         s.setCenter(x, y);
-		setSize(a * 3.5f, a * 3.5f);
-       	setPosition(x, y, Align.center);
-		duration = 1f / r[0].length;
+        setSize(a * 3.5f, a * 3.5f);
+        setPosition(x, y, Align.center);
+        duration = 1f / r[0].length;
         anim = new Animation<TextureRegion>(duration, r[0]);
         dtime = r[0].length * Gdx.graphics.getDeltaTime(); //anim.getFrameDuration();
         //anim.setPlayMode(Animation.PlayMode.REVERSED);
@@ -35,9 +35,9 @@ public class Explosion extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
-		anim.setFrameDuration(duration);
+        anim.setFrameDuration(duration);
         s.setRegion(anim.getKeyFrame(time, false));
         s.draw(batch);
     }
@@ -51,7 +51,7 @@ public class Explosion extends GameActor {
     public void act(float delta) {
         time += delta;
         destroyExpl();
-        // TODO: Implement this method
+
         super.act(delta);
     }
 

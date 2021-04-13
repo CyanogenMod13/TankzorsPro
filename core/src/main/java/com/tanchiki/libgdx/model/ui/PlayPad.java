@@ -21,7 +21,7 @@ public class PlayPad extends GameActor {
         baseknob.setSize(getWidth(), getHeight());
         baseknob.setPosition(getX(), getY());
         baseknob.draw(batch);
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
 
     }
@@ -40,7 +40,7 @@ public class PlayPad extends GameActor {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-            // TODO: Implement this method
+
             super.draw(batch, parentAlpha);
             knob.setSize(getWidth(), getHeight());
             knob.setCenter(getCenterX(), getCenterY());
@@ -51,7 +51,7 @@ public class PlayPad extends GameActor {
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                // TODO: Implement this method
+
                 super.touchDragged(event, x, y, pointer);
                 setSize(150, 150);
                 setCenterPosition(x, y);

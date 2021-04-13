@@ -8,12 +8,12 @@ public class MainBoot extends Game {
     public void create() {
 
         //setScreen(new GameScreen());
-        // TODO: Implement this method
+
     }
 
     @Override
     public void render() {
-        // TODO: Implement this method
+
         super.render();
     }
 

@@ -25,12 +25,12 @@ import com.tanchiki.libgdx.util.*;
 
 public class GameStage extends Stage {
     private static GameStage gameStage = null;
+
     public static GameStage getInstance() {
         if (gameStage == null) gameStage = new GameStage();
         return gameStage;
     }
 
-    public TextureLoader TextureLoader;
     public OrthographicCamera cam;
     public MainTerrain MT = null;
     public TankUser TankUser;
@@ -52,8 +52,8 @@ public class GameStage extends Stage {
     public ObjBuild[][] worldBuilds;
 
     public Bullet[][] world_bullets_unity, world_bullets_enemy;
-	
-	public Trigger[][] world_trigger;
+
+    public Trigger[][] world_trigger;
 
     public int world_wight, world_height;
     public Actor touchActor = null;
@@ -65,29 +65,28 @@ public class GameStage extends Stage {
 
     public Class<?> currentObj = Grass.class;
     public String parentObj = "ground";
-	
-	public int airplaneX, airplaneY;
-	
-	private Rectangle areaVisible;
+
+    public int airplaneX, airplaneY;
+
+    private Rectangle areaVisible;
 
     private GameStage() {
         GameStage.gameStage = this;
 
-		SavePreferences.getInstance().loadSettings();
+        SavePreferences.getInstance().loadSettings();
         loadMap();
 
-		float h = Gdx.graphics.getHeight();
-		float w = Gdx.graphics.getWidth();
-		float vw = 64;
-		float vh = vw * (h / w);
+        float h = Gdx.graphics.getHeight();
+        float w = Gdx.graphics.getWidth();
+        float vw = 64;
+        float vh = vw * (h / w);
         cam = new OrthographicCamera(vw, vh);
         System.out.println("Camera viewport " + vw + " " + vh);
         cam.position.set(0, 0, 0);
-		areaVisible = new Rectangle(0, 0, vw, vh);
+        areaVisible = new Rectangle(0, 0, vw, vh);
         cam.zoom = 1f / Settings.zoom;
         cam.update();
         getViewport().setCamera(cam);
-        TextureLoader = TextureLoader.getInstance();
 
         if (!Settings.edit_map_mode)
             createTerrain("map_background");
@@ -102,13 +101,13 @@ public class GameStage extends Stage {
 
     @Override
     public Actor hit(float stageX, float stageY, boolean touchable) {
-        // TODO: Implement this method
-		airplaneX = Math.round(stageX);
-		airplaneY = Math.round(stageY);
-		
-		airplaneX += airplaneX % 2;
-		airplaneY += airplaneY % 2;
-		
+
+        airplaneX = Math.round(stageX);
+        airplaneY = Math.round(stageY);
+
+        airplaneX += airplaneX % 2;
+        airplaneY += airplaneY % 2;
+
         touchActor = super.hit(stageX, stageY, touchable);
         return touchActor;
     }
@@ -151,40 +150,40 @@ public class GameStage extends Stage {
 
     public void disposeTerrain() {
         ObjectVariables.all_size_boss_allies = ObjectVariables.all_size_boss_enemies = ObjectVariables.all_size_radar_allies = ObjectVariables.all_size_radar_enemy = ObjectVariables.all_size_reactor_enemy = ObjectVariables.all_size_turrets_enemy = ObjectVariables.all_size_enemies = ObjectVariables.all_size_allies = ObjectVariables.size_enemies = ObjectVariables.size_allies = ObjectVariables.max_tanks = 0;
-		timer_enemy = 0;
-		Tank.stop_enemy = false;
-		MissionCompleted.isShow = false;
-		MissionCompleted.show = true;
-		MissionCompleted.isMissionCompleted = false;
+        timer_enemy = 0;
+        Tank.stop_enemy = false;
+        MissionCompleted.isShow = false;
+        MissionCompleted.show = true;
+        MissionCompleted.isMissionCompleted = false;
         if (MT != null) {
             MT.dispose();
             MT = null;
         }
     }
 
-	float a = 0;
-	float deltaX;
-	float deltaY;
-	
+    float a = 0;
+    float deltaX;
+    float deltaY;
+
     public void moveCam(float x, float y, float speed) {
         float w = x - cam.position.x;
         float h = y - cam.position.y;
         float angle = (float) Math.atan2(h, w);
         float cos = (float) Math.cos(angle);
         float sin = (float) Math.sin(angle);
-		float dis = new Vector2(cam.position.x, cam.position.y).dst(x, y);
+        float dis = new Vector2(cam.position.x, cam.position.y).dst(x, y);
         a = Math.min(1, (int) (dis));
 
         deltaX = cos * a * speed * dis;
         deltaY = sin * a * speed * dis;
 
-       	cam.translate(deltaX, deltaY);
-		int rx = (int) (cam.position.x * 10);
-		int ry = (int) (cam.position.y * 10);
-		int dx = 0;//rx % 2;
-		int dy = 0;//ry % 2;
-		cam.position.set((rx + dx) / 10f, (ry + dy) / 10f, 0);
-       	//System.out.println(cam.position.x + " " + cam.position.y);
+        cam.translate(deltaX, deltaY);
+        int rx = (int) (cam.position.x * 10);
+        int ry = (int) (cam.position.y * 10);
+        int dx = 0;//rx % 2;
+        int dy = 0;//ry % 2;
+        cam.position.set((rx + dx) / 10f, (ry + dy) / 10f, 0);
+        //System.out.println(cam.position.x + " " + cam.position.y);
     }
 
     private void loadMap() {
@@ -198,15 +197,14 @@ public class GameStage extends Stage {
                 index++;
             }
             database.putMap("map_background", database.getMap("map0"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void stop_time(short f) {
-		timer_enemy = 0;
-		Tank.stop_enemy = true;
+        timer_enemy = 0;
+        Tank.stop_enemy = true;
     }
 
     public void updateAirplane() {
@@ -238,27 +236,27 @@ public class GameStage extends Stage {
 
         super.act(delta);
     }
-	
-	private void GPUOptimization(Group group) {
-		areaVisible.setCenter(cam.position.x, cam.position.y);
-		Array<Actor> actors = group.getChildren();
-		for (int i = 0; i < actors.size; i++) {
-			Actor actor = actors.get(i);
-			if (actor instanceof Group) {
-				GPUOptimization((Group) actor);
-				continue;
-			}
-			actor.setVisible(areaVisible.contains(actor.getX(Align.center), actor.getY(Align.center)));
-		}
-	}
-	
+
+    private void GPUOptimization(Group group) {
+        areaVisible.setCenter(cam.position.x, cam.position.y);
+        Array<Actor> actors = group.getChildren();
+        for (int i = 0; i < actors.size; i++) {
+            Actor actor = actors.get(i);
+            if (actor instanceof Group) {
+                GPUOptimization((Group) actor);
+                continue;
+            }
+            actor.setVisible(areaVisible.contains(actor.getX(Align.center), actor.getY(Align.center)));
+        }
+    }
+
     public void drawStage(float delta) {
         long d = System.currentTimeMillis();
         if (MT != null && !Settings.edit_map_mode)
             Clound.random(delta);
         updateAirplane();
 
-		GPUOptimization(MT.root);
+        GPUOptimization(MT.root);
         if (!Settings.pause) act(delta);
         draw();
     }
@@ -315,76 +313,70 @@ public class GameStage extends Stage {
         if (Settings.edit_map_mode)
             switch (keyCode) {
                 case Input.Keys.PLUS:
-                    cam.zoom -= 0.1f; break;
+                    cam.zoom -= 0.1f;
+                    break;
                 case Input.Keys.MINUS:
-                    cam.zoom += 0.1f; break;
+                    cam.zoom += 0.1f;
+                    break;
             }
         return super.keyDown(keyCode);
     }
 
-    public class Listener implements GestureDetector.GestureListener
-    {
+    public class Listener implements GestureDetector.GestureListener {
         private float zoom = 0;
+
         @Override
-        public boolean touchDown(float p1, float p2, int p3, int p4)
-        {
+        public boolean touchDown(float p1, float p2, int p3, int p4) {
             zoom = cam.zoom;
-            // TODO: Implement this method
+
             return true;
         }
 
         @Override
-        public boolean tap(float p1, float p2, int p3, int p4)
-        {
-            // TODO: Implement this method
+        public boolean tap(float p1, float p2, int p3, int p4) {
+
             return false;
         }
 
         @Override
-        public boolean longPress(float p1, float p2)
-        {
-            // TODO: Implement this method
+        public boolean longPress(float p1, float p2) {
+
             return false;
         }
 
         @Override
-        public boolean fling(float p1, float p2, int p3)
-        {
+        public boolean fling(float p1, float p2, int p3) {
 
-            // TODO: Implement this method
+
             return true;
         }
 
         @Override
-        public boolean pan(float p1, float p2, float p3, float p4)
-        {
+        public boolean pan(float p1, float p2, float p3, float p4) {
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-                cam.position.set(cam.position.x - p3/10*cam.zoom,cam.position.y + p4/10*cam.zoom,0);
+                cam.position.set(cam.position.x - p3 / 10 * cam.zoom, cam.position.y + p4 / 10 * cam.zoom, 0);
                 return true;
             }
             return false;
         }
 
         @Override
-        public boolean panStop(float p1, float p2, int p3, int p4)
-        {
-            // TODO: Implement this method
+        public boolean panStop(float p1, float p2, int p3, int p4) {
+
             return false;
         }
 
         @Override
-        public boolean zoom(float p1, float p2)
-        {
-            cam.zoom = zoom*(p1/p2);
+        public boolean zoom(float p1, float p2) {
+            cam.zoom = zoom * (p1 / p2);
             cam.update();
-            // TODO: Implement this method
+
             return false;
         }
 
         @Override
-        public boolean pinch(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4)
-        {
-            // TODO: Implement this method
+        public boolean pinch(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4) {
+
             return false;
         }
 

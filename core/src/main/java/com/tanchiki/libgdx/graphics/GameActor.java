@@ -3,7 +3,7 @@ package com.tanchiki.libgdx.graphics;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class GameActor extends Actor {
-	
+
     public float getCenterX() {
         return getX() + getWidth() / 2;
     }

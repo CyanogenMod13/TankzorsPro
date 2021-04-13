@@ -6,21 +6,17 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tanchiki.libgdx.model.buildes.Flag;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
-import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.stage.StoreStage;
-import com.tanchiki.libgdx.util.ObjectVariables;
-import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.util.SoundLoader;
-import com.tanchiki.libgdx.util.WeaponData;
+import com.tanchiki.libgdx.util.*;
 
 
 public class TankUser extends DefaultTank {
     public Flag flag = null;
-    private final Animation<TextureRegion> animModern = new Animation<>(360 / 16f, gameStage.TextureLoader.getTankHeavy()[0]);
+    private final Animation<TextureRegion> animModern = new Animation<>(360 / 16f, TextureLoader.getInstance().getTankHeavy()[0]);
 
     public TankUser(float x, float y) {
-        super(x, y, ObjectVariables.tank_ally, GameStage.getInstance().TextureLoader.getTankLight()[0], 1);
+        super(x, y, ObjectVariables.tank_ally, TextureLoader.getInstance().getTankLight()[0], 1);
         Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         HPBackup = Settings.TankUserSettings.HPbackup;
         Settings.TankUserSettings.HP = (int) HPBackup;
@@ -51,10 +47,10 @@ public class TankUser extends DefaultTank {
     }
 
     @Override
-	public void destroyTank(float damage) {
-		MainTerrain.getCurrentTerrain().damageUser += (int) damage;
-		super.destroyTank(damage);
-	}
+    public void destroyTank(float damage) {
+        MainTerrain.getCurrentTerrain().damageUser += (int) damage;
+        super.destroyTank(damage);
+    }
 
     @Override
     void createLightBullet() {
@@ -110,13 +106,13 @@ public class TankUser extends DefaultTank {
         updateStateMotion();
         updateStateFire();
         super.act(delta);
-		Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
+        Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         Settings.TankUserSettings.HP = (int) HP;
         HPBackup = Settings.TankUserSettings.HPbackup;
 
         Settings.TankUserSettings.HPShield = (int) HPShield;
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
-		gameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
+        gameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
     }
 
     private Vec currentStateMotion = Vec.NONE;
@@ -125,10 +121,18 @@ public class TankUser extends DefaultTank {
         if (defaultAI.isOnBlockWithoutTransform()) {
             defaultAI.isRiding = true;
             switch (currentStateMotion) {
-                case UP: top(); break;
-                case LEFT: left(); break;
-                case DOWN: bottom(); break;
-                case RIGHT: right(); break;
+                case UP:
+                    top();
+                    break;
+                case LEFT:
+                    left();
+                    break;
+                case DOWN:
+                    bottom();
+                    break;
+                case RIGHT:
+                    right();
+                    break;
                 default:
                     defaultAI.isRiding = false;
             }
@@ -157,9 +161,14 @@ public class TankUser extends DefaultTank {
 
     private void updateStateFire() {
         switch (currentStateFire) {
-            case NONE: /* NONE */ break;
-            case AIR: defaultAI.AIR(); break;
-            case BULLET: defaultAI.BULLET(); break;
+            case NONE: /* NONE */
+                break;
+            case AIR:
+                defaultAI.AIR();
+                break;
+            case BULLET:
+                defaultAI.BULLET();
+                break;
         }
     }
 
@@ -181,13 +190,13 @@ public class TankUser extends DefaultTank {
         }
     }
 
-	@Override
-	protected void updateRun() 	{
-		MainTerrain.getCurrentTerrain().distance += speed;
-		super.updateRun();
-	}
+    @Override
+    protected void updateRun() {
+        MainTerrain.getCurrentTerrain().distance += speed;
+        super.updateRun();
+    }
 
-	public void doRepair() {
+    public void doRepair() {
         if (gameStage.TankUser.HP != gameStage.TankUser.HPBackup)
             if (WeaponData.fix > 0) {
                 gameStage.TankUser.HP = gameStage.TankUser.HPBackup;

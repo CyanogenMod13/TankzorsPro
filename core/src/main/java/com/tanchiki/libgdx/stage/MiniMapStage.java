@@ -6,10 +6,16 @@ import com.tanchiki.libgdx.model.ui.MiniMap;
 import com.tanchiki.libgdx.util.Settings;
 
 public class MiniMapStage extends Stage {
-    public MiniMapStage() {
-        //super(ObjectClass.viewport,new SpriteBatch());
+    private static MiniMapStage miniMapStage = null;
+
+    public static MiniMapStage getInstance() {
+        if (miniMapStage == null) miniMapStage = new MiniMapStage();
+        return miniMapStage;
+    }
+
+    private MiniMapStage() {
+        miniMapStage = this;
         MiniMap map = new MiniMap();
-        //addActor(map);
     }
 
     @Override
@@ -17,7 +23,6 @@ public class MiniMapStage extends Stage {
         if (keyCode == Input.Keys.BACK) {
             hide();
         }
-        // TODO: Implement this method
         return super.keyDown(keyCode);
     }
 

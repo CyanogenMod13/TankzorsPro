@@ -6,11 +6,11 @@ public class IronWall extends Block {
     public IronWall(float x, float y) {
         super(x, y);
         s.setRegion(t[11]);
-		sound = SoundLoader.getInstance().getHitMetal();
+        sound = SoundLoader.getInstance().getHitMetal();
     }
 
     @Override
     public void destroyWall() {
-        // TODO: Implement this method
+
     }
 }

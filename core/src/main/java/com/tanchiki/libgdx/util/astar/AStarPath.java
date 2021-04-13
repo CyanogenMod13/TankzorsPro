@@ -39,12 +39,12 @@ public class AStarPath implements Iterator<AStarNode>, Iterable<AStarNode> {
 
     @Override
     public void remove() {
-        // TODO: Implement this method
+
     }
 
     @Override
     public Iterator<AStarNode> iterator() {
-        // TODO: Implement this method
+
         return this;
     }
 }

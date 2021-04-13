@@ -39,15 +39,15 @@ public class Bullet extends GameActor {
     public boolean isPlay = true;
 
     private final Vector2 pos = new Vector2();
-	private Rectangle body = new Rectangle();
+    private Rectangle body = new Rectangle();
 
-	public TextureRegion[][] expl;
-	
-	public Sound sound = SoundLoader.getInstance().getShellBullet();
-	
+    public TextureRegion[][] expl;
+
+    public Sound sound = SoundLoader.getInstance().getShellBullet();
+
     public Bullet(float x, float y, int angle, float speed, float f, Array<TextureRegion> r) {
         //play = ObjectClass.AudioLoader.playBulletFire();
-		expl = TextureLoader.getInstance().getExpl();
+        expl = TextureLoader.getInstance().getExpl();
         this.angle = angle;
         fraction = f;
         this.speed = speed;
@@ -66,12 +66,12 @@ public class Bullet extends GameActor {
         pos.set(Math.round(getCenterX()), Math.round(getCenterY()));
         if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
         if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
-		body.setSize(2, 2);
+        body.setSize(2, 2);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         if (angle == 1)
             s.setRegion(t[0]);
@@ -143,11 +143,11 @@ public class Bullet extends GameActor {
     public void act(float delta) {
         //if (isPlay) play.play();
 
-		if (sound != null) {
-			sound.play(Settings.volumeEffect);
-			sound = null;
-		}
-		
+        if (sound != null) {
+            sound.play(Settings.volumeEffect);
+            sound = null;
+        }
+
         isPlay = false;
 
         if (!gameStage.MT.rect.contains(getCenterX(), getCenterY())) {
@@ -177,20 +177,20 @@ public class Bullet extends GameActor {
         if (tank != null)
             if (tank.fraction != fraction) {
                 body.setCenter(tank.getCenterX(), tank.getCenterY());
-				if (body.contains(getCenterX(), getCenterY())) {
-					if (parent instanceof TankUser) {
-						tank.giveCoin = true;
-						tank.giveDamage += HP;
-					}	
-					final float tankHP = tank.HP + tank.HPShield;
-					if (tank.HPShield > 0) 
-						SoundLoader.getInstance().getHitShield().play(Settings.volumeEffect);
-					else 
-						SoundLoader.getInstance().getHitMetal().play(Settings.volumeEffect);
-					tank.destroyTank(HP);
-					HP -= Math.max(tankHP, 0);
-					destroyBullet();
-				}
+                if (body.contains(getCenterX(), getCenterY())) {
+                    if (parent instanceof TankUser) {
+                        tank.giveCoin = true;
+                        tank.giveDamage += HP;
+                    }
+                    final float tankHP = tank.HP + tank.HPShield;
+                    if (tank.HPShield > 0)
+                        SoundLoader.getInstance().getHitShield().play(Settings.volumeEffect);
+                    else
+                        SoundLoader.getInstance().getHitMetal().play(Settings.volumeEffect);
+                    tank.destroyTank(HP);
+                    HP -= Math.max(tankHP, 0);
+                    destroyBullet();
+                }
             }
 
         Bullet bullet = (fraction == ObjectVariables.tank_enemy) ? gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] : gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y];
@@ -210,7 +210,7 @@ public class Bullet extends GameActor {
             if (block instanceof DestroyableBlock) HP -= blockHP;
             else HP = 0;
             block.destroyWall();
-			block.sound.play(Settings.volumeEffect);
+            block.sound.play(Settings.volumeEffect);
             destroyBullet();
         }
 
@@ -218,14 +218,14 @@ public class Bullet extends GameActor {
         Build build = objbuild instanceof Build ? (Build) objbuild : null;
         if (build != null)
             if (build.fraction != fraction) {
-				if (objbuild != null && parent instanceof TankUser) ((Build) objbuild).give_coin = true;
+                if (objbuild != null && parent instanceof TankUser) ((Build) objbuild).give_coin = true;
                 final float buildHP = build.HP;
                 build.HP -= Math.max(HP, 0);
                 HP -= Math.max(buildHP, 0);
                 destroyBullet();
             }
 
-        // TODO: Implement this method
+
         super.act(delta);
     }
 

@@ -14,6 +14,7 @@ import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public abstract class Block extends GameActor {
     protected GameStage GameStage;
@@ -23,13 +24,13 @@ public abstract class Block extends GameActor {
     public float HP = 4;
     protected TextureRegion[] t;
     public Actor bullet = null;
-	boolean destroy;
+    boolean destroy;
 
-	public Sound sound = SoundLoader.getInstance().getHitWall();
-	
+    public Sound sound = SoundLoader.getInstance().getHitWall();
+
     public Block(float x, float y) {
         GameStage = GameStage.getInstance();
-        t = GameStage.getInstance().TextureLoader.getWalls()[0];
+        t = TextureLoader.getInstance().getWalls()[0];
         s = new Sprite(t[0]);
         setCenterPosition(x, y);
 
@@ -39,15 +40,15 @@ public abstract class Block extends GameActor {
         GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = this;
         GameStage.world_block[(int) x][(int) y] = 1;
         GameStage.world_nodes[(int) x][(int) y] = 1;
-		
-		s.setSize(a * 2, a * 2);
+
+        s.setSize(a * 2, a * 2);
         s.setCenter(x, y);
-		setBounds(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+        setBounds(s.getX(), s.getY(), s.getWidth(), s.getHeight());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.draw(batch);
     }
@@ -59,33 +60,33 @@ public abstract class Block extends GameActor {
         setColor(Color.GREEN);
     }
 
-	@Override
-	public void act(float delta) {
-		// TODO: Implement this method
-		GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = this;
+    @Override
+    public void act(float delta) {
+
+        GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = this;
         GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 1;
         GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 1;
-		if (destroy) {
-			GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
+        if (destroy) {
+            GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
 
-			if (GameStage.world_block != null)
-				GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
+            if (GameStage.world_block != null)
+                GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
 
-			if (GameStage.world_nodes != null)
-				GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
-			remove();
-			GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), GameStage.TextureLoader.getExpl()));
-		}
-		
-		Tank tank = GameStage.world_tank[(int) getCenterX()][(int) getCenterY()];
-		if (tank != null) {
-			tank.destroyTank(Integer.MAX_VALUE);
-		}
-	}
-	
+            if (GameStage.world_nodes != null)
+                GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
+            remove();
+            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+        }
+
+        Tank tank = GameStage.world_tank[(int) getCenterX()][(int) getCenterY()];
+        if (tank != null) {
+            tank.destroyTank(Integer.MAX_VALUE);
+        }
+    }
+
     public abstract void destroyWall();
 
-	public void destroyWallNow() {
-		destroy = true;
-	}
+    public void destroyWallNow() {
+        destroy = true;
+    }
 }

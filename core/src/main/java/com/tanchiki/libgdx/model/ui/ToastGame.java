@@ -15,7 +15,7 @@ public class ToastGame extends Label {
         setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, Align.center);
         setAlignment(Align.center);
         setVisible(false);
-        //getStyle().background = new TextureRegionDrawable(GameStage.getInstance().TextureLoader.getIcons()[0][14]);
+        //getStyle().background = new TextureRegionDrawable(TextureLoader.getInstance().getIcons()[0][14]);
     }
 
     float time = 0;
@@ -27,7 +27,7 @@ public class ToastGame extends Label {
             time += delta;
             if (time > 5) remove();
         }
-        // TODO: Implement this method
+
         super.act(delta);
     }
 

@@ -14,66 +14,66 @@ import java.util.Map;
 public class FontLoader {
     public static String c = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmЙЦУКЕНГШЩЗХФЫВАПРОЛДЖЭЯЧСМИТЪЬБЮЁйцукенгшщзхфывапролджэячсмитъьбюё,.+-—/*?!;:'1234567890_#@()^~`";
 
-	public static BitmapFont f30;
-	
+    public static BitmapFont f30;
+
     public static BitmapFont f24;
 
     public static BitmapFont f20;
 
     public static BitmapFont f16;
-	
-	public static final Map<String, String> replacePart = new HashMap<>();
+
+    public static final Map<String, String> replacePart = new HashMap<>();
 
     public static void init() {
-		f16 = createFont(16);
-		f20 = createFont(20);
-		f24 = createFont(24);
-		f30 = createFont(30);
-		
-		markupMap();
+        f16 = createFont(16);
+        f20 = createFont(20);
+        f24 = createFont(24);
+        f30 = createFont(30);
+
+        markupMap();
     }
 
-	private static int normalizeFontSize(int size) {
-		return Math.round(Gdx.graphics.getWidth() * size / 1280);
-	}
-	
-	private static void markupMap() {
-		replacePart.put("^A","" + (char) 549);
-		replacePart.put("^B","" + (char) 550);
-		replacePart.put("^C","" + (char) 551);
-		replacePart.put("~", "\n");
-		replacePart.put("#w", "");
-		replacePart.put("#r", "");
-		replacePart.put("#t", "");
-		replacePart.put("[X]", "");
-		replacePart.put("#f", "" + (char) 513);
-		replacePart.put("#m", "" + (char) 512);
-		replacePart.put("#C", "" + (char) 51);
-		replacePart.put("#S", "" + (char) 51);
-		replacePart.put("*", "" + (char) 51);
-		replacePart.put("<", "" + (char) 511);
-		replacePart.put("^s", "" + (char) 542);
-		replacePart.put("^t", "" + (char) 543);
-		replacePart.put("^u", "" + (char) 544);
-		replacePart.put("^L", "" + (char) 554);
-	}
-	
-	private static BitmapFont createFont(int size) {
-		FileHandle ttf = Gdx.files.internal("font/rb.ttf");
+    private static int normalizeFontSize(int size) {
+        return Math.round(Gdx.graphics.getWidth() * size / 1280);
+    }
+
+    private static void markupMap() {
+        replacePart.put("^A", "" + (char) 549);
+        replacePart.put("^B", "" + (char) 550);
+        replacePart.put("^C", "" + (char) 551);
+        replacePart.put("~", "\n");
+        replacePart.put("#w", "");
+        replacePart.put("#r", "");
+        replacePart.put("#t", "");
+        replacePart.put("[X]", "");
+        replacePart.put("#f", "" + (char) 513);
+        replacePart.put("#m", "" + (char) 512);
+        replacePart.put("#C", "" + (char) 51);
+        replacePart.put("#S", "" + (char) 51);
+        replacePart.put("*", "" + (char) 51);
+        replacePart.put("<", "" + (char) 511);
+        replacePart.put("^s", "" + (char) 542);
+        replacePart.put("^t", "" + (char) 543);
+        replacePart.put("^u", "" + (char) 544);
+        replacePart.put("^L", "" + (char) 554);
+    }
+
+    private static BitmapFont createFont(int size) {
+        FileHandle ttf = Gdx.files.internal("font/rb.ttf");
 
         FreeTypeFontGenerator.FreeTypeFontParameter prm = new FreeTypeFontGenerator.FreeTypeFontParameter();
         prm.characters = c;
         prm.flip = false;
-		prm.size = normalizeFontSize(size);
-		
+        prm.size = normalizeFontSize(size);
+
         BitmapFont font = new FreeTypeFontGenerator(ttf).generateFont(prm);
-		font.getData().markupEnabled = true;
-		
-		addExtraGlyphs(font);
-		
-		return font;
-	}
-	
+        font.getData().markupEnabled = true;
+
+        addExtraGlyphs(font);
+
+        return font;
+    }
+
     private static void addExtraGlyphs(BitmapFont font) {
         FreeTypeFontGenerator.FreeTypeBitmapFontData data = (FreeTypeFontGenerator.FreeTypeBitmapFontData) font.getData();
 
@@ -109,11 +109,11 @@ public class FontLoader {
             data.setGlyph(g.id, g);
         }
     }
-	
-	public static String format(String s) {
-		String buff = new String(s);
-		for (String key : replacePart.keySet())
-			buff = buff.replace(key, replacePart.get(key));
-		return buff;
-	}
+
+    public static String format(String s) {
+        String buff = new String(s);
+        for (String key : replacePart.keySet())
+            buff = buff.replace(key, replacePart.get(key));
+        return buff;
+    }
 }

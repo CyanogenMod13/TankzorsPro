@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Smoke extends GameActor {
@@ -23,7 +22,7 @@ public class Smoke extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
         s.setCenter(getCenterX(), getCenterY());
@@ -32,7 +31,7 @@ public class Smoke extends GameActor {
 
     @Override
     public void act(float delta) {
-        // TODO: Implement this method
+
         super.act(delta);
         alpha -= delta / 5;
         if (alpha <= 0)

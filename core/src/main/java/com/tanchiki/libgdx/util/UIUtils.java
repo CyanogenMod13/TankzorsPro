@@ -7,10 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.tanchiki.libgdx.stage.GameStage;
 
 public class UIUtils {
-    public static TextureRegion[] r = GameStage.getInstance().TextureLoader.getIcons()[0];
+    public static TextureRegion[] r = TextureLoader.getInstance().getIcons()[0];
 
     public static TextureRegionDrawable d = new TextureRegionDrawable(new TextureRegion(new Texture("texture/ui/billet.png")));
 
@@ -24,7 +23,7 @@ public class UIUtils {
     }
 
     public static Dialog newDialog(String name, Button... buttons) {
-        Dialog dialog = new Dialog("", new Window.WindowStyle(FontLoader.f16, Color.WHITE, new TextureRegionDrawable(GameStage.getInstance().TextureLoader.getIcons()[0][14])));
+        Dialog dialog = new Dialog("", new Window.WindowStyle(FontLoader.f16, Color.WHITE, new TextureRegionDrawable(TextureLoader.getInstance().getIcons()[0][14])));
         dialog.text(newLabel(name));
         dialog.text(newLabel(""));
         for (Button button : buttons) dialog.button(button);

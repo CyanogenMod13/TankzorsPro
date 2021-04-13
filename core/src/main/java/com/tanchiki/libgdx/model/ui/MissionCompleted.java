@@ -15,63 +15,63 @@ import com.tanchiki.libgdx.util.SavePreferences;
 import com.tanchiki.libgdx.util.Settings;
 
 public class MissionCompleted {
-	public static boolean isShow = false;
-	public static boolean show = true;
-	public static boolean isMissionCompleted = false;
-	
+    public static boolean isShow = false;
+    public static boolean show = true;
+    public static boolean isMissionCompleted = false;
+
     public static final int MISSION_FAILED = -1,
             MISSION_COMPLETED = 1;
 
     public static void show(int mode) {
-		show(mode, "Миссия выполнена!");
+        show(mode, "Миссия выполнена!");
     }
-	
-	public static void show(int mode, String msg) {
-		if (!isShow) {
-			Stage stage = PanelStage.getInstance();
-			switch (mode) {
-				case MISSION_COMPLETED:
-					isMissionCompleted = true;
-					if (!show) return;
-					PanelStage.getInstance().addToast(msg);
-					TextButton button = new TextButton((char) 514 + " Нажмите чтобы продолжить", new TextButton.TextButtonStyle(
-														   null,
-														   new TextureRegionDrawable(new Texture("texture/ui/billet.png")),
-														   null,
-														   FontLoader.f30));
-					button.setY(0);
-					button.setX(stage.getWidth() / 2, Align.center);
-					button.addListener(new Completed(button));
-					stage.addActor(button);
-					break;
-				case MISSION_FAILED:
-					AboutStage.getInstance().showFailed();
-					break;
-			}
-			isShow = true;
-		}
-	}
+
+    public static void show(int mode, String msg) {
+        if (!isShow) {
+            Stage stage = PanelStage.getInstance();
+            switch (mode) {
+                case MISSION_COMPLETED:
+                    isMissionCompleted = true;
+                    if (!show) return;
+                    PanelStage.getInstance().addToast(msg);
+                    TextButton button = new TextButton((char) 514 + " Нажмите чтобы продолжить", new TextButton.TextButtonStyle(
+                            null,
+                            new TextureRegionDrawable(new Texture("texture/ui/billet.png")),
+                            null,
+                            FontLoader.f30));
+                    button.setY(0);
+                    button.setX(stage.getWidth() / 2, Align.center);
+                    button.addListener(new Completed(button));
+                    stage.addActor(button);
+                    break;
+                case MISSION_FAILED:
+                    AboutStage.getInstance().showFailed();
+                    break;
+            }
+            isShow = true;
+        }
+    }
 
     private static class Completed extends ClickListener {
-		TextButton button;
-		
-		public Completed(TextButton button) {
-			this.button = button;
-		}
-		
+        TextButton button;
+
+        public Completed(TextButton button) {
+            this.button = button;
+        }
+
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            // TODO: Implement this method
+
             super.clicked(event, x, y);
-			AboutStage.getInstance().showEnd();
+            AboutStage.getInstance().showEnd();
             ++GameStage.next_level;
-            
+
             //GameStage.getInstance().TankUser.HP = 0;
             /*Settings.start_game = false;
             Settings.show_main_menu = true;
             GameStage.getInstance().createTerrain("map_background");*/
-			SavePreferences.getInstance().saveContinues();
-			button.remove();
+            SavePreferences.getInstance().saveContinues();
+            button.remove();
         }
 
     }
@@ -80,7 +80,7 @@ public class MissionCompleted {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            // TODO: Implement this method
+
             super.clicked(event, x, y);
             //GameStage.getInstance().TankUser.HP = 0;
 

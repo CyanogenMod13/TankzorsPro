@@ -7,6 +7,6 @@ public class Box extends Bonus {
     public Box(float x, float y, int type) {
         super(type, x, y);
         s.setRegion(t[MathUtils.random(18, 19)]);
-		sound = SoundLoader.getInstance().getPowerupPickup();
+        sound = SoundLoader.getInstance().getPowerupPickup();
     }
 }

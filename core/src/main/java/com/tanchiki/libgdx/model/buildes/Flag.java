@@ -18,8 +18,8 @@ public abstract class Flag extends ObjBuild {
     public boolean yellow = false;
     public boolean blue = false;
 
-	public boolean active = true;
-	
+    public boolean active = true;
+
     public Flag(float x, float y, int color) {
         r = TextureLoader.getInstance().getBuildings()[0];
         s = new Sprite(r[color + 2]);
@@ -45,7 +45,7 @@ public abstract class Flag extends ObjBuild {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
         s.setCenter(getCenterX(), getCenterY());
@@ -57,23 +57,24 @@ public abstract class Flag extends ObjBuild {
 
     @Override
     public void setCenterPosition(float x, float y) {
-        // TODO: Implement this method
+
         //GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()] = null;
         //GameStage.getInstance().world_buildes[(int) x][(int) y] = this;
         super.setCenterPosition(x, y);
     }
-	
-	abstract void clicked();
-	
-	@Override
-	public void act(float delta) {
-		if (GameStage.getInstance().world_tank[(int) getCenterX()][(int) getCenterY()] instanceof TankUser && active) clicked();
-		super.act(delta);
-	}
-	
-	protected void win() {
-		MissionCompleted.show(MissionCompleted.MISSION_COMPLETED);
-		active = false;
-		MainTerrain.getCurrentTerrain().removeTimer();
-	}
+
+    abstract void clicked();
+
+    @Override
+    public void act(float delta) {
+        if (GameStage.getInstance().world_tank[(int) getCenterX()][(int) getCenterY()] instanceof TankUser && active)
+            clicked();
+        super.act(delta);
+    }
+
+    protected void win() {
+        MissionCompleted.show(MissionCompleted.MISSION_COMPLETED);
+        active = false;
+        MainTerrain.getCurrentTerrain().removeTimer();
+    }
 }

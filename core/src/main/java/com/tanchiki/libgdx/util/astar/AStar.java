@@ -52,7 +52,7 @@ public class AStar {
                 }
             }
 
-			//if (max_node != null && max_node.parent != null) max_node.parent.code = max_node.code;
+            //if (max_node != null && max_node.parent != null) max_node.parent.code = max_node.code;
             unchecked.remove(index);
 
             if (max_node.equals(end)) {
@@ -68,7 +68,7 @@ public class AStar {
 
                 if (x_new >= graph.length || x_new < 0 || y_new >= graph[0].length || y_new < 0) continue;
 
-				if (graph[x_new][y_new] == 1 && !(GameStage.getInstance().world_physic_block[x_new][y_new] instanceof DestroyableBlock) ||
+                if (graph[x_new][y_new] == 1 && !(GameStage.getInstance().world_physic_block[x_new][y_new] instanceof DestroyableBlock) ||
                         (GameStage.getInstance().world_physic_block[x_new][y_new] instanceof Spike)) continue;
                 //if (graph[x_new][y_new] != 0) continue;
 
@@ -86,6 +86,7 @@ public class AStar {
 
     public interface AStarListener {
         float h(AStarNode end, AStarNode current);
+
         float g(AStarNode begin, AStarNode current);
     }
 }

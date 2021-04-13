@@ -19,7 +19,7 @@ public class TankSiege extends DefaultTank {
                 return false;
             }
         };
-		defaultAI.radius_enemy = 7 * 2;
+        defaultAI.radius_enemy = 7 * 2;
     }
 
     @Override

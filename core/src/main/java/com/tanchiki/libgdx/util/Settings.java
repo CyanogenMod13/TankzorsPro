@@ -7,12 +7,12 @@ import java.util.Vector;
 
 public class Settings {
     //public static Preferences setting = Gdx.app.get
-	public static float volumeEffect = 0.5f;
-	
-	public static float volumeMusic = 1;
-	
-	public static float zoom = 1;
-	
+    public static float volumeEffect = 0.5f;
+
+    public static float volumeMusic = 1;
+
+    public static float zoom = 1;
+
     public static boolean edit_map_mode = false;
 
     public static boolean fixed_move_camera = true;
@@ -28,8 +28,8 @@ public class Settings {
     public static boolean store_menu = false;
 
     public static boolean pause = false;
-	
-	public static boolean pauseView = false;
+
+    public static boolean pauseView = false;
 
     public static Array<String> tanktypeunity = new Array<String>();
 

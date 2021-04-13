@@ -8,6 +8,7 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Airplane extends GameActor {
     Sprite plane;
@@ -18,10 +19,10 @@ public class Airplane extends GameActor {
     float deltaX, deltaY;
     int count;
     int radius;
-	int damage = 10;
+    int damage = 10;
 
     public Airplane(float targetX, float targetY, int count, int damage) {
-		this.damage = damage;
+        this.damage = damage;
         this.radius = (damage <= 16) ? 6 * 2 : 8 * 2;
         this.count = count;
         float b = targetY - (float) Math.tan(Math.toRadians(45)) * targetX;
@@ -42,9 +43,9 @@ public class Airplane extends GameActor {
         this.targetY = targetY;
         GameStage = GameStage.getInstance();
 
-        plane = new Sprite(GameStage.TextureLoader.getAirplane()[0][0]);
-        back = new Sprite(GameStage.TextureLoader.getAirplane()[0][1]);
-        point = new Sprite(GameStage.TextureLoader.getBullets()[0][17]);
+        plane = new Sprite(TextureLoader.getInstance().getAirplane()[0][0]);
+        back = new Sprite(TextureLoader.getInstance().getAirplane()[0][1]);
+        point = new Sprite(TextureLoader.getInstance().getBullets()[0][17]);
     }
 
     @Override
@@ -58,13 +59,13 @@ public class Airplane extends GameActor {
                 count--;
             }
         setVisible(true);
-        // TODO: Implement this method
+
         super.act(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         plane.setSize(getWidth(), getHeight());
         plane.setPosition(getX(), getY());

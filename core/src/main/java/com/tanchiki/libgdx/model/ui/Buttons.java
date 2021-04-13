@@ -25,14 +25,14 @@ public class Buttons extends GameGroup {
 
     public Buttons() {
         Texture texture = new Texture("texture/ui/black/play.png");
-		Texture texture1 = new Texture("texture/ui/black/play_h.png");
-		
+        Texture texture1 = new Texture("texture/ui/black/play_h.png");
+
         Sprite sp1 = new Sprite(texture);
         Sprite sp2 = new Sprite(texture1);
-		sp1.rotate90(false);
-		sp2.rotate90(false);
-		sp1.rotate90(false);
-		sp2.rotate90(false);
+        sp1.rotate90(false);
+        sp2.rotate90(false);
+        sp1.rotate90(false);
+        sp2.rotate90(false);
         t = new SpriteDrawable(sp1);
         t1 = new SpriteDrawable(sp2);
 
@@ -80,16 +80,16 @@ public class Buttons extends GameGroup {
             }
         });
         addActor(button1);
-		
-		sp1 = new Sprite(texture);
+
+        sp1 = new Sprite(texture);
         sp2 = new Sprite(texture1);
-		
-		sp1.rotate90(false);
-		sp2.rotate90(false);
+
+        sp1.rotate90(false);
+        sp2.rotate90(false);
 
         t = new SpriteDrawable(sp1);
         t1 = new SpriteDrawable(sp2);
-		
+
         //this.add(button1).center().pad(50)
         button2 = new TextButton("", new TextButton.TextButtonStyle(t, t1, t, new BitmapFont()));
         button2.setSize(size, size);
@@ -133,15 +133,14 @@ public class Buttons extends GameGroup {
         addActor(button2);
         //button2.setRotation(90);
         //this.add(button2).center().pad(50).top().row();
-		
-		sp1 = new Sprite(texture);
+
+        sp1 = new Sprite(texture);
         sp2 = new Sprite(texture1);
 
-		
 
         t = new SpriteDrawable(sp1);
         t1 = new SpriteDrawable(sp2);
-		
+
         button3 = new TextButton("", new TextButton.TextButtonStyle(t, t1, t, new BitmapFont()));
         button3.setSize(size, size);
         button3.setPosition(button3.getWidth() * 2, button3.getHeight());
@@ -184,16 +183,16 @@ public class Buttons extends GameGroup {
         //button3.setRotation(180);
         addActor(button3);
         //this.add(button3).center().pad(50);
-		
-		sp1 = new Sprite(texture);
+
+        sp1 = new Sprite(texture);
         sp2 = new Sprite(texture1);
 
-		sp1.rotate90(true);
-		sp2.rotate90(true);
+        sp1.rotate90(true);
+        sp2.rotate90(true);
 
         t = new SpriteDrawable(sp1);
         t1 = new SpriteDrawable(sp2);
-		
+
         button4 = new TextButton("", new TextButton.TextButtonStyle(t, t1, t, new BitmapFont()));
         button4.setSize(size, size);
         button4.setPosition(button4.getWidth(), 0);

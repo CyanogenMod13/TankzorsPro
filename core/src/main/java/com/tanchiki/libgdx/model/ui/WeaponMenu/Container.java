@@ -19,17 +19,17 @@ public class Container extends Table {
             createElements(WeaponData.Type.plazma, WeaponData.plazma);
             y -= h;
         }
-		
-		if (WeaponData.double_light_bullet != 0) {
+
+        if (WeaponData.double_light_bullet != 0) {
             createElements(WeaponData.Type.double_light_bullet, WeaponData.double_light_bullet);
             y -= h;
         }
-		
-		if (WeaponData.double_palzma != 0) {
+
+        if (WeaponData.double_palzma != 0) {
             createElements(WeaponData.Type.double_plazma_bullet, WeaponData.double_palzma);
             y -= h;
         }
-		
+
         if (WeaponData.bronet_bullet != 0) {
             createElements(WeaponData.Type.bronet_bullet, WeaponData.bronet_bullet);
             y -= h;
@@ -120,7 +120,7 @@ public class Container extends Table {
     }
 
     public Weapon createElements(int icon, int count) {
-		//if (count == 0) return null;
+        //if (count == 0) return null;
         Weapon w = new Weapon(icon, count);
         w.setSize(h, h);
         w.setPosition(x, y);

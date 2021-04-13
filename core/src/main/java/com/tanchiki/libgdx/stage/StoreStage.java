@@ -7,6 +7,7 @@ import com.tanchiki.libgdx.util.Settings;
 
 public class StoreStage extends Stage {
     private static StoreStage storeStage = null;
+
     public static StoreStage getInstance() {
         if (storeStage == null) storeStage = new StoreStage();
         return storeStage;
@@ -20,7 +21,7 @@ public class StoreStage extends Stage {
 
     public void show() {
         Settings.store_menu = true;
-		Settings.pause = true;
+        Settings.pause = true;
         addActor(storeMenu);
     }
 

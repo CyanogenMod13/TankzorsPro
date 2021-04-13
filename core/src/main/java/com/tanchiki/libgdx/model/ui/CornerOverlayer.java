@@ -23,7 +23,7 @@ public class CornerOverlayer extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         leftLowerCorner.setSize(size, size);
         leftLowerCorner.setPosition(0, 0);

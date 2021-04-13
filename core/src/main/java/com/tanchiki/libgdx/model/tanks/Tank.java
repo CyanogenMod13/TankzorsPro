@@ -20,10 +20,7 @@ import com.tanchiki.libgdx.model.tnt.TNT1;
 import com.tanchiki.libgdx.model.tnt.TNT2;
 import com.tanchiki.libgdx.model.tnt.TNT3;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.util.ObjectVariables;
-import com.tanchiki.libgdx.util.Settings;
-import com.tanchiki.libgdx.util.SoundLoader;
-import com.tanchiki.libgdx.util.WeaponData;
+import com.tanchiki.libgdx.util.*;
 import com.tanchiki.libgdx.util.astar.AStarNode;
 import com.tanchiki.libgdx.util.astar.AStarPath;
 
@@ -60,9 +57,9 @@ public class Tank extends GameActor {
     public boolean speedHack = false;
 
     public static final int DOWN = 1,
-                            RIGHT = 2,
-                            UP = 3,
-                            LEFT = 4;
+            RIGHT = 2,
+            UP = 3,
+            LEFT = 4;
 
     public final Health health = new Health();
     public final Ring ring = new Ring();
@@ -74,12 +71,12 @@ public class Tank extends GameActor {
     private boolean hasRide = true;
 
     public boolean giveCoin = false;
-	
-	public int giveDamage = 0;
+
+    public int giveDamage = 0;
 
     public float coinPrice = 0;
 
-	public boolean boss = false;
+    public boolean boss = false;
 
     public Tank(float x, float y, short fraction, TextureRegion[] regions, int weapon) {
         this.weapon = weapon;
@@ -92,17 +89,17 @@ public class Tank extends GameActor {
 
         switch (this.fraction) {
             case ObjectVariables.tank_enemy:
-                health.setRegions(gameStage.TextureLoader.getHealthRed()[0]);
+                health.setRegions(TextureLoader.getInstance().getHealthRed()[0]);
                 ring.setRing(Ring.ENEMY);
                 break;
             case ObjectVariables.tank_ally:
-                health.setRegions(gameStage.TextureLoader.getHealthYell()[0]);
+                health.setRegions(TextureLoader.getInstance().getHealthYell()[0]);
                 ring.setRing(Ring.ALLY);
         }
         updateDirection();
 
-		gameStage.MT.health.addActor(health);
-		gameStage.MT.ring.addActor(ring);
+        gameStage.MT.health.addActor(health);
+        gameStage.MT.ring.addActor(ring);
 
         gameStage.MT.hashTanks.put(id = this.fraction * hashCode(), this);
     }
@@ -112,26 +109,26 @@ public class Tank extends GameActor {
     }
 
     public void setBossEnable() {
-		if (boss) return;
-		
-		boss = true;
-		if (fraction == ObjectVariables.tank_enemy) {
-			ObjectVariables.all_size_boss_enemies++;
+        if (boss) return;
+
+        boss = true;
+        if (fraction == ObjectVariables.tank_enemy) {
+            ObjectVariables.all_size_boss_enemies++;
         }
 
         if (fraction == ObjectVariables.tank_ally) {
             ObjectVariables.all_size_boss_allies++;
         }
-	}
+    }
 
-	void incrementSize() {
+    void incrementSize() {
         switch (fraction) {
             case ObjectVariables.tank_enemy:
-                    ObjectVariables.size_enemies++;
+                ObjectVariables.size_enemies++;
                 if (boss) ObjectVariables.all_size_boss_enemies++;
                 break;
             case ObjectVariables.tank_ally:
-                    ObjectVariables.size_allies++;
+                ObjectVariables.size_allies++;
                 if (boss) ObjectVariables.all_size_boss_allies++;
         }
     }
@@ -217,19 +214,29 @@ public class Tank extends GameActor {
         lastDirection = direction;
         switch (angleSet) {
             case 0:
-            case 360: direction = DOWN; break;
-            case 90: direction = LEFT; break;
-            case 180: direction = UP; break;
-            case 270: direction = RIGHT; break;
+            case 360:
+                direction = DOWN;
+                break;
+            case 90:
+                direction = LEFT;
+                break;
+            case 180:
+                direction = UP;
+                break;
+            case 270:
+                direction = RIGHT;
+                break;
         }
     }
 
     float timeBullet = 1.0f;
+
     void createLightBullet() {
         gameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     float timePlasma = 0.6f;
+
     void createPlasmaBullet() {
         gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY(), direction, fraction, this));
     }
@@ -273,6 +280,7 @@ public class Tank extends GameActor {
     }
 
     float timeRocket = 1.2f;
+
     void createRocket() {
         gameStage.MT.bullet.addActor(new Rocket(getCenterX(), getCenterY(), direction, fraction, this));
     }
@@ -280,47 +288,47 @@ public class Tank extends GameActor {
     protected void createBullet() {
         switch (weapon) {
             case 1:
-					if (time > timeBullet / speedSkill) {
-						createLightBullet();
-						time = 0;
-					}
-					break;
+                if (time > timeBullet / speedSkill) {
+                    createLightBullet();
+                    time = 0;
+                }
+                break;
             case 2:
-					if (time > timePlasma / speedSkill) {
-						createPlasmaBullet();
-						time = 0;
-					}
-					break;
-			case 3:
-					if (time > timeBullet / speedSkill) {
-						createDoubleLightBullet();
-						time = 0;
-					}
-					break;
+                if (time > timePlasma / speedSkill) {
+                    createPlasmaBullet();
+                    time = 0;
+                }
+                break;
+            case 3:
+                if (time > timeBullet / speedSkill) {
+                    createDoubleLightBullet();
+                    time = 0;
+                }
+                break;
             case 4:
-					if (time > timePlasma / speedSkill) {
-						createDoublePlasmaBullet();
-						time = 0;
-					}
-					break;
+                if (time > timePlasma / speedSkill) {
+                    createDoublePlasmaBullet();
+                    time = 0;
+                }
+                break;
             case 5:
-					if (time > timeBullet / speedSkill) {
-						createArmoredBullet1();
-						time = 0;
-					}
-					break;
+                if (time > timeBullet / speedSkill) {
+                    createArmoredBullet1();
+                    time = 0;
+                }
+                break;
             case 6:
-					if (time > timeBullet / speedSkill) {
-						createArmoredBullet2();
-						time = 0;
-					}
-					break;
+                if (time > timeBullet / speedSkill) {
+                    createArmoredBullet2();
+                    time = 0;
+                }
+                break;
             case 7:
-					if (time > timeRocket / speedSkill) {
-						createRocket();
-						time = 0;
-					}
-					break;
+                if (time > timeRocket / speedSkill) {
+                    createRocket();
+                    time = 0;
+                }
+                break;
         }
     }
 
@@ -330,7 +338,7 @@ public class Tank extends GameActor {
         x += x % 2;
         y += y % 2;
 
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, gameStage.TextureLoader.getExpl()));
+        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
     }
 
     public void destroyTank(float damage) {
@@ -351,9 +359,9 @@ public class Tank extends GameActor {
             decrementSize();
             remove();
             if (giveCoin) {
-				coinPrice = giveDamage * weapon;
-				Settings.TankUserSettings.coin += coinPrice;
-				MainTerrain.getCurrentTerrain().coin += coinPrice;
+                coinPrice = giveDamage * weapon;
+                Settings.TankUserSettings.coin += coinPrice;
+                MainTerrain.getCurrentTerrain().coin += coinPrice;
                 if (boss) {
                     MainTerrain.getCurrentTerrain().star++;
                     Settings.TankUserSettings.star++;
@@ -374,10 +382,16 @@ public class Tank extends GameActor {
         if (angle != 0) return;
         switch (angleSet) {
             case 0:
-            case 360: angle = 90; break;
+            case 360:
+                angle = 90;
+                break;
             //case 90: angle = 0; break;
-            case 180: angle = -90; break;
-            case 270: angle = -180; break;
+            case 180:
+                angle = -90;
+                break;
+            case 270:
+                angle = -180;
+                break;
         }
     }
 
@@ -385,9 +399,15 @@ public class Tank extends GameActor {
         if (angle != 0) return;
         switch (angleSet) {
             case 0:
-            case 360: angle = -90; break;
-            case 90: angle = -180; break;
-            case 180: angle = 90; break;
+            case 360:
+                angle = -90;
+                break;
+            case 90:
+                angle = -180;
+                break;
+            case 180:
+                angle = 90;
+                break;
             //case 270: angle = 0; break;
         }
     }
@@ -395,11 +415,19 @@ public class Tank extends GameActor {
     public void top() {
         if (angle != 0) return;
         switch (angleSet) {
-            case 0: angle = 180; break;
-            case 360: angle = -180; break;
-            case 90: angle = 90; break;
+            case 0:
+                angle = 180;
+                break;
+            case 360:
+                angle = -180;
+                break;
+            case 90:
+                angle = 90;
+                break;
             //case 180: angle = 0; break;
-            case 270: angle = -90; break;
+            case 270:
+                angle = -90;
+                break;
         }
     }
 
@@ -408,9 +436,15 @@ public class Tank extends GameActor {
         switch (angleSet) {
             /*case 0: angle = 0; break;
             case 360: angle = 0; break;*/
-            case 90: angle = -90; break;
-            case 180: angle = -180; break;
-            case 270: angle = 90; break;
+            case 90:
+                angle = -90;
+                break;
+            case 180:
+                angle = -180;
+                break;
+            case 270:
+                angle = 90;
+                break;
         }
     }
 
@@ -440,8 +474,8 @@ public class Tank extends GameActor {
         }
         time += delta;
         updateRotation();
-		if (defaultAI != null)
-		    defaultAI.update();
+        if (defaultAI != null)
+            defaultAI.update();
         ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
         health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
         super.act(delta);
@@ -468,7 +502,7 @@ public class Tank extends GameActor {
             gameStage.world_block[goal_x][goal_y] = id;
             gameStage.world_tank[goal_x][goal_y] = Tank.this;
         }
-		
+
         public void update() {
             actorTarget = (buildTarget != null) ? buildTarget : tankTarget;
             cleanup();
@@ -488,14 +522,18 @@ public class Tank extends GameActor {
 
                     if (hasRide)
                         switch (MODE) {
-                            case ATTACK: ATTACK(); break;
-                            case NORMAL: NORMAL(); break;
+                            case ATTACK:
+                                ATTACK();
+                                break;
+                            case NORMAL:
+                                NORMAL();
+                                break;
                         }
 
                     MODE = NORMAL;
-					stilling = true;
+                    stilling = true;
                 } else {
-					stilling = false;
+                    stilling = false;
                     if (step_place) createBullet();
                     step_place = false;
                     isRiding = true;
@@ -505,9 +543,9 @@ public class Tank extends GameActor {
 
         public void cleanup() {
             if (tankTarget != null && tankTarget.HP <= 0)
-                    tankTarget = null;
+                tankTarget = null;
             if (buildTarget != null && buildTarget.HP <= 0)
-                    buildTarget = null;
+                buildTarget = null;
             if (path == null) currentWay = preWay = nextWay = null;
         }
 
@@ -599,9 +637,9 @@ public class Tank extends GameActor {
 
                 if (startAttack(x, y)) break;
             }
-			int code = MainTerrain.Mission.CODE;
+            int code = MainTerrain.Mission.CODE;
             if (fraction == ObjectVariables.tank_enemy && code >= 50 && code <= 55) startAttackBuild();
-			if (fraction == ObjectVariables.tank_ally && code >= 56 && code <= 60) startAttackBuild();
+            if (fraction == ObjectVariables.tank_ally && code >= 56 && code <= 60) startAttackBuild();
         }
 
         public void attack() {
@@ -630,9 +668,9 @@ public class Tank extends GameActor {
             if (!(Tank.this instanceof Turret))
                 if (buffer != null) {
                     path = gameStage.MT.AStar.search(buffer.defaultAI.goal_x, buffer.defaultAI.goal_y, goal_x, goal_y);
-					//if (path != null) path.next();
-					//lastBuf = buffer;
-				}	
+                    //if (path != null) path.next();
+                    //lastBuf = buffer;
+                }
         }
 
         public void ATTACK() {
@@ -642,10 +680,10 @@ public class Tank extends GameActor {
         }
 
         private AStarNode preWay;
-		
-		private AStarNode currentWay;
-		
-		private AStarNode nextWay;
+
+        private AStarNode currentWay;
+
+        private AStarNode nextWay;
 
         private boolean findBarrier(int angle) {
             if (!hasNextBlock(angle)) {
@@ -660,9 +698,9 @@ public class Tank extends GameActor {
 
                 tank = gameStage.MT.hashTanks.get(gameStage.world_block[x][y]);
                 if (!(tank instanceof TankUser) && tank != null) {
-					path = null;
-					if (tank.defaultAI.MODE == ATTACK) tank.defaultAI.step_place = true;
-				}   
+                    path = null;
+                    if (tank.defaultAI.MODE == ATTACK) tank.defaultAI.step_place = true;
+                }
 
                 block = gameStage.world_physic_block[x][y];
                 if (isDestroyableBlockForBullet(block)) createBullet();
@@ -675,16 +713,16 @@ public class Tank extends GameActor {
         private void decodeWay() {
             if (path.hasNext()) {
                 if (preWay == null && currentWay == null) {
-					currentWay = path.next();
-					if (path.hasNext()) nextWay = path.next();
-				}
+                    currentWay = path.next();
+                    if (path.hasNext()) nextWay = path.next();
+                }
 
-				AStarNode nodeWay = currentWay;
-				
-				if (preWay != null && nextWay != null) {
-					//if (preWay.code != nextWay.code) nodeWay.code = nextWay.code;
-				}
-				
+                AStarNode nodeWay = currentWay;
+
+                if (preWay != null && nextWay != null) {
+                    //if (preWay.code != nextWay.code) nodeWay.code = nextWay.code;
+                }
+
                 switch (-nodeWay.code) {
                     case AStarNode.DOWN: {
                         DOWN();
@@ -692,10 +730,10 @@ public class Tank extends GameActor {
                         if (findBarrier(DOWN)) break;
 
                         if (direction == DOWN) {
-							preWay = nodeWay;
-							currentWay = nextWay;
-							nextWay = path.next();
-						}
+                            preWay = nodeWay;
+                            currentWay = nextWay;
+                            nextWay = path.next();
+                        }
                         break;
                     }
 
@@ -704,11 +742,11 @@ public class Tank extends GameActor {
 
                         if (findBarrier(UP)) break;
 
-							if (direction == UP) {
-								preWay = nodeWay;
-								currentWay = nextWay;
-								nextWay = path.next();
-							}
+                        if (direction == UP) {
+                            preWay = nodeWay;
+                            currentWay = nextWay;
+                            nextWay = path.next();
+                        }
                         break;
                     }
 
@@ -717,11 +755,11 @@ public class Tank extends GameActor {
 
                         if (findBarrier(LEFT)) break;
 
-							if (direction == LEFT) {
-								preWay = nodeWay;
-								currentWay = nextWay;
-								nextWay = path.next();
-							}
+                        if (direction == LEFT) {
+                            preWay = nodeWay;
+                            currentWay = nextWay;
+                            nextWay = path.next();
+                        }
                         break;
                     }
 
@@ -730,11 +768,11 @@ public class Tank extends GameActor {
 
                         if (findBarrier(RIGHT)) break;
 
-							if (direction == RIGHT) {
-								preWay = nodeWay;
-								currentWay = nextWay;
-								nextWay = path.next();
-							}
+                        if (direction == RIGHT) {
+                            preWay = nodeWay;
+                            currentWay = nextWay;
+                            nextWay = path.next();
+                        }
                         break;
                     }
 
@@ -888,7 +926,7 @@ public class Tank extends GameActor {
                             WeaponData.tnt3 -= 1;
                         }
                 }
-			SoundLoader.getInstance().getMineDeploy().play(Settings.volumeEffect);
+            SoundLoader.getInstance().getMineDeploy().play(Settings.volumeEffect);
         }
 
         public void BULLET() {
@@ -903,29 +941,45 @@ public class Tank extends GameActor {
                 case DOWN:
                     orientation = Track.VERTICAL;
                     switch (lastDirection) {
-                        case LEFT: orientation = Track.RIGHT_DOWN; break;
-                        case RIGHT: orientation = Track.LEFT_DOWN; break;
+                        case LEFT:
+                            orientation = Track.RIGHT_DOWN;
+                            break;
+                        case RIGHT:
+                            orientation = Track.LEFT_DOWN;
+                            break;
                     }
                     break;
                 case RIGHT:
                     orientation = Track.HORIZONTAL;
                     switch (lastDirection) {
-                        case UP: orientation = Track.RIGHT_DOWN; break;
-                        case DOWN: orientation = Track.RIGHT_UP; break;
+                        case UP:
+                            orientation = Track.RIGHT_DOWN;
+                            break;
+                        case DOWN:
+                            orientation = Track.RIGHT_UP;
+                            break;
                     }
                     break;
                 case UP:
                     orientation = Track.VERTICAL;
                     switch (lastDirection) {
-                        case LEFT: orientation = Track.RIGHT_UP; break;
-                        case RIGHT: orientation = Track.LEFT_UP; break;
+                        case LEFT:
+                            orientation = Track.RIGHT_UP;
+                            break;
+                        case RIGHT:
+                            orientation = Track.LEFT_UP;
+                            break;
                     }
                     break;
                 case LEFT:
                     orientation = Track.HORIZONTAL;
                     switch (lastDirection) {
-                        case UP: orientation = Track.LEFT_DOWN; break;
-                        case DOWN: orientation = Track.LEFT_UP; break;
+                        case UP:
+                            orientation = Track.LEFT_DOWN;
+                            break;
+                        case DOWN:
+                            orientation = Track.LEFT_UP;
+                            break;
                     }
                     break;
             }
@@ -950,7 +1004,7 @@ public class Tank extends GameActor {
                 speed = newSpeed(0.8f);
             else if (gameStage.world_obj[goal_x][goal_y] instanceof Plate)
                 speed = newSpeed(0.8f);
-					
+
         }
 
         private float newSpeed(float scl) {
@@ -1052,8 +1106,8 @@ public class Tank extends GameActor {
         }
 
         private boolean hasNextBlock() {
-			return hasNextBlock(direction);
-		}
+            return hasNextBlock(direction);
+        }
 
         private void nextBlock(int t) {
             int x = (int) getCenterX(), y = (int) getCenterY();
@@ -1080,8 +1134,8 @@ public class Tank extends GameActor {
         }
 
         private void nextBlock() {
-			nextBlock(direction);
-		}
+            nextBlock(direction);
+        }
 
         private void turn() {
             goal_x = (int) getCenterX();
@@ -1136,13 +1190,17 @@ public class Tank extends GameActor {
             float y = getCenterY();
             switch (direction) {
                 case 1:
-                    if (b = y <= goal_y) y = goal_y; break;
+                    if (b = y <= goal_y) y = goal_y;
+                    break;
                 case 2:
-                    if (b = x >= goal_x) x = goal_x; break;
+                    if (b = x >= goal_x) x = goal_x;
+                    break;
                 case 3:
-                    if (b = y >= goal_y) y = goal_y; break;
+                    if (b = y >= goal_y) y = goal_y;
+                    break;
                 case 4:
-                    if (b = x <= goal_x) x = goal_x; break;
+                    if (b = x <= goal_x) x = goal_x;
+                    break;
             }
             if (b) {
                 if (isTransform) setCenterPosition(x, y);
@@ -1163,7 +1221,7 @@ public class Tank extends GameActor {
 
         public Health() {
             setSize(a * 2, 0.3f * ObjectVariables.size_block);
-			//setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+            //setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
         }
 
         public void setRegions(TextureRegion[] regions) {
@@ -1172,11 +1230,11 @@ public class Tank extends GameActor {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-			super.draw(batch, parentAlpha);
-			batch.draw(regions[Math.min(11, Math.max((int) ((12 * HP) / HPBackup) - 1, 0))],
+            super.draw(batch, parentAlpha);
+            batch.draw(regions[Math.min(11, Math.max((int) ((12 * HP) / HPBackup) - 1, 0))],
                     getX() - getWidth() / 2, getY(),
                     getWidth(), getHeight());
-		}
+        }
     }
 
     public class Ring extends Actor {
@@ -1186,8 +1244,9 @@ public class Tank extends GameActor {
         public static final int SHIELD_DAMAGED = 3;
         public static final int ALLY = 4;
 
-        private final TextureRegion[] rings = gameStage.TextureLoader.getRings()[0];
+        private final TextureRegion[] rings = TextureLoader.getInstance().getRings()[0];
         private int index;
+
         public Ring() {
             setSize(ObjectVariables.size_block * 3, ObjectVariables.size_block * 3);
             //setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);

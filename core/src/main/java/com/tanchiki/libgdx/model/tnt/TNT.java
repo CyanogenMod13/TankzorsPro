@@ -7,6 +7,7 @@ import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
+import com.tanchiki.libgdx.util.TextureLoader;
 
 public class TNT extends GameActor {
     protected Sprite s;
@@ -21,7 +22,7 @@ public class TNT extends GameActor {
         this.damage = damage;
         this.radius = radius;
         GameStage = GameStage.getInstance();
-        t = GameStage.TextureLoader.getIcons()[0];
+        t = TextureLoader.getInstance().getIcons()[0];
         s = new Sprite(t[0]);
         setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
         setCenterPosition(x, y);
@@ -30,7 +31,7 @@ public class TNT extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO: Implement this method
+
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
         s.setPosition(getX(), getY());
@@ -45,7 +46,7 @@ public class TNT extends GameActor {
             GameStage.addActor(new BiggestExplosion(getCenterX(), getCenterY(), radius, damage));
             remove();
         }
-        // TODO: Implement this method
+
         super.act(delta);
     }
 
