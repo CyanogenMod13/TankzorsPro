@@ -35,7 +35,7 @@ public class MainTerrain extends Group implements Disposable {
     public Group road;
     public Group bonus;
     public Group track;
-    public Group decor_ground;
+    public Group decorGround;
     public Group mines;
     public Group bullet;
     public Group health;
@@ -79,7 +79,7 @@ public class MainTerrain extends Group implements Disposable {
         road = new Group();
         bonus = new Group();
         track = new Group();
-        decor_ground = new Group();
+        decorGround = new Group();
         mines = new Group();
         bullet = new Group();
         health = new Group();
@@ -95,7 +95,7 @@ public class MainTerrain extends Group implements Disposable {
         tanks.addActor(tanks_unity);
         tanks.addActor(tanks_enemy);
         root.addActor(ground);
-        root.addActor(decor_ground);
+        root.addActor(decorGround);
         root.addActor(road);
         root.addActor(mines);
         root.addActor(bonus);

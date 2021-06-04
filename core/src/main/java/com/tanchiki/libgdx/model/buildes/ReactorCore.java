@@ -29,7 +29,7 @@ public class ReactorCore extends Build {
                 } catch (Exception e) {
                 }
                 try {
-                    gameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, 8 * ObjectVariables.size_block * 2, 10));
+                    gameStage.MT.decorGround.addActor(new BiggestExplosion(x, y, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }
@@ -43,7 +43,7 @@ public class ReactorCore extends Build {
                 } catch (InterruptedException e) {
                 }*/
                 try {
-                    gameStage.MT.decor_ground.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVariables.size_block * 2, 10));
+                    gameStage.MT.decorGround.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }

@@ -8,11 +8,11 @@ public class DecorGrass {
     public static void createBulgeGrass(MainTerrain mt, float x, float y) {
         switch (MathUtils.random(1, 2)) {
             case 1: {
-                mt.decor_ground.addActor(new BugleGrass(x, y));
+                mt.decorGround.addActor(new BugleGrass(x, y));
                 break;
             }
             case 2: {
-                mt.decor_ground.addActor(new BugleGrass2(x, y));
+                mt.decorGround.addActor(new BugleGrass2(x, y));
                 break;
             }
         }
@@ -20,7 +20,7 @@ public class DecorGrass {
     }
 
     public static void createSandGrass(MainTerrain mt, float x, float y) {
-        mt.decor_ground.addActor(new SandGrass(x, y));
+        mt.decorGround.addActor(new SandGrass(x, y));
     }
 
     private static class SandGrass extends Sand {

@@ -23,7 +23,7 @@ public class TankKamikaze extends DefaultTank {
         x += x % 2;
         y += y % 2;
 
-        gameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, 6 * 2, 10));
+        gameStage.MT.decorGround.addActor(new BiggestExplosion(x, y, 6 * 2, 10));
         expl = true;
     }
 

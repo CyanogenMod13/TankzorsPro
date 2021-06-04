@@ -13,6 +13,7 @@ public class WeaponMenuStage extends Stage {
 
     private WeaponMenuStage() {
         WeaponMenuStage.weaponMenuStage = this;
+        setDebugAll(true);
     }
 
     public void showMenu() {

@@ -191,9 +191,9 @@ public class TankUser extends DefaultTank {
     }
 
     @Override
-    protected void updateRun() {
+    protected void updateMove() {
         MainTerrain.getCurrentTerrain().distance += speed;
-        super.updateRun();
+        super.updateMove();
     }
 
     public void doRepair() {
@@ -229,7 +229,7 @@ public class TankUser extends DefaultTank {
                 if (isRiding)
                     stepWithoutTurn();
             } else {
-                updateRun();
+                updateMove();
             }
         }
     }

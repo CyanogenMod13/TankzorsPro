@@ -38,44 +38,27 @@ public class Tank extends GameActor {
     public float speed = 1;
     protected float time;
     public boolean rotate = true;
-
     int direction = 1;
     int lastDirection = 1;
-
     public int weapon = 1;
-
     public DefaultAI defaultAI;
-
     private final int id;
-
     private float speedr = 0;
-
     public float speedSkill = 1;
-
     public float speedTime = 0;
-
     public boolean speedHack = false;
-
     public static final int DOWN = 1,
             RIGHT = 2,
             UP = 3,
             LEFT = 4;
-
     public final Health health = new Health();
     public final Ring ring = new Ring();
-
     public static boolean stop_enemy = false;
-
     public static boolean stop_unity = false;
-
     private boolean hasRide = true;
-
     public boolean giveCoin = false;
-
     public int giveDamage = 0;
-
     public float coinPrice = 0;
-
     public boolean boss = false;
 
     public Tank(float x, float y, short fraction, TextureRegion[] regions, int weapon) {
@@ -183,7 +166,7 @@ public class Tank extends GameActor {
         this.rotate = !(angle == 0);
     }
 
-    protected void updateRun() {
+    protected void updateMove() {
         if (angle != 0) return;
 
         updateDirection();
@@ -537,7 +520,7 @@ public class Tank extends GameActor {
                     if (step_place) createBullet();
                     step_place = false;
                     isRiding = true;
-                    if (hasRide) updateRun();
+                    if (hasRide) updateMove();
                 }
         }
 
@@ -799,7 +782,7 @@ public class Tank extends GameActor {
                 if (hasNextBlock()) {
                     nextBlock();
                     createTrack();
-                    updateRun();
+                    updateMove();
                 }
         }
 
@@ -808,7 +791,7 @@ public class Tank extends GameActor {
                 if (hasNextBlock()) {
                     nextBlock();
                     createTrack();
-                    updateRun();
+                    updateMove();
                 } else {
                     turn();
                 }
@@ -826,7 +809,7 @@ public class Tank extends GameActor {
                     if (hasNextBlock(UP) && !rotate) {
                         createTrack();
                         nextBlock(UP);
-                        updateRun();
+                        updateMove();
                     }
             }
         }
@@ -838,7 +821,7 @@ public class Tank extends GameActor {
                     if (hasNextBlock(DOWN) && !rotate) {
                         createTrack();
                         nextBlock(DOWN);
-                        updateRun();
+                        updateMove();
                     }
             }
         }
@@ -850,7 +833,7 @@ public class Tank extends GameActor {
                     if (hasNextBlock(LEFT) && !rotate) {
                         createTrack();
                         nextBlock(LEFT);
-                        updateRun();
+                        updateMove();
                     }
             }
         }
@@ -862,7 +845,7 @@ public class Tank extends GameActor {
                     if (hasNextBlock(RIGHT) && !rotate) {
                         createTrack();
                         nextBlock(RIGHT);
-                        updateRun();
+                        updateMove();
                     }
             }
         }

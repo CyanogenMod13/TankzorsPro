@@ -9,8 +9,8 @@ import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 abstract public class SubBuilds extends ObjBuild {
-    //tanktype HP weapon Shield speed
-    public static final int[][][] tanks_prm = {
+    public static final int[/*type group of tank*/][/*level difficult*/][/*parameters of tank*/] tanks_prm = {
+            /*{tanktype, HP, weapon, Shield, speed}*/
             {{1, 3, 1, 0, 0}, {1, 3, 1, 0, 1}, {1, 5, 1, 0, 1}, {1, 3, 2, 4, 0}, {1, 5, 2, 0, 2}},
             {{1, 5, 1, 0, 0}, {1, 7, 1, 0, 0}, {1, 9, 1, 0, 0}, {1, 8, 3, 5, 0}, {1, 7, 1, 0, 0}},
             {{1, 6, 2, 0, 0}, {1, 8, 2, 0, 0}, {1, 9, 2, 3, 0}, {1, 9, 4, 7, 0}, {1, 10, 7, 0, 0}},

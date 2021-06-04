@@ -107,7 +107,7 @@ public class Artiling extends Bullet {
         y += y % 2;
 
         if (Vector2.dst2(x, y, this.x, this.y) >= dst2 && !expl) {
-            gameStage.MT.decor_ground.addActor(new BiggestExplosion(x, y, diameter, damage));
+            gameStage.MT.decorGround.addActor(new BiggestExplosion(x, y, diameter, damage));
             expl = true;
         }
 

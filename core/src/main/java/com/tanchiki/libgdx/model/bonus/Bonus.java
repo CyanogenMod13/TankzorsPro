@@ -233,7 +233,7 @@ public class Bonus extends GameActor {
                                 break;
                             case 19:
                                 PanelStage.getInstance().addToast("Аааа! Allah Akbar!");
-                                MainTerrain.getCurrentTerrain().decor_ground.addActor(new TNT2(getCenterX(), getCenterY()));
+                                MainTerrain.getCurrentTerrain().decorGround.addActor(new TNT2(getCenterX(), getCenterY()));
                                 break;
                         }
                         remove();
