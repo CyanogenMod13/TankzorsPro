@@ -4,6 +4,7 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    sourceSets.main.assets.srcDir(new File('../assets'))
 
     defaultConfig {
         applicationId "com.tanchiki.libgdx"

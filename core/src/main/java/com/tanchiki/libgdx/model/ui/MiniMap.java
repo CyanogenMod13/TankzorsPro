@@ -74,7 +74,7 @@ public class MiniMap extends GameActor {
         for (int i = 0; i < m.builds.getChildren().size; i++) {
             GameActor a = (GameActor) m.builds.getChildren().get(i);
             shapes.set(ShapeRenderer.ShapeType.Line);
-            if (a instanceof AngarUnity) {
+            if (a instanceof HangarUnity) {
                 shapes.setColor(Color.GREEN);
                 shapes.rect(getX() + a.getCenterX() / 2 * size, getY() + a.getCenterY() / 2 * size, size, size);
             }
@@ -88,7 +88,7 @@ public class MiniMap extends GameActor {
                 ReactorCore.ReactorCoreUnity r = (ReactorCore.ReactorCoreUnity) a;
                 shapes.rect(getX() + r.x / 2 * size, getY() + r.y / 2 * size - size, size * 2, size * 2);
             }
-            if (a instanceof AngarEnemy) {
+            if (a instanceof HangarEnemy) {
                 shapes.setColor(Color.RED);
                 shapes.rect(getX() + a.getCenterX() / 2 * size, getY() + a.getCenterY() / 2 * size, size, size);
             }

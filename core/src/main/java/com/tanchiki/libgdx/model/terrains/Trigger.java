@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.aircraft.Airplane;
-import com.tanchiki.libgdx.model.buildes.AngarEnemy;
-import com.tanchiki.libgdx.model.buildes.AngarUnity;
+import com.tanchiki.libgdx.model.buildes.HangarEnemy;
+import com.tanchiki.libgdx.model.buildes.HangarUnity;
 import com.tanchiki.libgdx.model.bullets.Bullet;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
@@ -455,14 +455,14 @@ public class Trigger extends Actor {
             }
             if (num == 0) {
                 if (allies)
-                    for (int key : AngarUnity.register.keySet()) AngarUnity.register.get(key).activity = 1;
+                    for (int key : HangarUnity.register.keySet()) HangarUnity.register.get(key).activity = 1;
                 else
-                    for (int key : AngarEnemy.register.keySet()) AngarEnemy.register.get(key).activity = 1;
+                    for (int key : HangarEnemy.register.keySet()) HangarEnemy.register.get(key).activity = 1;
             } else {
                 if (allies)
-                    AngarUnity.register.get(num).activity = 1;
+                    HangarUnity.register.get(num).activity = 1;
                 else
-                    AngarEnemy.register.get(num).activity = 1;
+                    HangarEnemy.register.get(num).activity = 1;
             }
         }
 
@@ -477,14 +477,14 @@ public class Trigger extends Actor {
             }
             if (num == 0) {
                 if (allies)
-                    for (int key : AngarUnity.register.keySet()) AngarUnity.register.get(key).activity = 0;
+                    for (int key : HangarUnity.register.keySet()) HangarUnity.register.get(key).activity = 0;
                 else
-                    for (int key : AngarEnemy.register.keySet()) AngarEnemy.register.get(key).activity = 0;
+                    for (int key : HangarEnemy.register.keySet()) HangarEnemy.register.get(key).activity = 0;
             } else {
                 if (allies)
-                    AngarUnity.register.get(num).activity = 0;
+                    HangarUnity.register.get(num).activity = 0;
                 else
-                    AngarEnemy.register.get(num).activity = 0;
+                    HangarEnemy.register.get(num).activity = 0;
             }
         }
 
@@ -499,16 +499,16 @@ public class Trigger extends Actor {
             }
             if (num == 0) {
                 if (allies)
-                    for (int key : AngarUnity.register.keySet())
-                        AngarUnity.register.get(key).activity = AngarUnity.register.get(num).activity == 1 ? 0 : 1;
+                    for (int key : HangarUnity.register.keySet())
+                        HangarUnity.register.get(key).activity = HangarUnity.register.get(num).activity == 1 ? 0 : 1;
                 else
-                    for (int key : AngarEnemy.register.keySet())
-                        AngarEnemy.register.get(key).activity = AngarEnemy.register.get(num).activity == 1 ? 0 : 1;
+                    for (int key : HangarEnemy.register.keySet())
+                        HangarEnemy.register.get(key).activity = HangarEnemy.register.get(num).activity == 1 ? 0 : 1;
             } else {
                 if (allies)
-                    AngarUnity.register.get(num).activity = AngarUnity.register.get(num).activity == 1 ? 0 : 1;
+                    HangarUnity.register.get(num).activity = HangarUnity.register.get(num).activity == 1 ? 0 : 1;
                 else
-                    AngarEnemy.register.get(num).activity = AngarEnemy.register.get(num).activity == 1 ? 0 : 1;
+                    HangarEnemy.register.get(num).activity = HangarEnemy.register.get(num).activity == 1 ? 0 : 1;
             }
         }
 
@@ -528,15 +528,15 @@ public class Trigger extends Actor {
             rect.setCenter(x, y);
 
             //len *= len * 4;
-            for (int key : AngarUnity.register.keySet()) {
-                AngarUnity angar = AngarUnity.register.get(key);
+            for (int key : HangarUnity.register.keySet()) {
+                HangarUnity angar = HangarUnity.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
                     if (angar.activity == 0) count++;
                     angar.activity = 1;
                 }
             }
-            for (int key : AngarEnemy.register.keySet()) {
-                AngarEnemy angar = AngarEnemy.register.get(key);
+            for (int key : HangarEnemy.register.keySet()) {
+                HangarEnemy angar = HangarEnemy.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
                     if (angar.activity == 0) count++;
                     angar.activity = 1;
@@ -563,15 +563,15 @@ public class Trigger extends Actor {
             rect.setSize(len * 2, len * 2);
             rect.setCenter(x, y);
             //len *= 8 * len;
-            for (int key : AngarUnity.register.keySet()) {
-                AngarUnity angar = AngarUnity.register.get(key);
+            for (int key : HangarUnity.register.keySet()) {
+                HangarUnity angar = HangarUnity.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
                     if (angar.activity == 1) count++;
                     angar.activity = 0;
                 }
             }
-            for (int key : AngarEnemy.register.keySet()) {
-                AngarEnemy angar = AngarEnemy.register.get(key);
+            for (int key : HangarEnemy.register.keySet()) {
+                HangarEnemy angar = HangarEnemy.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
                     if (angar.activity == 1) count++;
                     angar.activity = 0;
@@ -597,12 +597,12 @@ public class Trigger extends Actor {
             rect.setSize(len * 2, len * 2);
             rect.setCenter(x, y);
             //len *= 4 * len;
-            for (int key : AngarUnity.register.keySet()) {
-                AngarUnity angar = AngarUnity.register.get(key);
+            for (int key : HangarUnity.register.keySet()) {
+                HangarUnity angar = HangarUnity.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) angar.activity = angar.activity == 1 ? 0 : 1;
             }
-            for (int key : AngarEnemy.register.keySet()) {
-                AngarEnemy angar = AngarEnemy.register.get(key);
+            for (int key : HangarEnemy.register.keySet()) {
+                HangarEnemy angar = HangarEnemy.register.get(key);
                 if (rect.contains(angar.getCenterX(), angar.getCenterY())) angar.activity = angar.activity == 1 ? 0 : 1;
             }
         }

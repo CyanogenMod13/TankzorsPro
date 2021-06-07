@@ -9,7 +9,7 @@ version '1.1'
 sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 mainClassName = 'com.app.Game'
-sourceSets.main.resources.srcDir(new File('../android/src/main/assets'))
+sourceSets.main.resources.srcDir(new File('../assets'))
 
 repositories {
     mavenCentral()

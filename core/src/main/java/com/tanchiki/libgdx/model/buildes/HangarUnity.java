@@ -12,8 +12,8 @@ import com.tanchiki.libgdx.util.WeaponData;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AngarUnity extends SubBuilds {
-    public static Map<Integer, AngarUnity> register = null;
+public class HangarUnity extends SubBuilds {
+    public static Map<Integer, HangarUnity> register = null;
 
     private static int LAST_INDEX = 0;
     private static int lastIndex = 0;
@@ -32,7 +32,7 @@ public class AngarUnity extends SubBuilds {
     private int spawnAI = 0;
     public int activity = 1;
 
-    public AngarUnity(float x, float y) {
+    public HangarUnity(float x, float y) {
         super(x, y, TextureLoader.getInstance().getBuildings()[0][0], ObjectVariables.tank_ally);
         setCenterPosition(x, y);
         if (LAST_INDEX == 0) register = new HashMap<>();

@@ -322,27 +322,27 @@ public class MainTerrain extends Group implements Disposable {
         }
         if (code == 100) {
             ground.addActor(new Grass(j * 2, i * 2));
-            builds.addActor(new AngarUnity(j * 2, i * 2));
+            builds.addActor(new HangarUnity(j * 2, i * 2));
         }
         if (code == 105) {
             ground.addActor(new Plate(j * 2, i * 2));
-            builds.addActor(new AngarUnity(j * 2, i * 2));
+            builds.addActor(new HangarUnity(j * 2, i * 2));
         }
         if (code == 110) {
             ground.addActor(new Sand(j * 2, i * 2));
-            builds.addActor(new AngarUnity(j * 2, i * 2));
+            builds.addActor(new HangarUnity(j * 2, i * 2));
         }
         if (code == 101) {
             ground.addActor(new Grass(j * 2, i * 2));
-            builds.addActor(new AngarEnemy(j * 2, i * 2));
+            builds.addActor(new HangarEnemy(j * 2, i * 2));
         }
         if (code == 106) {
             ground.addActor(new Plate(j * 2, i * 2));
-            builds.addActor(new AngarEnemy(j * 2, i * 2));
+            builds.addActor(new HangarEnemy(j * 2, i * 2));
         }
         if (code == 111) {
             ground.addActor(new Sand(j * 2, i * 2));
-            builds.addActor(new AngarEnemy(j * 2, i * 2));
+            builds.addActor(new HangarEnemy(j * 2, i * 2));
         }
         if (code == 115) {
             ground.addActor(new Grass(j * 2, i * 2));

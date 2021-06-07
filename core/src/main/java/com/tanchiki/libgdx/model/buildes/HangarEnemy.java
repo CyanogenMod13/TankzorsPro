@@ -8,8 +8,8 @@ import com.tanchiki.libgdx.util.TextureLoader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AngarEnemy extends SubBuilds {
-    public static Map<Integer, AngarEnemy> register = null;
+public class HangarEnemy extends SubBuilds {
+    public static Map<Integer, HangarEnemy> register = null;
 
     private static int LAST_INDEX = 0;
     float time = 1;
@@ -21,7 +21,7 @@ public class AngarEnemy extends SubBuilds {
     private int spawnAI = 0;
     public int activity = 1;
 
-    public AngarEnemy(float x, float y) {
+    public HangarEnemy(float x, float y) {
         super(x, y, TextureLoader.getInstance().getBuildings()[0][1], ObjectVariables.tank_enemy);
         if (LAST_INDEX == 0) register = new HashMap<>();
         code_name = "angar_enemy";
