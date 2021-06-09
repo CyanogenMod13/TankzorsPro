@@ -497,12 +497,10 @@ public class Tank extends GameActor {
                     detectGround();
                     if (!step_place) {
                         startAttackTank();
-                        if (!(Tank.this instanceof Turret) && !stilling) attack();
+                        if (!stilling) searchEnemy();
                     }
                     if (step_place) path = null;
-
                     step_place = false;
-
                     if (hasRide)
                         switch (MODE) {
                             case ATTACK:
@@ -532,11 +530,12 @@ public class Tank extends GameActor {
             if (path == null) currentWay = preWay = nextWay = null;
         }
 
-        public boolean isUnDestroyableBlock(Actor block) {
+        public boolean isNotDestroyableBlock(Block block) {
             return !(block instanceof DestroyableBlock);
         }
 
-        public boolean hasUnDestroyableBlock(int x0, int y0, int x, int y) {
+        public boolean hasNotDestroyableBlock(int x0, int y0, int x, int y) {
+            boolean result = false;
             int yy = y - y0;
             int xx = x - x0;
             int signx = Integer.signum(xx) * 2;
@@ -544,11 +543,11 @@ public class Tank extends GameActor {
             for (int i = 0; i <= Math.abs(xx); i += 2, x0 += signx)
                 for (int j = 0; j <= Math.abs(yy); j += 2, y0 += signy)
                     if (x0 >= 0 && x0 < gameStage.world_physic_block.length && y0 >= 0 && y0 < gameStage.world_physic_block[0].length) {
-                        Actor actor = gameStage.world_physic_block[x0][y0];
+                        Block actor = gameStage.world_physic_block[x0][y0];
                         if (actor == null) continue;
-                        return isUnDestroyableBlock(actor);
+                        result |= isNotDestroyableBlock(actor);
                     }
-            return false;
+            return result;
         }
 
         public float distance_of_goal;
@@ -558,14 +557,14 @@ public class Tank extends GameActor {
             if (x == goal_x)
                 if ((distance_of_goal = Math.abs(goal_y - y)) <= radius_enemy)
                     if (y > goal_y) {
-                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal))
                             return false;
                         top();
                         if (direction == UP) createBullet();
                         MODE = ATTACK;
                         return true;
                     } else {
-                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x, goal_y - (int) distance_of_goal))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y - (int) distance_of_goal))
                             return false;
                         bottom();
                         if (direction == DOWN) createBullet();
@@ -576,14 +575,14 @@ public class Tank extends GameActor {
             if (y == goal_y)
                 if ((distance_of_goal = Math.abs(goal_x - x)) <= radius_enemy)
                     if (x > goal_x) {
-                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y))
                             return false;
                         right();
                         if (direction == RIGHT) createBullet();
                         MODE = ATTACK;
                         return true;
                     } else {
-                        if (hasUnDestroyableBlock(goal_x, goal_y, goal_x - (int) distance_of_goal, goal_y))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x - (int) distance_of_goal, goal_y))
                             return false;
                         left();
                         if (direction == LEFT) createBullet();
@@ -594,7 +593,7 @@ public class Tank extends GameActor {
             return false;
         }
 
-        public void startAttackBuild() {
+        protected void startAttackBuild() {
             Group builds = gameStage.MT.builds;
             for (int i = 0; i < builds.getChildren().size; i++) {
                 ObjBuild objbuild = (ObjBuild) builds.getChildren().get(i);
@@ -610,7 +609,7 @@ public class Tank extends GameActor {
             }
         }
 
-        public void startAttackTank() {
+        protected void startAttackTank() {
             Group tanks = (fraction == ObjectVariables.tank_ally) ?
                     gameStage.MT.tanks_enemy : gameStage.MT.tanks_unity;
             for (int i = 0; i < tanks.getChildren().size; i++) {
@@ -618,16 +617,15 @@ public class Tank extends GameActor {
                 float x = targetX = tank.defaultAI.goal_x;
                 float y = targetY = tank.defaultAI.goal_y;
 
-                if (startAttack(x, y)) break;
+                if (startAttack(x, y)) return;
             }
             int code = MainTerrain.Mission.CODE;
             if (fraction == ObjectVariables.tank_enemy && code >= 50 && code <= 55) startAttackBuild();
             if (fraction == ObjectVariables.tank_ally && code >= 56 && code <= 60) startAttackBuild();
         }
 
-        public void attack() {
+        protected void searchEnemy() {
             if (MODE == ATTACK) return;
-
             if (path != null) return;
 
             Tank buffer = null;
@@ -647,13 +645,11 @@ public class Tank extends GameActor {
                     }
                 }
             }
-
-            if (!(Tank.this instanceof Turret))
-                if (buffer != null) {
-                    path = gameStage.MT.AStar.search(buffer.defaultAI.goal_x, buffer.defaultAI.goal_y, goal_x, goal_y);
-                    //if (path != null) path.next();
-                    //lastBuf = buffer;
-                }
+            if (buffer != null)
+                path = gameStage.MT.AStar.search(buffer.defaultAI.goal_x,
+                        buffer.defaultAI.goal_y,
+                        goal_x,
+                        goal_y);
         }
 
         public void ATTACK() {
@@ -769,8 +765,6 @@ public class Tank extends GameActor {
         }
 
         public void NORMAL() {
-            step_place = false;
-
             if (path != null)
                 decodeWay();
             else

@@ -32,6 +32,7 @@ public class AStarPath implements Iterator<AStarNode>, Iterable<AStarNode> {
 
     @Override
     public AStarNode next() {
+        if (next == null) return null;
         AStarNode tmp = next;
         next = next.parent;
         return tmp;

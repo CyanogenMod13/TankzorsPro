@@ -2,6 +2,7 @@ package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.tanchiki.libgdx.model.terrains.Block;
 import com.tanchiki.libgdx.model.terrains.IronWall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectVariables;
@@ -25,9 +26,12 @@ public class Turret extends NonRidingTank {
         super(x, y, f, TextureLoader.getInstance().getTurrets()[0], 5);
         setAI(new DefaultAI() {
             @Override
-            public boolean isUnDestroyableBlock(Actor block) {
+            public boolean isNotDestroyableBlock(Block block) {
                 return block instanceof IronWall;
             }
+
+            @Override
+            protected void searchEnemy() {}
         });
         HP = 10;
         HPBackup = HP;

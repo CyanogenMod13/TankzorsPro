@@ -13,9 +13,9 @@ public class TankSiege extends DefaultTank {
         speed = 0.1f;
         defaultAI = new DefaultAI() {
             @Override
-            public boolean hasUnDestroyableBlock(int x0, int y0, int x, int y) {
+            public boolean hasNotDestroyableBlock(int x0, int y0, int x, int y) {
                 if (defaultAI.distance_of_goal <= 4 * 2)
-                    return super.hasUnDestroyableBlock(x0, y0, x, y);
+                    return super.hasNotDestroyableBlock(x0, y0, x, y);
                 return false;
             }
         };
