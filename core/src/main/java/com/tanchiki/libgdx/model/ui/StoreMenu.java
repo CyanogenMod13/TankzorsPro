@@ -2013,9 +2013,8 @@ public class StoreMenu extends Table {
                     final MenuStage.ViewTable table = new MenuStage.ViewTable(null, null);
                     context.setVisible(false);
                     StoreMenu.this.info.setVisible(false);
-                    table.setSize(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+                    //table.setSize(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
                     table.setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
-                    table.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center);
                     MenuStage.ViewTable area = new MenuStage.ViewTable(null, null);
                     area.area(FontLoader.format(inter.getInfo()));
                     ScrollPane scroll = new ScrollPane(area);
@@ -2031,6 +2030,8 @@ public class StoreMenu extends Table {
                             table.remove();
                         }
                     });
+                    table.pack();
+                    table.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center);
                     StoreMenu.this.addActor(table);
                 }
             });

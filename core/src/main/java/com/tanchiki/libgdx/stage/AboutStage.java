@@ -95,7 +95,7 @@ public class AboutStage extends Stage {
         public AboutView() {
             super(null, null);
             setSize(Gdx.graphics.getWidth() / 3f, Gdx.graphics.getHeight() / 3f);
-            setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, Align.center);
+            setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center);
             setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
             int level = GameStage.next_level;
             MapBinReader map = MapsDatabase.getInstance().getMap("map" + level);
@@ -118,7 +118,7 @@ public class AboutStage extends Stage {
         public EndView() {
             super(null, null);
             setSize(Gdx.graphics.getWidth() / 3f, Gdx.graphics.getHeight() / 3f);
-            setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, Align.center);
+            setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center);
             setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
             int level = GameStage.next_level;
             MapBinReader map = MapsDatabase.getInstance().getMap("map" + level);
@@ -143,13 +143,13 @@ public class AboutStage extends Stage {
                     "Всего монет: " + MainTerrain.getCurrentTerrain().coin + '\n' +
                     "Бонусный процент: " + bonus + '\n' +
                     "Всего звезд: " + MainTerrain.getCurrentTerrain().star + '\n' +
-                    "Время миссии: " + (h < 10 ? "0" : "") + h + ":" + (sm < 10 ? "0" : "") + sm + ":" + (ss < 10 ? "0" : "") + ss + "\n" +
+                    "Время миссии: " + String.format("%02d:%02d:%02d", h, sm, ss) + "\n" +
                     "Выстрелов: " + MainTerrain.getCurrentTerrain().countFire + '\n' +
                     "Урон танчику: " + MainTerrain.getCurrentTerrain().damageUser + " HP" + '\n' +
                     "Пробег танчика: " + MainTerrain.getCurrentTerrain().distance + " m");
             ScrollPane scroll = new ScrollPane(context);
             scroll.setScrollingDisabled(true, false);
-            add(scroll).size(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f).row();
+            add(scroll).row();//.size(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f).row();
             addSeparator();
             button("Продолжить", new ClickListener() {
                 @Override
@@ -188,7 +188,7 @@ public class AboutStage extends Stage {
         public FailView() {
             super(null, null);
             setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, Align.center);
+            setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, Align.center);
             setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
             label((char) 515 + "   Миссия провалена!");
 
