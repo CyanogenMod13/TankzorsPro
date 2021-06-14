@@ -1,7 +1,6 @@
 package com.tanchiki.libgdx.model.tanks;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.tanchiki.libgdx.model.terrains.Block;
 import com.tanchiki.libgdx.model.terrains.IronWall;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
@@ -26,12 +25,15 @@ public class Turret extends NonRidingTank {
         super(x, y, f, TextureLoader.getInstance().getTurrets()[0], 5);
         setAI(new DefaultAI() {
             @Override
-            public boolean isNotDestroyableBlock(Block block) {
-                return block instanceof IronWall;
+            public void update() {
+                updateDirection();
+                startAttackTank();
             }
 
             @Override
-            protected void searchEnemy() {}
+            public boolean isNotDestroyableBlock(Block block) {
+                return block instanceof IronWall;
+            }
         });
         HP = 10;
         HPBackup = HP;
@@ -43,32 +45,33 @@ public class Turret extends NonRidingTank {
         if (fraction == ObjectVariables.tank_enemy) ObjectVariables.all_size_turrets_enemy++;
     }
 
-    float tt = 0;
-    float ttt = MathUtils.random(4, 10);
+    float currentDeltaTime = 0;
+    float maxDeltaTime = MathUtils.random(4, 10);
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (defaultAI.MODE != defaultAI.ATTACK) {
-            tt += delta;
-            if (tt >= ttt) {
-                switch (MathUtils.random(1, 4)) {
-                    case 1:
-                        bottom();
-                        break;
-                    case 2:
-                        left();
-                        break;
-                    case 3:
-                        right();
-                        break;
-                    case 4:
-                        top();
-                        break;
-                }
-                tt = 0;
-                ttt = MathUtils.random(4, 10);
+        if (defaultAI.MODE == defaultAI.ATTACK)
+            currentDeltaTime = 0;
+
+        currentDeltaTime += delta;
+        if (currentDeltaTime >= maxDeltaTime) {
+            switch (MathUtils.random(1, 4)) {
+                case 1:
+                    bottom();
+                    break;
+                case 2:
+                    left();
+                    break;
+                case 3:
+                    right();
+                    break;
+                case 4:
+                    top();
+                    break;
             }
+            currentDeltaTime = 0;
+            maxDeltaTime = MathUtils.random(4, 10);
         }
     }
 
