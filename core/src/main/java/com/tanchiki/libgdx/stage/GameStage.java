@@ -178,11 +178,11 @@ public class GameStage extends Stage {
         deltaY = sin * a * speed * dis;
 
         cam.translate(deltaX, deltaY);
-        int rx = (int) (cam.position.x * 10);
+        /*int rx = (int) (cam.position.x * 10);
         int ry = (int) (cam.position.y * 10);
         int dx = 0;//rx % 2;
         int dy = 0;//ry % 2;
-        cam.position.set((rx + dx) / 10f, (ry + dy) / 10f, 0);
+        cam.position.set((rx + dx) / 10f, (ry + dy) / 10f, 0);*/
         //System.out.println(cam.position.x + " " + cam.position.y);
     }
 

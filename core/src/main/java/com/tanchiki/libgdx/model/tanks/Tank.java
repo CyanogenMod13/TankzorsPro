@@ -85,6 +85,9 @@ public class Tank extends GameActor {
         gameStage.MT.ring.addActor(ring);
 
         gameStage.MT.hashTanks.put(id = this.fraction * hashCode(), this);
+
+        ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
+        health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
     }
 
     public int getDirection() {
