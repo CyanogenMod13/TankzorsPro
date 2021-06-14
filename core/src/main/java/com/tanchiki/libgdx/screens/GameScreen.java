@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.kotcrab.vis.ui.VisUI;
-import com.tanchiki.libgdx.server.GameServer;
 import com.tanchiki.libgdx.stage.*;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.Settings;
@@ -138,7 +137,6 @@ public class GameScreen implements ApplicationListener {
         storeStage = StoreStage.getInstance();
         miniMapStage = MiniMapStage.getInstance();
         pauseStage = PauseStage.getInstance();
-        GameServer.getInstance().waitForClient();
     }
 
     private void initInput() {

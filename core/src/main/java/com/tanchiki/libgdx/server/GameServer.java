@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class GameServer {
     private static GameServer gameServer = null;
 

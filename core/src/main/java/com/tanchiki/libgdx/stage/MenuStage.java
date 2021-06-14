@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.ScrollableTextArea;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.tanchiki.libgdx.server.GameServer;
 import com.tanchiki.libgdx.util.*;
 
 import java.util.Date;
@@ -243,8 +242,6 @@ public class MenuStage extends Stage {
                             } else {
                                 SavePreferences.getInstance().loadContinues();
                                 GameStage.getInstance().startLevel(GameStage.next_level + 1);
-                                GameServer server = GameServer.getInstance();
-                                server.sendData("Hello".getBytes());
                                 Settings.pause = true;
                                 AboutStage.getInstance().show();
                             }
