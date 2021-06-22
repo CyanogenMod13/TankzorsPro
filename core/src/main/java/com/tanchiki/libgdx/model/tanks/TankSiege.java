@@ -1,5 +1,6 @@
 package com.tanchiki.libgdx.model.tanks;
 
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.bullets.Artiling;
 import com.tanchiki.libgdx.util.TextureLoader;
 
@@ -26,7 +27,7 @@ public class TankSiege extends DefaultTank {
     protected void createBullet() {
         if (defaultAI.distanceOfGoal <= 4 * 2) super.createBullet();
         else if (time > 2f) {
-            gameStage.mainTerrain.bullet.addActor(new Artiling(getCenterX(), getCenterY(), defaultAI.radius_enemy, direction));
+            gameStage.mainTerrain.bullet.addActor(new Artiling(getX(Align.center), getY(Align.center), defaultAI.radius_enemy, direction));
             time = 0;
         }
     }

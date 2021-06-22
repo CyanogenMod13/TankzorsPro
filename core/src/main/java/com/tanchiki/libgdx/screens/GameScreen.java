@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.kotcrab.vis.ui.VisUI;
 import com.tanchiki.libgdx.stage.*;
@@ -148,7 +147,6 @@ public class GameScreen implements ApplicationListener {
         input.addProcessor(AboutStage.getInstance());
         input.addProcessor(panelStage);
         input.addProcessor(storeStage);
-        if (Settings.edit_map_mode) input.addProcessor(new GestureDetector(gameStage.listener));
         input.addProcessor(gameStage);
         input.addProcessor(miniMapStage);
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
@@ -32,7 +33,7 @@ abstract public class Build extends ObjBuild {
         gameStage = gameStage.getInstance();
         s = new Sprite(r);
         size = (s.getHeight() * a) / s.getWidth();
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         try {
             if (gameStage.world_nodes != null) {
                 gameStage.world_nodes[(int) x][(int) y] = 1;

@@ -3,13 +3,14 @@ package com.tanchiki.libgdx.model.tnt;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class TNT extends GameActor {
+public class TNT extends Actor {
     protected Sprite s;
     protected GameStage GameStage;
     protected TextureRegion[] t;
@@ -25,7 +26,7 @@ public class TNT extends GameActor {
         t = TextureLoader.getInstance().getIcons()[0];
         s = new Sprite(t[0]);
         setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         GameStage.world_mines[(int) x][(int) y] = this;
     }
 
@@ -42,8 +43,8 @@ public class TNT extends GameActor {
     public void act(float delta) {
         time += delta;
         if (time > T) {
-            GameStage.world_mines[(int) getCenterX()][(int) getCenterY()] = null;
-            GameStage.addActor(new BiggestExplosion(getCenterX(), getCenterY(), radius, damage));
+            GameStage.world_mines[(int) getX(Align.center)][(int) getY(Align.center)] = null;
+            GameStage.addActor(new BiggestExplosion(getX(Align.center), getY(Align.center), radius, damage));
             remove();
         }
 

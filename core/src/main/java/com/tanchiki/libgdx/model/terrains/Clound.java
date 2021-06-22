@@ -4,12 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Clound extends GameActor {
+public class Clound extends Actor {
     Sprite s;
     Sprite s2;
     float alpha = 1;
@@ -17,7 +18,7 @@ public class Clound extends GameActor {
     public static float t = MathUtils.random(30f, 60f);
 
     public Clound(float x, float y) {
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         TextureRegion[] t = TextureLoader.getInstance().getClouds()[0];
         int i = MathUtils.random(1, 3);
         switch (i) {
@@ -41,9 +42,9 @@ public class Clound extends GameActor {
         setWidth(ObjectVariables.size_block * 2 * 6);
         setHeight((s.getHeight() * getWidth()) / s.getWidth());
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s2.setSize(getWidth(), getHeight());
-        s2.setCenter(getCenterX() + getWidth() / 2, getCenterY() - getHeight() / 2);
+        s2.setCenter(getX(Align.center) + getWidth() / 2, getY(Align.center) - getHeight() / 2);
     }
 
     @Override
@@ -51,10 +52,10 @@ public class Clound extends GameActor {
 
         super.draw(batch, parentAlpha);
         s2.setSize(getWidth() - ObjectVariables.size_block * 2, getHeight() - ObjectVariables.size_block * 2);
-        s2.setCenter(getCenterX() + getWidth() / 1.5f, getCenterY() - getHeight() / 1.5f);
+        s2.setCenter(getX(Align.center) + getWidth() / 1.5f, getY(Align.center) - getHeight() / 1.5f);
         s2.draw(batch);
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s.draw(batch);
 
     }

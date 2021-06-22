@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.terrains.*;
 import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.SoundLoader;
@@ -18,7 +19,7 @@ public class NormalExplosion extends Explosion {
 
     public NormalExplosion(float x, float y, TextureRegion[][] r) {
         super(x, y, r);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         if (GameStage.world_obj[(int) x][(int) y] instanceof Sand) {
             if (((Sand) GameStage.world_obj[(int) x][(int) y]).modify)
                 GameStage.mainTerrain.ground.addActor(new CrashSand(x, y));
@@ -34,7 +35,7 @@ public class NormalExplosion extends Explosion {
             a.remove();
             GameStage.world_mines[(int) x][(int) y] = null;
         }
-        GameStage.mainTerrain.smoke.addActor(new Smoke(getCenterX(), getCenterY()));
+        GameStage.mainTerrain.smoke.addActor(new Smoke(getX(Align.center), getY(Align.center)));
 
         overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
 
@@ -56,7 +57,7 @@ public class NormalExplosion extends Explosion {
         super.draw(batch, parentAlpha);
         //overlayer.setRegion((TextureRegion) anim.getKeyFrame(time, false));
         overlayer.setSize(2 * 3, 2 * 3);
-        overlayer.setCenter(getCenterX(), getCenterY());
+        overlayer.setCenter(getX(Align.center), getY(Align.center));
         overlayer.setAlpha(1f - time);
         overlayer.draw(batch);
     }

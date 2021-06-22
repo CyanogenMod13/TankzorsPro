@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.WeaponMenuStage;
 import com.tanchiki.libgdx.util.*;
 
-public class Weapon extends GameActor {
+public class Weapon extends Actor {
     public float w = Gdx.graphics.getWidth() / 10;
     public float h = Gdx.graphics.getHeight() / 10;
 
@@ -49,7 +50,7 @@ public class Weapon extends GameActor {
         background.draw(batch);
 
         s.setSize(getWidth() / 2f, getHeight() / 2f);
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s.draw(batch);
         float q = font.getData().getGlyph('Q').height;
         font.draw(batch, "" + count, getX(), getY() + q);

@@ -3,12 +3,12 @@ package com.tanchiki.libgdx.model.tanks;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
-import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.buildes.Build;
 import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.*;
@@ -24,7 +24,7 @@ import com.tanchiki.libgdx.util.*;
 import com.tanchiki.libgdx.util.astar.AStarNode;
 import com.tanchiki.libgdx.util.astar.AStarPath;
 
-public class Tank extends GameActor {
+public class Tank extends Actor {
     protected GameStage gameStage = GameStage.getInstance();
     private final float a = ObjectVariables.size_block;
     public Animation<TextureRegion> anim;
@@ -65,7 +65,7 @@ public class Tank extends GameActor {
         this.weapon = weapon;
         this.fraction = fraction;
         setSize(a * 2.6f, a * 2.6f);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         setOrigin(getWidth() / 2, getHeight() / 2);
 
         anim = new Animation<>(360 / 16f, regions);
@@ -86,8 +86,8 @@ public class Tank extends GameActor {
 
         gameStage.mainTerrain.hashTanks.put(id = this.fraction * hashCode(), this);
 
-        ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
-        health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+        ring.setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center), Align.center);
+        health.setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center) + a + health.getHeight());
     }
 
     public int getDirection() {
@@ -157,6 +157,14 @@ public class Tank extends GameActor {
                 a * 2.6f, a * 2.6f);
     }
 
+    @Override
+    public void drawDebug(ShapeRenderer shapes) {
+        shapes.set(ShapeRenderer.ShapeType.Line);
+        if (defaultAI != null) {
+
+        }
+    }
+
     private void updateRotation() {
         int rotate = Integer.signum(angle) * 10;
         if (rotate > 0 && angleSet == 360)
@@ -174,24 +182,24 @@ public class Tank extends GameActor {
 
         updateDirection();
         float b = 2f / speed;
-        float x = getCenterX();
-        float y = getCenterY();
+        float x = getX(Align.center);
+        float y = getY(Align.center);
         switch (angleSet) {
             case 0:
             case 360:
-                y = Math.round((getCenterY() - speed) * b) / b;
+                y = Math.round((getY(Align.center) - speed) * b) / b;
                 break;
             case 90:
-                x = Math.round((getCenterX() - speed) * b) / b;
+                x = Math.round((getX(Align.center) - speed) * b) / b;
                 break;
             case 180:
-                y = Math.round((getCenterY() + speed) * b) / b;
+                y = Math.round((getY(Align.center) + speed) * b) / b;
                 break;
             case 270:
-                x = Math.round((getCenterX() + speed) * b) / b;
+                x = Math.round((getX(Align.center) + speed) * b) / b;
                 break;
         }
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
     }
 
     public void updateDirection() {
@@ -218,26 +226,26 @@ public class Tank extends GameActor {
     float timeBullet = 1.0f;
 
     void createLightBullet() {
-        gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new BulletLight(getX(Align.center), getY(Align.center), direction, fraction, this));
     }
 
     float timePlasma = 0.6f;
 
     void createPlasmaBullet() {
-        gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getX(Align.center), getY(Align.center), direction, fraction, this));
     }
 
     void createDoubleLightBullet() {
         switch (direction) {
             case 1:
             case 3:
-                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getX(Align.center) + 0.2f, getY(Align.center), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getX(Align.center) - 0.2f, getY(Align.center), direction, fraction, this));
                 break;
             case 2:
             case 4:
-                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getX(Align.center), getY(Align.center) + 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getX(Align.center), getY(Align.center) - 0.2f, direction, fraction, this));
                 break;
         }
     }
@@ -246,29 +254,29 @@ public class Tank extends GameActor {
         switch (direction) {
             case 1:
             case 3:
-                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getX(Align.center) + 0.2f, getY(Align.center), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getX(Align.center) - 0.2f, getY(Align.center), direction, fraction, this));
                 break;
             case 2:
             case 4:
-                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getX(Align.center), getY(Align.center) + 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getX(Align.center), getY(Align.center) - 0.2f, direction, fraction, this));
                 break;
         }
     }
 
     void createArmoredBullet1() {
-        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet1(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet1(getX(Align.center), getY(Align.center), direction, fraction, this));
     }
 
     void createArmoredBullet2() {
-        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet2(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet2(getX(Align.center), getY(Align.center), direction, fraction, this));
     }
 
     float timeRocket = 1.2f;
 
     void createRocket() {
-        gameStage.mainTerrain.bullet.addActor(new Rocket(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new Rocket(getX(Align.center), getY(Align.center), direction, fraction, this));
     }
 
     protected void createBullet() {
@@ -319,8 +327,8 @@ public class Tank extends GameActor {
     }
 
     protected void explodeTankAnimation() {
-        int x = (int) getCenterX();
-        int y = (int) getCenterY();
+        int x = (int) getX(Align.center);
+        int y = (int) getY(Align.center);
         x += x % 2;
         y += y % 2;
 
@@ -462,15 +470,15 @@ public class Tank extends GameActor {
         updateRotation();
         if (defaultAI != null)
             defaultAI.update();
-        ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
-        health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+        ring.setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center), Align.center);
+        health.setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center) + a + health.getHeight());
         super.act(delta);
     }
 
     public class DefaultAI {
         public final int NORMAL = 1;
         public final int ATTACK = 2;
-        public int goal_x = (int) getCenterX(), goal_y = (int) getCenterY();
+        public int goal_x = (int) getX(Align.center), goal_y = (int) getY(Align.center);
         private final int block = ObjectVariables.size_block * 2;
         private Vector2 lastPoint = null;
         public int MODE = NORMAL;
@@ -915,7 +923,7 @@ public class Tank extends GameActor {
         }
 
         private void createTrack() {
-            Track track = new Track(getCenterX(), getCenterY());
+            Track track = new Track(getX(Align.center), getY(Align.center));
             int orientation = 0;
             switch (direction) {
                 case DOWN:
@@ -992,7 +1000,7 @@ public class Tank extends GameActor {
         }
 
         private boolean hasNextBlock(int o) {
-            int x = (int) getCenterX(), y = (int) getCenterY();
+            int x = (int) getX(Align.center), y = (int) getY(Align.center);
             try {
                 switch (o) {
                     case 1: {
@@ -1043,7 +1051,7 @@ public class Tank extends GameActor {
         }
 
         private Vector2 nextBlockPosition(int angle) {
-            int x = (int) getCenterX(), y = (int) getCenterY();
+            int x = (int) getX(Align.center), y = (int) getY(Align.center);
             try {
                 switch (angle) {
                     case 1: {
@@ -1090,7 +1098,7 @@ public class Tank extends GameActor {
         }
 
         private void nextBlock(int t) {
-            int x = (int) getCenterX(), y = (int) getCenterY();
+            int x = (int) getX(Align.center), y = (int) getY(Align.center);
             lastPoint = new Vector2(goal_x, goal_y);
             switch (t) {
                 case 1:
@@ -1118,8 +1126,8 @@ public class Tank extends GameActor {
         }
 
         private void turn() {
-            goal_x = (int) getCenterX();
-            goal_y = (int) getCenterY();
+            goal_x = (int) getX(Align.center);
+            goal_y = (int) getY(Align.center);
             switch (direction) {
                 case 1:
                     if (hasNextBlock(2))
@@ -1166,8 +1174,8 @@ public class Tank extends GameActor {
 
         public boolean isOnBlock(boolean isTransform) {
             boolean b = false;
-            float x = getCenterX();
-            float y = getCenterY();
+            float x = getX(Align.center);
+            float y = getY(Align.center);
             switch (direction) {
                 case 1:
                     if (b = y <= goal_y) y = goal_y;
@@ -1183,7 +1191,7 @@ public class Tank extends GameActor {
                     break;
             }
             if (b) {
-                if (isTransform) setCenterPosition(x, y);
+                if (isTransform) setPosition(x, y, Align.center);
                 gameStage.world_block[goal_x][goal_y] = id;
                 gameStage.world_tank[goal_x][goal_y] = Tank.this;
                 if (lastPoint != null) {
@@ -1201,7 +1209,7 @@ public class Tank extends GameActor {
 
         public Health() {
             setSize(a * 2, 0.3f * ObjectVariables.size_block);
-            //setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
+            //setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center) + a + health.getHeight());
         }
 
         public void setRegions(TextureRegion[] regions) {
@@ -1229,7 +1237,7 @@ public class Tank extends GameActor {
 
         public Ring() {
             setSize(ObjectVariables.size_block * 3, ObjectVariables.size_block * 3);
-            //setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
+            //setPosition(Tank.this.getX(Align.center), Tank.this.getY(Align.center), Align.center);
         }
 
         @Override

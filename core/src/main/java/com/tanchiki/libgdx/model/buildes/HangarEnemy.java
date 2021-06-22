@@ -1,5 +1,6 @@
 package com.tanchiki.libgdx.model.buildes;
 
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.util.ObjectVariables;
@@ -48,7 +49,7 @@ public class HangarEnemy extends SubBuilds {
     public void act(float delta) {
         LAST_INDEX = 0;
 
-        if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy && gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0)
+        if (ObjectVariables.size_enemies < ObjectVariables.max_tanks_enemy && gameStage.world_block[(int) getX(Align.center)][(int) getY(Align.center)] == 0)
             time += delta;
 
         if (activity == 1)
@@ -62,16 +63,16 @@ public class HangarEnemy extends SubBuilds {
                                 Tank tank = null;
                                 switch (prm[0]) {
                                     case 1:
-                                        tank = new TankLight(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]);
+                                        tank = new TankLight(getX(Align.center), getY(Align.center), ObjectVariables.tank_enemy, prm[2]);
                                         break;
                                     case 2:
-                                        tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]);
+                                        tank = new TankKamikaze(getX(Align.center), getY(Align.center), ObjectVariables.tank_enemy, prm[2]);
                                         break;
                                     case 3:
-                                        tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2], 0);
+                                        tank = new TankHeavy(getX(Align.center), getY(Align.center), ObjectVariables.tank_enemy, prm[2], 0);
                                         break;
                                     case 4:
-                                        tank = new TankSiege(getCenterX(), getCenterY(), ObjectVariables.tank_enemy, prm[2]);
+                                        tank = new TankSiege(getX(Align.center), getY(Align.center), ObjectVariables.tank_enemy, prm[2]);
                                         break;
                                 }
                                 tank.HP = prm[1];

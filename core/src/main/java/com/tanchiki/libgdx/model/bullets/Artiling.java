@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.util.ObjectVariables;
@@ -52,33 +53,33 @@ public class Artiling extends Bullet {
         super.draw(batch, parentAlpha);
         switch (angle) {
             case 4:
-                ball.setCenter(getCenterX(), halfCircleX(getCenterX() + radius));
-                ball1.setCenter(getCenterX() + 1, halfCircleX(getCenterX() + 1 + radius));
-                ball2.setCenter(getCenterX() + 2, halfCircleX(getCenterX() + 2 + radius));
-                ball3.setCenter(getCenterX() + 3, halfCircleX(getCenterX() + 3 + radius));
+                ball.setCenter(getX(Align.center), halfCircleX(getX(Align.center) + radius));
+                ball1.setCenter(getX(Align.center) + 1, halfCircleX(getX(Align.center) + 1 + radius));
+                ball2.setCenter(getX(Align.center) + 2, halfCircleX(getX(Align.center) + 2 + radius));
+                ball3.setCenter(getX(Align.center) + 3, halfCircleX(getX(Align.center) + 3 + radius));
                 break;
             case 2:
-                ball.setCenter(getCenterX(), halfCircleX(getCenterX() - radius));
-                ball1.setCenter(getCenterX() - 1, halfCircleX(getCenterX() - 1 - radius));
-                ball2.setCenter(getCenterX() - 2, halfCircleX(getCenterX() - 2 - radius));
-                ball3.setCenter(getCenterX() - 3, halfCircleX(getCenterX() - 3 - radius));
+                ball.setCenter(getX(Align.center), halfCircleX(getX(Align.center) - radius));
+                ball1.setCenter(getX(Align.center) - 1, halfCircleX(getX(Align.center) - 1 - radius));
+                ball2.setCenter(getX(Align.center) - 2, halfCircleX(getX(Align.center) - 2 - radius));
+                ball3.setCenter(getX(Align.center) - 3, halfCircleX(getX(Align.center) - 3 - radius));
                 break;
             case 3:
-                ball.setCenter(halfCircleY(getCenterY() - radius), getCenterY());
-                ball1.setCenter(halfCircleY(getCenterY() - 1 - radius), getCenterY() - 1);
-                ball2.setCenter(halfCircleY(getCenterY() - 2 - radius), getCenterY() - 2);
-                ball3.setCenter(halfCircleY(getCenterY() - 3 - radius), getCenterY() - 3);
+                ball.setCenter(halfCircleY(getY(Align.center) - radius), getY(Align.center));
+                ball1.setCenter(halfCircleY(getY(Align.center) - 1 - radius), getY(Align.center) - 1);
+                ball2.setCenter(halfCircleY(getY(Align.center) - 2 - radius), getY(Align.center) - 2);
+                ball3.setCenter(halfCircleY(getY(Align.center) - 3 - radius), getY(Align.center) - 3);
                 break;
             case 1:
-                ball.setCenter(halfCircleY(getCenterY() + radius), getCenterY());
-                ball1.setCenter(halfCircleY(getCenterY() + 1 + radius), getCenterY() + 1);
-                ball2.setCenter(halfCircleY(getCenterY() + 2 + radius), getCenterY() + 2);
-                ball3.setCenter(halfCircleY(getCenterY() + 3 + radius), getCenterY() + 3);
+                ball.setCenter(halfCircleY(getY(Align.center) + radius), getY(Align.center));
+                ball1.setCenter(halfCircleY(getY(Align.center) + 1 + radius), getY(Align.center) + 1);
+                ball2.setCenter(halfCircleY(getY(Align.center) + 2 + radius), getY(Align.center) + 2);
+                ball3.setCenter(halfCircleY(getY(Align.center) + 3 + radius), getY(Align.center) + 3);
                 break;
             /*case 3:
-                ball.setCenter(f(getCenterY() - D / 2), getCenterY()); break;
+                ball.setCenter(f(getY(Align.center) - D / 2), getY(Align.center)); break;
             case 1:
-                ball.setCenter(f(getCenterY() + D / 2), getCenterY()); break;*/
+                ball.setCenter(f(getY(Align.center) + D / 2), getY(Align.center)); break;*/
         }
         ball.draw(batch);
         ball1.draw(batch);
@@ -100,8 +101,8 @@ public class Artiling extends Bullet {
 
     @Override
     public void destroyBullet() {
-        int x = (int) getCenterX();
-        int y = (int) getCenterY();
+        int x = (int) getX(Align.center);
+        int y = (int) getY(Align.center);
 
         x += x % 2;
         y += y % 2;

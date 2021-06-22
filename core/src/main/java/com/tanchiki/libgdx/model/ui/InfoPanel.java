@@ -24,7 +24,7 @@ public class InfoPanel extends Group {
 
         GameStage = GameStage.getInstance();
 
-        setSize(Gdx.graphics.getHeight() / 7.2f, Gdx.graphics.getHeight() / 4);
+        setSize(Gdx.graphics.getHeight() / 7.2f, Gdx.graphics.getHeight() / 4f);
         setPosition(Gdx.graphics.getWidth() - getWidth(), Gdx.graphics.getHeight() - getHeight());
 
         background = new Sprite(TextureLoader.getInstance().getIcons()[0][14]);
@@ -52,7 +52,6 @@ public class InfoPanel extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         super.draw(batch, parentAlpha);
         background.draw(batch);
         enemy.draw(batch);
@@ -90,7 +89,6 @@ public class InfoPanel extends Group {
             bminus = TextureLoader.getInstance().getPanelHealth()[0][5];
             bplus = TextureLoader.getInstance().getPanelHealth()[0][4];
 
-
             fix = TextureLoader.getInstance().getIcons()[0][WeaponData.Type.fix];
             live = TextureLoader.getInstance().getBonus()[0][5];
 
@@ -113,7 +111,6 @@ public class InfoPanel extends Group {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-
             super.draw(batch, parentAlpha);
             try {
                 float lastx = 0;

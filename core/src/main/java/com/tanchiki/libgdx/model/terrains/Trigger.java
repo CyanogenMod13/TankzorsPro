@@ -530,14 +530,14 @@ public class Trigger extends Actor {
             //len *= len * 4;
             for (int key : HangarUnity.register.keySet()) {
                 HangarUnity angar = HangarUnity.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) {
                     if (angar.activity == 0) count++;
                     angar.activity = 1;
                 }
             }
             for (int key : HangarEnemy.register.keySet()) {
                 HangarEnemy angar = HangarEnemy.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) {
                     if (angar.activity == 0) count++;
                     angar.activity = 1;
                 }
@@ -565,14 +565,14 @@ public class Trigger extends Actor {
             //len *= 8 * len;
             for (int key : HangarUnity.register.keySet()) {
                 HangarUnity angar = HangarUnity.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) {
                     if (angar.activity == 1) count++;
                     angar.activity = 0;
                 }
             }
             for (int key : HangarEnemy.register.keySet()) {
                 HangarEnemy angar = HangarEnemy.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) {
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) {
                     if (angar.activity == 1) count++;
                     angar.activity = 0;
                 }
@@ -599,11 +599,11 @@ public class Trigger extends Actor {
             //len *= 4 * len;
             for (int key : HangarUnity.register.keySet()) {
                 HangarUnity angar = HangarUnity.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) angar.activity = angar.activity == 1 ? 0 : 1;
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) angar.activity = angar.activity == 1 ? 0 : 1;
             }
             for (int key : HangarEnemy.register.keySet()) {
                 HangarEnemy angar = HangarEnemy.register.get(key);
-                if (rect.contains(angar.getCenterX(), angar.getCenterY())) angar.activity = angar.activity == 1 ? 0 : 1;
+                if (rect.contains(angar.getX(Align.center), angar.getY(Align.center))) angar.activity = angar.activity == 1 ? 0 : 1;
             }
         }
 

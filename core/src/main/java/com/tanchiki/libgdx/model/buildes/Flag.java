@@ -3,6 +3,7 @@ package com.tanchiki.libgdx.model.buildes;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
@@ -38,36 +39,24 @@ public abstract class Flag extends ObjBuild {
             }
         }
         setSize(size, size);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s.draw(batch);
-        //setBounds(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-    }
-
-    boolean isGrabed = false;
-
-    @Override
-    public void setCenterPosition(float x, float y) {
-
-        //GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()] = null;
-        //GameStage.getInstance().world_buildes[(int) x][(int) y] = this;
-        super.setCenterPosition(x, y);
     }
 
     abstract void clicked();
 
     @Override
     public void act(float delta) {
-        if (GameStage.getInstance().world_tank[(int) getCenterX()][(int) getCenterY()] instanceof TankUser && active)
+        if (GameStage.getInstance().world_tank[(int) getX(Align.center)][(int) getY(Align.center)] instanceof TankUser && active)
             clicked();
         super.act(delta);
     }

@@ -3,6 +3,7 @@ package com.tanchiki.libgdx.model.buildes;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.Settings;
@@ -31,7 +32,7 @@ abstract public class SubBuilds extends ObjBuild {
     public SubBuilds(float x, float y, TextureRegion r, short fraction) {
         gameStage = GameStage.getInstance();
         s = new Sprite(r);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
 
         if (fraction == ObjectVariables.tank_ally)
             overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][0]);

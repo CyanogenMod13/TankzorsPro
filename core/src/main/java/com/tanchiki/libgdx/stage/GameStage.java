@@ -1,14 +1,10 @@
 package com.tanchiki.libgdx.stage;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,13 +15,16 @@ import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.bullets.Bullet;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
-import com.tanchiki.libgdx.model.terrains.*;
+import com.tanchiki.libgdx.model.terrains.Block;
+import com.tanchiki.libgdx.model.terrains.Clound;
+import com.tanchiki.libgdx.model.terrains.MainTerrain;
+import com.tanchiki.libgdx.model.terrains.Trigger;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.*;
 
 import java.rmi.RemoteException;
 
-public class GameStage extends Stage implements GameStageImpl {
+public class GameStage extends Stage {
     private static GameStage gameStage = null;
 
     public static GameStage getInstance() {
@@ -36,7 +35,6 @@ public class GameStage extends Stage implements GameStageImpl {
     public OrthographicCamera cam;
     public MainTerrain mainTerrain = null;
     public TankUser tankUser;
-    public Tank tankFriend;
 
     public int[][] world_block;
 
@@ -63,11 +61,6 @@ public class GameStage extends Stage implements GameStageImpl {
     boolean createAircraft = false;
     public static int next_level = 0;
     public static float timer_enemy = 0, timer_unity = 0;
-
-    public GestureDetector.GestureListener listener = new Listener();
-
-    public Class<?> currentObj = Grass.class;
-    public String parentObj = "ground";
 
     public int airplaneX, airplaneY;
 
@@ -96,7 +89,6 @@ public class GameStage extends Stage implements GameStageImpl {
     }
 
     public void createAircraft() {
-        //Gdx.input.setInputProcessor(this);
         Settings.pause = true;
         touchActor = null;
         createAircraft = true;
@@ -104,7 +96,6 @@ public class GameStage extends Stage implements GameStageImpl {
 
     @Override
     public Actor hit(float stageX, float stageY, boolean touchable) {
-
         airplaneX = Math.round(stageX);
         airplaneY = Math.round(stageY);
 
@@ -195,12 +186,6 @@ public class GameStage extends Stage implements GameStageImpl {
         deltaY = sin * a * speed * dis;
 
         cam.translate(deltaX, deltaY);
-        /*int rx = (int) (cam.position.x * 10);
-        int ry = (int) (cam.position.y * 10);
-        int dx = 0;//rx % 2;
-        int dy = 0;//ry % 2;
-        cam.position.set((rx + dx) / 10f, (ry + dy) / 10f, 0);*/
-        //System.out.println(cam.position.x + " " + cam.position.y);
     }
 
     private void loadMap() {
@@ -250,7 +235,6 @@ public class GameStage extends Stage implements GameStageImpl {
                 Tank.stop_unity = false;
             }
         }
-
         super.act(delta);
     }
 
@@ -268,7 +252,6 @@ public class GameStage extends Stage implements GameStageImpl {
     }
 
     public void drawStage(float delta) {
-        long d = System.currentTimeMillis();
         if (mainTerrain != null && !Settings.edit_map_mode)
             Clound.random(delta);
         updateAirplane();
@@ -276,130 +259,5 @@ public class GameStage extends Stage implements GameStageImpl {
         GPUOptimization(mainTerrain.root);
         if (!Settings.pause) act(delta);
         draw();
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        if (Settings.edit_map_mode) {
-            Vector3 pos = cam.unproject(new Vector3(screenX, screenY, 0));
-            hit(pos.x, pos.y, true);
-            if (touchActor != null)
-                touchActor.setColor(Color.RED);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        editBlock(screenX, screenY);
-        return true;
-    }
-
-    private void editBlock(int screenX, int screenY) {
-        if (Settings.edit_map_mode) {
-            if (Gdx.input.isButtonPressed(Input.Buttons.RIGHT)) {
-                Vector3 pos = cam.unproject(new Vector3(screenX, screenY, 0));
-                hit(pos.x, pos.y, true);
-                try {
-                    if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                        if (touchActor.getClass() == currentObj) {
-                            touchActor.remove();
-                        }
-                        return;
-                    }
-
-                    if (touchActor.getClass() == currentObj) return;
-
-                    Actor obj = (Actor) currentObj.getConstructor(float.class, float.class).newInstance(touchActor.getX(Align.center), touchActor.getY(Align.center));
-                    Group parent = (Group) MainTerrain.class.getField(parentObj).get(mainTerrain);
-                    parent.addActor(obj);
-                    for (Actor act : mainTerrain.ground.getChildren())
-                        if (act instanceof Sand) ((Sand) act).postInit();
-                    for (Actor act : mainTerrain.road.getChildren())
-                        if (act instanceof Road) ((Road) act).init();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean keyDown(int keyCode) {
-        if (Settings.edit_map_mode)
-            switch (keyCode) {
-                case Input.Keys.PLUS:
-                    cam.zoom -= 0.1f;
-                    break;
-                case Input.Keys.MINUS:
-                    cam.zoom += 0.1f;
-                    break;
-            }
-        return super.keyDown(keyCode);
-    }
-
-    public class Listener implements GestureDetector.GestureListener {
-        private float zoom = 0;
-
-        @Override
-        public boolean touchDown(float p1, float p2, int p3, int p4) {
-            zoom = cam.zoom;
-
-            return true;
-        }
-
-        @Override
-        public boolean tap(float p1, float p2, int p3, int p4) {
-
-            return false;
-        }
-
-        @Override
-        public boolean longPress(float p1, float p2) {
-
-            return false;
-        }
-
-        @Override
-        public boolean fling(float p1, float p2, int p3) {
-
-
-            return true;
-        }
-
-        @Override
-        public boolean pan(float p1, float p2, float p3, float p4) {
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-                cam.position.set(cam.position.x - p3 / 10 * cam.zoom, cam.position.y + p4 / 10 * cam.zoom, 0);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public boolean panStop(float p1, float p2, int p3, int p4) {
-
-            return false;
-        }
-
-        @Override
-        public boolean zoom(float p1, float p2) {
-            cam.zoom = zoom * (p1 / p2);
-            cam.update();
-
-            return false;
-        }
-
-        @Override
-        public boolean pinch(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4) {
-
-            return false;
-        }
-
-        @Override
-        public void pinchStop() {
-
-        }
     }
 }

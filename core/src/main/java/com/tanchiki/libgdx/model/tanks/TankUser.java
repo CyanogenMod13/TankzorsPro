@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.buildes.Flag;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.PanelStage;
@@ -126,7 +127,7 @@ public class TankUser extends DefaultTank {
 
         Settings.TankUserSettings.HPShield = (int) HPShield;
         HPShieldBackup = Settings.TankUserSettings.HPShieldBackup;
-        gameStage.moveCam(getCenterX(), getCenterY(), 0.05f);
+        gameStage.moveCam(getX(Align.center), getY(Align.center), 0.05f);
     }
 
     private Vec currentStateMotion = Vec.NONE;
@@ -224,7 +225,7 @@ public class TankUser extends DefaultTank {
     }
 
     public void enterHangar() {
-        if (gameStage.worldBuilds[(int) getCenterX()][(int) getCenterY()] != null) {
+        if (gameStage.worldBuilds[(int) getX(Align.center)][(int) getY(Align.center)] != null) {
             StoreStage.getInstance().show();
         } else {
             PanelStage.getInstance().addToast("Вернитесь на базу!");

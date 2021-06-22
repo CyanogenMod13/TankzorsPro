@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
-public class Explosion extends GameActor {
+public class Explosion extends Actor {
     protected GameStage GameStage;
     private float a = ObjectVariables.size_block;
     protected Animation<TextureRegion> anim;

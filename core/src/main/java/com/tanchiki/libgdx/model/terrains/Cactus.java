@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
@@ -15,14 +16,14 @@ public class Cactus extends DestroyableBlock {
 
     @Override
     public void destroyWall() {
-        GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
+        GameStage.world_physic_block[(int) getX(Align.center)][(int) getY(Align.center)] = null;
 
         if (GameStage.world_block != null)
-            GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
+            GameStage.world_block[(int) getX(Align.center)][(int) getY(Align.center)] = 0;
 
         if (GameStage.world_nodes != null)
-            GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
+            GameStage.world_nodes[(int) getX(Align.center)][(int) getY(Align.center)] = 0;
         remove();
-        GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+        GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getX(Align.center), getY(Align.center), TextureLoader.getInstance().getExpl()));
     }
 }

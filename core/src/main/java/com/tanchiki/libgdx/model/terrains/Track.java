@@ -2,11 +2,12 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Track extends GameActor {
+public class Track extends Actor {
     protected TextureRegion[] t = TextureLoader.getInstance().getTracks()[0];
     private float a = ObjectVariables.size_block;
     private float HP = 1;
@@ -26,7 +27,7 @@ public class Track extends GameActor {
     public Track(float x, float y, int rot) {
         setOrientation(rot);
         setSize(a * 2, a * 2);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
     }
 
     public void setOrientation(int rot) {

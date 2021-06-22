@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
 public class Road extends Terrains {
@@ -11,8 +12,8 @@ public class Road extends Terrains {
     }
 
     public void init() {
-        int xx = (int) getCenterX();
-        int yy = (int) getCenterY();
+        int xx = (int) getX(Align.center);
+        int yy = (int) getY(Align.center);
 
         Object right = null;
         if (g.world_obj.length > xx + ObjectVariables.size_block * 2)

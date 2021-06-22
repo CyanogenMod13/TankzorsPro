@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.tanchiki.libgdx.graphics.GameActor;
 import com.tanchiki.libgdx.model.buildes.Build;
 import com.tanchiki.libgdx.model.buildes.ObjBuild;
 import com.tanchiki.libgdx.model.explosions.SmallExplosion;
@@ -24,7 +25,7 @@ import com.tanchiki.libgdx.util.Settings;
 import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Bullet extends GameActor {
+public class Bullet extends Actor {
     Sprite s;
     TextureRegion[] t;
     protected GameStage gameStage;
@@ -57,8 +58,8 @@ public class Bullet extends GameActor {
         s = new Sprite(t[0]);
         s.setSize(s.getWidth() / 10 * ObjectVariables.size_block, s.getHeight() / 10 * ObjectVariables.size_block);
         setSize(s.getWidth(), s.getHeight());
-        setCenterPosition(x, y);
-        pos.set(Math.round(getCenterX()), Math.round(getCenterY()));
+        setPosition(x, y, Align.center);
+        pos.set(Math.round(getX(Align.center)), Math.round(getY(Align.center)));
         if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
         if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
         body.setSize(2, 2);
@@ -75,13 +76,13 @@ public class Bullet extends GameActor {
             s.setRegion(t[2]);
         if (angle == 2)
             s.setRegion(t[3]);
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s.draw(batch);
     }
 
     public void destroyBullet() {
         if (HP <= 0) {
-            gameStage.mainTerrain.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
+            gameStage.mainTerrain.explosions.addActor(new SmallExplosion(getX(Align.center), getY(Align.center), expl));
 
             if (fraction == ObjectVariables.tank_ally)
                 if (pos.x >= 0 && pos.x < gameStage.world_wight && pos.y >= 0 && pos.y < gameStage.world_height)
@@ -140,7 +141,7 @@ public class Bullet extends GameActor {
 
         isPlay = false;
 
-        if (!gameStage.mainTerrain.rect.contains(getCenterX(), getCenterY())) {
+        if (!gameStage.mainTerrain.rect.contains(getX(Align.center), getY(Align.center))) {
             HP = 0;
             destroyBullet();
             return;
@@ -149,8 +150,8 @@ public class Bullet extends GameActor {
         destroyBullet();
         speed(delta);
 
-        x = (int) getCenterX();
-        y = (int) getCenterY();
+        x = (int) getX(Align.center);
+        y = (int) getY(Align.center);
         x += x % 2;
         y += y % 2;
 
@@ -165,8 +166,8 @@ public class Bullet extends GameActor {
         Tank tank = gameStage.mainTerrain.hashTanks.get(gameStage.world_block[x][y]);
         if (tank != null)
             if (tank.fraction != fraction) {
-                body.setCenter(tank.getCenterX(), tank.getCenterY());
-                if (body.contains(getCenterX(), getCenterY())) {
+                body.setCenter(tank.getX(Align.center), tank.getY(Align.center));
+                if (body.contains(getX(Align.center), getY(Align.center))) {
                     if (parent instanceof TankUser) {
                         tank.giveCoin = true;
                         tank.giveDamage += HP;

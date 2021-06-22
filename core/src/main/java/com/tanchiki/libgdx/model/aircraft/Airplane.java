@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Airplane extends GameActor {
+public class Airplane extends Actor {
     Sprite plane;
     Sprite back;
     Sprite point;
@@ -37,7 +38,7 @@ public class Airplane extends GameActor {
         deltaY = MathUtils.sin(angle) / 5;
 
         setSize(ObjectVariables.size_block * 2 * 6, ObjectVariables.size_block * 2 * 6);
-        setCenterPosition(x, 0);
+        setPosition(x, 0, Align.center);
 
         this.targetX = targetX;
         this.targetY = targetY;
@@ -52,14 +53,13 @@ public class Airplane extends GameActor {
     public void act(float delta) {
         moveBy(deltaX, deltaY);
         if (count > 0)
-            if (Vector2.dst2(getCenterX(), getCenterY(), targetX, targetY) < 3) {
+            if (Vector2.dst2(getX(Align.center), getY(Align.center), targetX, targetY) < 3) {
                 GameStage.addActor(new BiggestExplosion(targetX, targetY, radius, damage));
                 targetX += ObjectVariables.size_block * 2 * 3;
                 targetY += ObjectVariables.size_block * 2 * 3;
                 count--;
             }
         setVisible(true);
-
         super.act(delta);
     }
 

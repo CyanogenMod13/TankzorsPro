@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.stage.GameStage;
-import com.tanchiki.libgdx.stage.MiniMapStage;
 import com.tanchiki.libgdx.stage.WeaponMenuStage;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.Settings;
@@ -88,40 +87,6 @@ public class TSButton extends Table {
         addActor(air);
     }
 
-    @Deprecated
-    private class RadarButton extends TextButton {
-        TextureRegion[] t;
-        Sprite s;
-
-        public RadarButton() {
-            super("", style);
-            setSize(size, size);
-            setPosition(weapon.getX(), weapon.getY() + getHeight());
-            addListener(new ClickListener() {
-                public void clicked(InputEvent e, float x, float y) {
-                    super.clicked(e, x, y);
-                    MiniMapStage.show();
-                    //if(GameStage.TankUser != null)
-                    //GameStage.TankUser.AI.AIR();
-                }
-
-            });
-            t = TextureLoader.getInstance().getIcons()[0];
-            s = new Sprite(t[0]);
-        }
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            super.draw(batch, parentAlpha);
-            s.setSize(size / 2.5f, size / 2.5f);
-            s.setPosition(this.getX(), this.getY());
-            s.setRegion(t[WeaponData.Type.radar]);
-            s.draw(batch);
-            //FontLoader.f16.draw(batch,""+count,s.getX(),s.getY());
-        }
-
-    }
-
     private class AirButton extends TextButton {
         TextureRegion[] t;
         Sprite s;
@@ -144,7 +109,6 @@ public class TSButton extends Table {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));
@@ -189,7 +153,6 @@ public class TSButton extends Table {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));
@@ -256,7 +219,6 @@ public class TSButton extends Table {
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
-
             super.draw(batch, parentAlpha);
             s.setSize(size / 2.5f, size / 2.5f);
             s.setCenter(this.getX(Align.center), this.getY(Align.center));

@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.buildes;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.tanks.*;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
@@ -34,7 +35,7 @@ public class HangarUnity extends SubBuilds {
 
     public HangarUnity(float x, float y) {
         super(x, y, TextureLoader.getInstance().getBuildings()[0][0], ObjectVariables.tank_ally);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         if (LAST_INDEX == 0) register = new HashMap<>();
         index = LAST_INDEX++;
         lastIndex = index;
@@ -68,14 +69,14 @@ public class HangarUnity extends SubBuilds {
         LAST_INDEX = 0;
 
         super.act(delta);
-        if (gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || gameStage.tankUser != null && gameStage.tankUser.HP <= 0))
+        if (gameStage.world_block[(int) getX(Align.center)][(int) getY(Align.center)] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || gameStage.tankUser != null && gameStage.tankUser.HP <= 0))
             time += delta;
 
         if (time >= 1) {
 
             if (Settings.start_game && (nextIndexSpawn == -1 || index == nextIndexSpawn)) {
                 if (gameStage.tankUser == null) {
-                    gameStage.tankUser = new TankUser(getCenterX(), getCenterY());
+                    gameStage.tankUser = new TankUser(getX(Align.center), getY(Align.center));
                     gameStage.mainTerrain.tanks_unity.addActor(gameStage.tankUser);
                     if (ourSpawn == 0) nextIndexSpawn = -1;
                     time = 0;
@@ -83,7 +84,7 @@ public class HangarUnity extends SubBuilds {
                 }
                 /*
                 if (gameStage.tankFriend == null) {
-                    gameStage.tankFriend = new TankFriend(getCenterX(), getCenterY());
+                    gameStage.tankFriend = new TankFriend(getX(Align.center), getY(Align.center));
                     gameStage.mainTerrain.tanks_unity.addActor(gameStage.tankFriend);
                     if (ourSpawn == 0) nextIndexSpawn = -1;
                     time = 0;
@@ -97,9 +98,9 @@ public class HangarUnity extends SubBuilds {
                         if (t.flag != null) t.flag.active = true;
                         gameStage.mainTerrain.health.addActor(t.health);
                         gameStage.mainTerrain.ring.addActor(t.ring);
-                        t.setCenterPosition(getCenterX(), getCenterY());
-                        t.defaultAI.goal_x = (int) getCenterX();
-                        t.defaultAI.goal_y = (int) getCenterY();
+                        t.setPosition(getX(Align.center), getY(Align.center), Align.center);
+                        t.defaultAI.goal_x = (int) getX(Align.center);
+                        t.defaultAI.goal_y = (int) getY(Align.center);
                         t.HP = t.HPBackup;
                         Settings.TankUserSettings.HPShieldBackup = 0;
 
@@ -126,16 +127,16 @@ public class HangarUnity extends SubBuilds {
                                 Tank tank = null;
                                 switch (prm[0]) {
                                     case 1:
-                                        tank = new TankLight(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]);
+                                        tank = new TankLight(getX(Align.center), getY(Align.center), ObjectVariables.tank_ally, prm[2]);
                                         break;
                                     case 2:
-                                        tank = new TankKamikaze(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]);
+                                        tank = new TankKamikaze(getX(Align.center), getY(Align.center), ObjectVariables.tank_ally, prm[2]);
                                         break;
                                     case 3:
-                                        tank = new TankHeavy(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2], 0);
+                                        tank = new TankHeavy(getX(Align.center), getY(Align.center), ObjectVariables.tank_ally, prm[2], 0);
                                         break;
                                     case 4:
-                                        tank = new TankSiege(getCenterX(), getCenterY(), ObjectVariables.tank_ally, prm[2]);
+                                        tank = new TankSiege(getX(Align.center), getY(Align.center), ObjectVariables.tank_ally, prm[2]);
                                         break;
                                 }
                                 tank.HP = prm[1];

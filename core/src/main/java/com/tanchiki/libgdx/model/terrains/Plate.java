@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
 
 public class Plate extends Terrains {
     public int HP = 1;
@@ -19,12 +20,12 @@ public class Plate extends Terrains {
         if (HP >= 0)
             s.setRegion(t[MathUtils.random(PLATE1, PLATE3)]);
         else if (last_block instanceof Grass) {
-            g.mainTerrain.ground.addActor(new CrashGrass(getCenterX(), getCenterY()));
-            g.world_obj[(int) getCenterX()][(int) getCenterY()] = last_block;
+            g.mainTerrain.ground.addActor(new CrashGrass(getX(Align.center), getY(Align.center)));
+            g.world_obj[(int) getX(Align.center)][(int) getY(Align.center)] = last_block;
             remove();
         } else if (last_block instanceof Sand) {
-            g.mainTerrain.ground.addActor(new CrashSand(getCenterX(), getCenterY()));
-            g.world_obj[(int) getCenterX()][(int) getCenterY()] = last_block;
+            g.mainTerrain.ground.addActor(new CrashSand(getX(Align.center), getY(Align.center)));
+            g.world_obj[(int) getX(Align.center)][(int) getY(Align.center)] = last_block;
             remove();
         }
     }

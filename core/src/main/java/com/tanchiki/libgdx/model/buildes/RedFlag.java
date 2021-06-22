@@ -1,6 +1,7 @@
 package com.tanchiki.libgdx.model.buildes;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.Settings;
@@ -34,14 +35,14 @@ public class RedFlag extends Flag {
         }
 
         if (!active) {
-            setCenterPosition(GameStage.getInstance().tankUser.defaultAI.goal_x, GameStage.getInstance().tankUser.defaultAI.goal_y);
+            setPosition(GameStage.getInstance().tankUser.defaultAI.goal_x, GameStage.getInstance().tankUser.defaultAI.goal_y, Align.center);
             switch (MainTerrain.Mission.CODE) {
                 case 3:
                 case 40:
                 case 41:
                 case 42:
-                    //System.out.println(GameStage.getInstance().world_buildes[(int) getCenterX()][(int) getCenterY()]);
-                    if (GameStage.getInstance().worldBuilds[(int) getCenterX()][(int) getCenterY()] instanceof HangarUnity) {
+                    //System.out.println(GameStage.getInstance().world_buildes[(int) getX(Align.center)][(int) getY(Align.center)]);
+                    if (GameStage.getInstance().worldBuilds[(int) getX(Align.center)][(int) getY(Align.center)] instanceof HangarUnity) {
                         win();
                         remove();
                     }

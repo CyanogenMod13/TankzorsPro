@@ -4,15 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.tanchiki.libgdx.graphics.GameGroup;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.stage.GameStage;
 
-public class Buttons extends GameGroup {
+public class Buttons extends Group {
     SpriteDrawable t, t1;
     TextButton button1;
     TextButton button2;

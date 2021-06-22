@@ -1,8 +1,8 @@
 package com.tanchiki.libgdx.model.explosions;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tanchiki.libgdx.graphics.GameActor;
-import com.tanchiki.libgdx.graphics.GameGroup;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.buildes.Build;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.terrains.Block;
@@ -13,7 +13,7 @@ import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class BiggestExplosion extends GameGroup {
+public class BiggestExplosion extends Group {
     GameStage GameStage;
     float damage;
     final float T = 0.1f;
@@ -46,19 +46,19 @@ public class BiggestExplosion extends GameGroup {
                 b = new block(xx + x, y - yy);
                 //b.small = yy == r - 2;
                 b.time = time_yy;
-                if (b.getCenterX() != last_x || b.getCenterY() != last_y)
+                if (b.getX(Align.center) != last_x || b.getY(Align.center) != last_y)
                     addActor(b);
 
                 b = new block(x - xx, y + yy);
                 //b.small = yy == r - 2;
                 b.time = time_yy;
-                if (b.getCenterX() != last_x || b.getCenterY() != last_y)
+                if (b.getX(Align.center) != last_x || b.getY(Align.center) != last_y)
                     addActor(b);
 
                 b = new block(x - xx, y - yy);
                 //b.small = yy == r - 2;
                 b.time = time_yy;
-                if (b.getCenterX() != last_x || b.getCenterY() != last_y)
+                if (b.getX(Align.center) != last_x || b.getY(Align.center) != last_y)
                     addActor(b);
 
                 lastTime = time_yy;
@@ -84,7 +84,7 @@ public class BiggestExplosion extends GameGroup {
     }
 
 
-    private class block extends GameActor {
+    private class block extends Actor {
         int x, y;
         public float time;
         float t;
@@ -94,7 +94,7 @@ public class BiggestExplosion extends GameGroup {
             this.x = (int) x;
             this.y = (int) y;
             setSize(a, a);
-            setCenterPosition(x, y);
+            setPosition(x, y, Align.center);
         }
 
         private boolean hasCreate = true;

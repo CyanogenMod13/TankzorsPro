@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
@@ -16,7 +16,7 @@ import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public abstract class Block extends GameActor {
+public abstract class Block extends Actor {
     protected GameStage GameStage;
     private float a = ObjectVariables.size_block;
     public Sprite s;
@@ -32,12 +32,12 @@ public abstract class Block extends GameActor {
         GameStage = GameStage.getInstance();
         t = TextureLoader.getInstance().getWalls()[0];
         s = new Sprite(t[0]);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
 
-        Block oldBlock = GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()];
+        Block oldBlock = GameStage.world_physic_block[(int) getX(Align.center)][(int) getY(Align.center)];
         if (oldBlock != null) oldBlock.remove();
 
-        GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = this;
+        GameStage.world_physic_block[(int) getX(Align.center)][(int) getY(Align.center)] = this;
         GameStage.world_block[(int) x][(int) y] = 1;
         GameStage.world_nodes[(int) x][(int) y] = 1;
 
@@ -63,22 +63,22 @@ public abstract class Block extends GameActor {
     @Override
     public void act(float delta) {
 
-        GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = this;
-        GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 1;
-        GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 1;
+        GameStage.world_physic_block[(int) getX(Align.center)][(int) getY(Align.center)] = this;
+        GameStage.world_block[(int) getX(Align.center)][(int) getY(Align.center)] = 1;
+        GameStage.world_nodes[(int) getX(Align.center)][(int) getY(Align.center)] = 1;
         if (destroy) {
-            GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
+            GameStage.world_physic_block[(int) getX(Align.center)][(int) getY(Align.center)] = null;
 
             if (GameStage.world_block != null)
-                GameStage.world_block[(int) getCenterX()][(int) getCenterY()] = 0;
+                GameStage.world_block[(int) getX(Align.center)][(int) getY(Align.center)] = 0;
 
             if (GameStage.world_nodes != null)
-                GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
+                GameStage.world_nodes[(int) getX(Align.center)][(int) getY(Align.center)] = 0;
             remove();
-            GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+            GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getX(Align.center), getY(Align.center), TextureLoader.getInstance().getExpl()));
         }
 
-        Tank tank = GameStage.world_tank[(int) getCenterX()][(int) getCenterY()];
+        Tank tank = GameStage.world_tank[(int) getX(Align.center)][(int) getY(Align.center)];
         if (tank != null) {
             tank.destroyTank(Integer.MAX_VALUE);
         }

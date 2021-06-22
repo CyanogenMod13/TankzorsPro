@@ -10,7 +10,7 @@ public class Game {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.height *= 1.5;
         cfg.width *= 1.5;
-        cfg.fullscreen = true;
+        //cfg.fullscreen = true;
         cfg.title = "Tankzors Pro";
         cfg.addIcon("texture/ui/icon.png", Files.FileType.Internal);
         new LwjglApplication(new GameScreen(), cfg);

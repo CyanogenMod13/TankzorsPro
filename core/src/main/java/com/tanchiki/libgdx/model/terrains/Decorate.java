@@ -1,6 +1,6 @@
 package com.tanchiki.libgdx.model.terrains;
 
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Decorate extends GameActor {
+public class Decorate extends Actor {
 }

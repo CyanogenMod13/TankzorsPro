@@ -3,14 +3,15 @@ package com.tanchiki.libgdx.model.mine;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.NormalExplosion;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.util.ObjectVariables;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Mine extends GameActor {
+public class Mine extends Actor {
     GameStage GameStage;
     protected Sprite s;
     public float damage;
@@ -23,7 +24,7 @@ public class Mine extends GameActor {
         this.damage = damage;
         s = new Sprite(t);
         setSize(size, size);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         GameStage.world_mines[(int) x][(int) y] = this;
     }
 
@@ -38,12 +39,12 @@ public class Mine extends GameActor {
 
     @Override
     public void act(float delta) {
-        Tank t = (Tank) GameStage.world_tank[(int) getCenterX()][(int) getCenterY()];
+        Tank t = (Tank) GameStage.world_tank[(int) getX(Align.center)][(int) getY(Align.center)];
         if (t != null) {
             if (t.fraction == fraction) {
                 t.destroyTank(damage);
-                GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
-                GameStage.world_mines[(int) getCenterX()][(int) getCenterY()] = null;
+                GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getX(Align.center), getY(Align.center), TextureLoader.getInstance().getExpl()));
+                GameStage.world_mines[(int) getX(Align.center)][(int) getY(Align.center)] = null;
                 remove();
             }
         }

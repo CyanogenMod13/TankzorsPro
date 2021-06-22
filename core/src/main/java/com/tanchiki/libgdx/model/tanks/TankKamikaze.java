@@ -1,5 +1,6 @@
 package com.tanchiki.libgdx.model.tanks;
 
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.explosions.BiggestExplosion;
 import com.tanchiki.libgdx.util.TextureLoader;
 
@@ -18,8 +19,8 @@ public class TankKamikaze extends DefaultTank {
     protected void createBullet() {
         if (expl) return;
 
-        int x = (int) getCenterX();
-        int y = (int) getCenterY();
+        int x = (int) getX(Align.center);
+        int y = (int) getY(Align.center);
         x += x % 2;
         y += y % 2;
 
@@ -31,8 +32,8 @@ public class TankKamikaze extends DefaultTank {
     protected void explodeTankAnimation() {
         if (expl) return;
 
-        int x = (int) getCenterX();
-        int y = (int) getCenterY();
+        int x = (int) getX(Align.center);
+        int y = (int) getY(Align.center);
         x += x % 2;
         y += y % 2;
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.model.tanks.Tank;
 import com.tanchiki.libgdx.model.tanks.TankUser;
 import com.tanchiki.libgdx.model.terrains.MainTerrain;
@@ -16,7 +16,7 @@ import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.*;
 
-public class Bonus extends GameActor {
+public class Bonus extends Actor {
     public GameStage GameStage;
     float time;
     Animation<TextureRegion> anim;
@@ -36,7 +36,7 @@ public class Bonus extends GameActor {
         s = new Sprite(t[0]);
         overlays = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
         setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         GameStage.world_bonus[(int) x][(int) y] = this;
 
         s.setSize(getWidth(), getHeight());
@@ -84,7 +84,7 @@ public class Bonus extends GameActor {
         s = new Sprite(t[0]);
         overlays = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
         setSize(ObjectVariables.size_block * 2, ObjectVariables.size_block * 2);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         GameStage.world_bonus[(int) x][(int) y] = this;
 
         s.setSize(getWidth(), getHeight());
@@ -94,7 +94,7 @@ public class Bonus extends GameActor {
     @Override
     public boolean remove() {
         sound.play(Settings.volumeEffect);
-        GameStage.world_bonus[(int) getCenterX()][(int) getCenterY()] = this;
+        GameStage.world_bonus[(int) getX(Align.center)][(int) getY(Align.center)] = this;
 
         return super.remove();
     }
@@ -103,7 +103,7 @@ public class Bonus extends GameActor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         overlays.setSize(6, 6);
-        overlays.setCenter(getCenterX(), getCenterY());
+        overlays.setCenter(getX(Align.center), getY(Align.center));
         overlays.draw(batch);
         s.draw(batch);
     }
@@ -114,7 +114,7 @@ public class Bonus extends GameActor {
         if (animation)
             s.setRegion(anim.getKeyFrame(time, true));
 
-        Actor tank = GameStage.world_tank[(int) getCenterX()][(int) getCenterY()];
+        Actor tank = GameStage.world_tank[(int) getX(Align.center)][(int) getY(Align.center)];
         if (tank != null) {
             int count = 0;
             switch (type_bonus) {
@@ -233,7 +233,7 @@ public class Bonus extends GameActor {
                                 break;
                             case 19:
                                 PanelStage.getInstance().addToast("Аааа! Allah Akbar!");
-                                MainTerrain.getCurrentTerrain().decorGround.addActor(new TNT2(getCenterX(), getCenterY()));
+                                MainTerrain.getCurrentTerrain().decorGround.addActor(new TNT2(getX(Align.center), getY(Align.center)));
                                 break;
                         }
                         remove();

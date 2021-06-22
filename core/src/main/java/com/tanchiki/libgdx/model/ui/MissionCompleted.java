@@ -12,7 +12,6 @@ import com.tanchiki.libgdx.stage.GameStage;
 import com.tanchiki.libgdx.stage.PanelStage;
 import com.tanchiki.libgdx.util.FontLoader;
 import com.tanchiki.libgdx.util.SavePreferences;
-import com.tanchiki.libgdx.util.Settings;
 
 public class MissionCompleted {
     public static boolean isShow = false;
@@ -61,33 +60,11 @@ public class MissionCompleted {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-
             super.clicked(event, x, y);
             AboutStage.getInstance().showEnd();
             ++GameStage.next_level;
-
-            //GameStage.getInstance().TankUser.HP = 0;
-            /*Settings.start_game = false;
-            Settings.show_main_menu = true;
-            GameStage.getInstance().createTerrain("map_background");*/
             SavePreferences.getInstance().saveContinues();
             button.remove();
         }
-
-    }
-
-    private static class Failed extends ClickListener {
-
-        @Override
-        public void clicked(InputEvent event, float x, float y) {
-
-            super.clicked(event, x, y);
-            //GameStage.getInstance().TankUser.HP = 0;
-
-            Settings.start_game = false;
-            Settings.show_main_menu = true;
-            GameStage.getInstance().createTerrain("map_background");
-        }
-
     }
 }

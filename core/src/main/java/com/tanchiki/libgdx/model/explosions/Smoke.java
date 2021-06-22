@@ -4,20 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.tanchiki.libgdx.graphics.GameActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.util.TextureLoader;
 
-public class Smoke extends GameActor {
+public class Smoke extends Actor {
     float alpha = 1;
     Sprite s;
 
     public Smoke(float x, float y) {
         setSize(1.5f * 2, 1.5f * 2);
-        setCenterPosition(x, y);
+        setPosition(x, y, Align.center);
         TextureRegion[] t = TextureLoader.getInstance().getExpl()[0];
         s = new Sprite(t[15]);
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
     }
 
     @Override
@@ -25,7 +26,7 @@ public class Smoke extends GameActor {
 
         super.draw(batch, parentAlpha);
         s.setSize(getWidth(), getHeight());
-        s.setCenter(getCenterX(), getCenterY());
+        s.setCenter(getX(Align.center), getY(Align.center));
         s.draw(batch);
     }
 
