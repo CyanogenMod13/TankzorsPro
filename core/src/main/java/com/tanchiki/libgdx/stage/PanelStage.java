@@ -47,19 +47,19 @@ public class PanelStage extends Stage {
         addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                if (GameStage.getInstance().TankUser != null)
+                if (GameStage.getInstance().tankUser != null)
                     switch (keycode) {
                         case Input.Keys.A:
-                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.LEFT);
+                            GameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.LEFT);
                             break;
                         case Input.Keys.W:
-                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.UP);
+                            GameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.UP);
                             break;
                         case Input.Keys.S:
-                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.DOWN);
+                            GameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.DOWN);
                             break;
                         case Input.Keys.D:
-                            GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.RIGHT);
+                            GameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.RIGHT);
                             break;
                     }
                 return super.keyDown(event, keycode);
@@ -67,8 +67,8 @@ public class PanelStage extends Stage {
 
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                if (GameStage.getInstance().TankUser != null && keycode == GameStage.getInstance().TankUser.getCurrentStateMotion().key)
-                    GameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.NONE);
+                if (GameStage.getInstance().tankUser != null && keycode == GameStage.getInstance().tankUser.getCurrentStateMotion().key)
+                    GameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.NONE);
                 return super.keyUp(event, keycode);
             }
         });
@@ -82,13 +82,13 @@ public class PanelStage extends Stage {
                         Settings.pause = true;
                         break;
                     case Input.Keys.Q:
-                        GameStage.getInstance().TankUser.enterHangar();
+                        GameStage.getInstance().tankUser.enterHangar();
                         break;
                     case Input.Keys.E:
                         WeaponMenuStage.getInstance().showMenu();
                         break;
                     case Input.Keys.R:
-                        GameStage.getInstance().TankUser.doRepair();
+                        GameStage.getInstance().tankUser.doRepair();
                         break;
                 }
                 return super.keyDown(event, keycode);
@@ -97,16 +97,16 @@ public class PanelStage extends Stage {
         addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                if (GameStage.getInstance().TankUser != null)
+                if (GameStage.getInstance().tankUser != null)
                     switch (keycode) {
                         case Input.Keys.NUMPAD_1:
-                            GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.BULLET);
+                            GameStage.getInstance().tankUser.setStateFire(TankUser.Fire.BULLET);
                             break;
                         case Input.Keys.NUMPAD_2:
-                            GameStage.getInstance().TankUser.defaultAI.MINES();
+                            GameStage.getInstance().tankUser.defaultAI.MINES();
                             break;
                         case Input.Keys.NUMPAD_3:
-                            GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.AIR);
+                            GameStage.getInstance().tankUser.setStateFire(TankUser.Fire.AIR);
                             break;
                     }
                 return super.keyDown(event, keycode);
@@ -114,8 +114,8 @@ public class PanelStage extends Stage {
 
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
-                if (GameStage.getInstance().TankUser != null && keycode == GameStage.getInstance().TankUser.getCurrentStateFire().key)
-                    GameStage.getInstance().TankUser.setStateFire(TankUser.Fire.NONE);
+                if (GameStage.getInstance().tankUser != null && keycode == GameStage.getInstance().tankUser.getCurrentStateFire().key)
+                    GameStage.getInstance().tankUser.setStateFire(TankUser.Fire.NONE);
                 return super.keyUp(event, keycode);
             }
         });

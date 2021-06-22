@@ -52,8 +52,8 @@ public class TSButton extends Table {
         fix.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 super.clicked(e, x, y);
-                if (GameStage.TankUser != null)
-                    GameStage.TankUser.doRepair();
+                if (GameStage.tankUser != null)
+                    GameStage.tankUser.doRepair();
             }
         });
         hangar = new TextButton("", new TextButtonStyle(new TextureRegionDrawable(reg[6]), new TextureRegionDrawable(reg[7]), null, FontLoader.f16));
@@ -63,7 +63,7 @@ public class TSButton extends Table {
         hangar.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
                 super.clicked(e, x, y);
-                GameStage.TankUser.enterHangar();
+                GameStage.tankUser.enterHangar();
             }
         });
         weapon = new TextButton("", new TextButtonStyle(new TextureRegionDrawable(reg[0]), new TextureRegionDrawable(reg[1]), null, FontLoader.f16));
@@ -134,7 +134,7 @@ public class TSButton extends Table {
                 public void clicked(InputEvent e, float x, float y) {
                     super.clicked(e, x, y);
                     //if(GameStage.TankUser != null)
-                    GameStage.TankUser.defaultAI.AIR();
+                    GameStage.tankUser.defaultAI.AIR();
                 }
 
             });
@@ -179,7 +179,7 @@ public class TSButton extends Table {
                 public void clicked(InputEvent e, float x, float y) {
                     super.clicked(e, x, y);
                     //if(GameStage.TankUser != null)
-                    GameStage.TankUser.defaultAI.MINES();
+                    GameStage.tankUser.defaultAI.MINES();
                 }
 
             });
@@ -304,7 +304,7 @@ public class TSButton extends Table {
 
         @Override
         public void act(float delta) {
-            if (touch) GameStage.TankUser.defaultAI.BULLET();
+            if (touch) GameStage.tankUser.defaultAI.BULLET();
             super.act(delta);
         }
     }

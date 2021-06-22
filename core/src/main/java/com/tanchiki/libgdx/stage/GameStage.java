@@ -23,7 +23,9 @@ import com.tanchiki.libgdx.model.terrains.*;
 import com.tanchiki.libgdx.model.ui.MissionCompleted;
 import com.tanchiki.libgdx.util.*;
 
-public class GameStage extends Stage {
+import java.rmi.RemoteException;
+
+public class GameStage extends Stage implements GameStageImpl {
     private static GameStage gameStage = null;
 
     public static GameStage getInstance() {
@@ -32,8 +34,9 @@ public class GameStage extends Stage {
     }
 
     public OrthographicCamera cam;
-    public MainTerrain MT = null;
-    public TankUser TankUser;
+    public MainTerrain mainTerrain = null;
+    public TankUser tankUser;
+    public Tank tankFriend;
 
     public int[][] world_block;
 
@@ -117,35 +120,49 @@ public class GameStage extends Stage {
 
         Settings.show_main_menu = false;
         Settings.start_game = true;
-        GameStage.getInstance().createTerrain("map" + (num - 1));
+        createTerrain("map" + (num - 1));
     }
 
-    public void destroyLevel() {
-
+    public void startLevel(byte[] data) throws RemoteException {
+        Settings.show_main_menu = false;
+        Settings.start_game = true;
+        createTerrain(data);
     }
 
     public MainTerrain createTerrain(String n) {
         disposeTerrain();
-        MT = new MainTerrain();
+        mainTerrain = new MainTerrain();
         try {
-            MT.loadMap(n);
+            mainTerrain.loadMap(n);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        addActor(MT);
-        return MT;
+        addActor(mainTerrain);
+        return mainTerrain;
     }
 
     public MainTerrain createTerrain(MapBinReader n) {
         disposeTerrain();
-        MT = new MainTerrain();
+        mainTerrain = new MainTerrain();
         try {
-            MT.loadMap(n);
+            mainTerrain.loadMap(n);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        addActor(MT);
-        return MT;
+        addActor(mainTerrain);
+        return mainTerrain;
+    }
+
+    public MainTerrain createTerrain(byte[] n) throws RemoteException {
+        disposeTerrain();
+        mainTerrain = new MainTerrain();
+        try {
+            mainTerrain.loadMap(new MapBinReader(n));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        addActor(mainTerrain);
+        return mainTerrain;
     }
 
     public void disposeTerrain() {
@@ -155,9 +172,9 @@ public class GameStage extends Stage {
         MissionCompleted.isShow = false;
         MissionCompleted.show = true;
         MissionCompleted.isMissionCompleted = false;
-        if (MT != null) {
-            MT.dispose();
-            MT = null;
+        if (mainTerrain != null) {
+            mainTerrain.dispose();
+            mainTerrain = null;
         }
     }
 
@@ -210,7 +227,7 @@ public class GameStage extends Stage {
     public void updateAirplane() {
         if (createAircraft) {
             if (touchActor != null) {
-                MT.decor.addActor(new Airplane(airplaneX, airplaneY, 5 + (WeaponData.Upgrade.air == 3 ? 2 : 0), 12 + WeaponData.Upgrade.air * 4));
+                mainTerrain.decor.addActor(new Airplane(airplaneX, airplaneY, 5 + (WeaponData.Upgrade.air == 3 ? 2 : 0), 12 + WeaponData.Upgrade.air * 4));
                 createAircraft = false;
                 Settings.pause = false;
                 WeaponData.air -= 1;
@@ -252,11 +269,11 @@ public class GameStage extends Stage {
 
     public void drawStage(float delta) {
         long d = System.currentTimeMillis();
-        if (MT != null && !Settings.edit_map_mode)
+        if (mainTerrain != null && !Settings.edit_map_mode)
             Clound.random(delta);
         updateAirplane();
 
-        GPUOptimization(MT.root);
+        GPUOptimization(mainTerrain.root);
         if (!Settings.pause) act(delta);
         draw();
     }
@@ -294,11 +311,11 @@ public class GameStage extends Stage {
                     if (touchActor.getClass() == currentObj) return;
 
                     Actor obj = (Actor) currentObj.getConstructor(float.class, float.class).newInstance(touchActor.getX(Align.center), touchActor.getY(Align.center));
-                    Group parent = (Group) MainTerrain.class.getField(parentObj).get(MT);
+                    Group parent = (Group) MainTerrain.class.getField(parentObj).get(mainTerrain);
                     parent.addActor(obj);
-                    for (Actor act : MT.ground.getChildren())
+                    for (Actor act : mainTerrain.ground.getChildren())
                         if (act instanceof Sand) ((Sand) act).postInit();
-                    for (Actor act : MT.road.getChildren())
+                    for (Actor act : mainTerrain.road.getChildren())
                         if (act instanceof Road) ((Road) act).init();
 
                 } catch (Exception e) {

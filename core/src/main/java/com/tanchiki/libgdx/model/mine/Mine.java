@@ -42,7 +42,7 @@ public class Mine extends GameActor {
         if (t != null) {
             if (t.fraction == fraction) {
                 t.destroyTank(damage);
-                GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+                GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
                 GameStage.world_mines[(int) getCenterX()][(int) getCenterY()] = null;
                 remove();
             }

@@ -229,7 +229,7 @@ public class Bonus extends GameActor {
                             case 18:
                                 PanelStage.getInstance().addToast("Временная броня — 1 единица");
                                 WeaponData.brone1 += 1;
-                                GameStage.TankUser.HP++;
+                                GameStage.tankUser.HP++;
                                 break;
                             case 19:
                                 PanelStage.getInstance().addToast("Аааа! Allah Akbar!");

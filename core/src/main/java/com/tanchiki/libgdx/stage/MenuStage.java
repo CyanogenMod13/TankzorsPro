@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.ScrollableTextArea;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextField;
 import com.tanchiki.libgdx.util.*;
 
 import java.util.Date;
@@ -222,7 +223,7 @@ public class MenuStage extends Stage {
                 "Продолжить",
                 "Новая игра",
                 "Загрузить игру",
-                "Сетевой режим",
+                /*"Сетевой режим",*/
                 "Назад"
         };
 
@@ -230,7 +231,7 @@ public class MenuStage extends Stage {
             super(root, parent);
             setBackground(new NinePatchDrawable(new NinePatch(TextureLoader.getInstance().getIcons()[0][14], 4, 4, 4, 4)));
             put(2, new LoadMenu(root, this));
-            put(3, new NetworkMenu(root, this));
+            //put(3, new NetworkMenu(root, this));
             put(names.length - 1, parent);
             init(names, new ViewTable.Listener() {
                 @Override
@@ -317,7 +318,6 @@ public class MenuStage extends Stage {
             super.show();
             createList();
         }
-
     }
 
     private static class NetworkMenu extends ViewTable {
@@ -359,6 +359,7 @@ public class MenuStage extends Stage {
                 });
                 addSeparator().fill();
                 init(names);
+                pack();
             }
         }
 
@@ -423,12 +424,13 @@ public class MenuStage extends Stage {
         }
 
         public void area(String name) {
-            ScrollableTextArea label = new ScrollableTextArea(name, new ScrollableTextArea.VisTextFieldStyle(FontLoader.f30, Color.WHITE, null, null, null));
+            VisTextField.VisTextFieldStyle style = new ScrollableTextArea.VisTextFieldStyle(FontLoader.f30, Color.WHITE, null, null, null);
+            ScrollableTextArea label = new ScrollableTextArea(name, style);
             float areaWidth = Gdx.graphics.getWidth() / 2f;
-            GlyphLayout layout = new GlyphLayout(label.getStyle().font, name, Color.WHITE, areaWidth, 5, true);
+            GlyphLayout layout = new GlyphLayout(FontLoader.f30, name, Color.WHITE, areaWidth, 5, true);
 
             label.setTouchable(Touchable.disabled);
-            add(label).center().size(layout.width, layout.height + label.getStyle().font.getCapHeight()).row();
+            add(label).center().size(layout.width, layout.height + FontLoader.f30.getCapHeight()).row();
         }
 
         public void label(String name) {

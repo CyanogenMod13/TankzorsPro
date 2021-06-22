@@ -24,30 +24,30 @@ import java.util.HashMap;
 
 public class MainTerrain extends Group implements Disposable {
     public GameStage GameStage;
-    public Group ground;
-    public Group tanks;
-    public Group walls;
-    public Group builds;
-    public Group tanks_enemy;
-    public Group tanks_unity;
-    public Group root;
-    public Group decor;
-    public Group road;
-    public Group bonus;
-    public Group track;
-    public Group decorGround;
-    public Group mines;
-    public Group bullet;
-    public Group health;
-    public Group explosions;
-    public Group smoke;
-    public Group overlays;
-    public Group ring;
-    public Group trigger;
+    public final Group ground;
+    public final Group tanks;
+    public final Group walls;
+    public final Group builds;
+    public final Group tanks_enemy;
+    public final Group tanks_unity;
+    public final Group root;
+    public final Group decor;
+    public final Group road;
+    public final Group bonus;
+    public final Group track;
+    public final Group decorGround;
+    public final Group mines;
+    public final Group bullet;
+    public final Group health;
+    public final Group explosions;
+    public final Group smoke;
+    public final Group overlays;
+    public final Group ring;
+    public final Group trigger;
     public MainTerrain.Mission mission = null;
     public Rectangle rect;
 
-    public HashMap<Integer, Tank> hashTanks = new HashMap<>();
+    public final HashMap<Integer, Tank> hashTanks = new HashMap<>();
 
     public AStar AStar;
     private static MainTerrain currentTerrain = null;
@@ -57,7 +57,7 @@ public class MainTerrain extends Group implements Disposable {
     }
 
     Parameters param;
-    Briefings brfg;
+    Briefings briefings;
 
     Timer timer = null;
 
@@ -113,12 +113,12 @@ public class MainTerrain extends Group implements Disposable {
             root.addActor(health);
         root.addActor(decor);
 
-        GameStage.TankUser = null;
+        GameStage.tankUser = null;
 
         if (Settings.start_game) {
             PanelStage.getInstance().toasts.clear();
             PanelStage.getInstance().addToast("Миссия " + (com.tanchiki.libgdx.stage.GameStage.next_level + 1));
-            MusicLoader.getInstance().getTrack((com.tanchiki.libgdx.stage.GameStage.next_level % 5) + 1).play();
+            //MusicLoader.getInstance().getTrack((com.tanchiki.libgdx.stage.GameStage.next_level % 5) + 1).play();
         } else {
             MusicLoader.getInstance().getIntro().play();
         }
@@ -138,7 +138,7 @@ public class MainTerrain extends Group implements Disposable {
     }
 
     public Briefings getBriefings() {
-        return brfg;
+        return briefings;
     }
 
     public Parameters getParameters() {
@@ -208,7 +208,7 @@ public class MainTerrain extends Group implements Disposable {
         System.out.println("Binary map reading started...");
         param = new Parameters(input.getParametersPart());
 
-        brfg = new Briefings(input.getHints());
+        briefings = new Briefings(input.getHints());
         final int width = input.getSizeMapPart()[0];
         final int height = input.getSizeMapPart()[1];
         setSize(new float[]{width * 2, height * 2});
@@ -695,7 +695,7 @@ public class MainTerrain extends Group implements Disposable {
             remove();
         }
 
-        public static enum MODE {
+        public enum MODE {
             WIN, LOSE;
         }
     }

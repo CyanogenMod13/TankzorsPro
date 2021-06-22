@@ -15,10 +15,10 @@ public class ReactorCore extends Build {
 
     @Override
     public void destroyBuilds() {
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y - a, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y - a, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x + a, y, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y - a, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x + a, y - a, TextureLoader.getInstance().getExpl()));
         Health.remove();
         remove();
         Thread thread = new Thread(new Runnable() {
@@ -29,7 +29,7 @@ public class ReactorCore extends Build {
                 } catch (Exception e) {
                 }
                 try {
-                    gameStage.MT.decorGround.addActor(new BiggestExplosion(x, y, 8 * ObjectVariables.size_block * 2, 10));
+                    gameStage.mainTerrain.decorGround.addActor(new BiggestExplosion(x, y, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }
@@ -43,7 +43,7 @@ public class ReactorCore extends Build {
                 } catch (InterruptedException e) {
                 }*/
                 try {
-                    gameStage.MT.decorGround.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVariables.size_block * 2, 10));
+                    gameStage.mainTerrain.decorGround.addActor(new BiggestExplosion(x + a, y - a, 8 * ObjectVariables.size_block * 2, 10));
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                 }

@@ -19,11 +19,11 @@ public class Plate extends Terrains {
         if (HP >= 0)
             s.setRegion(t[MathUtils.random(PLATE1, PLATE3)]);
         else if (last_block instanceof Grass) {
-            g.MT.ground.addActor(new CrashGrass(getCenterX(), getCenterY()));
+            g.mainTerrain.ground.addActor(new CrashGrass(getCenterX(), getCenterY()));
             g.world_obj[(int) getCenterX()][(int) getCenterY()] = last_block;
             remove();
         } else if (last_block instanceof Sand) {
-            g.MT.ground.addActor(new CrashSand(getCenterX(), getCenterY()));
+            g.mainTerrain.ground.addActor(new CrashSand(getCenterX(), getCenterY()));
             g.world_obj[(int) getCenterX()][(int) getCenterY()] = last_block;
             remove();
         }

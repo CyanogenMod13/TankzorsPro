@@ -81,10 +81,10 @@ public class Tank extends GameActor {
         }
         updateDirection();
 
-        gameStage.MT.health.addActor(health);
-        gameStage.MT.ring.addActor(ring);
+        gameStage.mainTerrain.health.addActor(health);
+        gameStage.mainTerrain.ring.addActor(ring);
 
-        gameStage.MT.hashTanks.put(id = this.fraction * hashCode(), this);
+        gameStage.mainTerrain.hashTanks.put(id = this.fraction * hashCode(), this);
 
         ring.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY(), Align.center);
         health.setPosition(Tank.this.getCenterX(), Tank.this.getCenterY() + a + health.getHeight());
@@ -218,26 +218,26 @@ public class Tank extends GameActor {
     float timeBullet = 1.0f;
 
     void createLightBullet() {
-        gameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     float timePlasma = 0.6f;
 
     void createPlasmaBullet() {
-        gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     void createDoubleLightBullet() {
         switch (direction) {
             case 1:
             case 3:
-                gameStage.MT.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-                gameStage.MT.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
                 break;
             case 2:
             case 4:
-                gameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-                gameStage.MT.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletLight(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
                 break;
         }
     }
@@ -246,29 +246,29 @@ public class Tank extends GameActor {
         switch (direction) {
             case 1:
             case 3:
-                gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
-                gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX() + 0.2f, getCenterY(), direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX() - 0.2f, getCenterY(), direction, fraction, this));
                 break;
             case 2:
             case 4:
-                gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
-                gameStage.MT.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() + 0.2f, direction, fraction, this));
+                gameStage.mainTerrain.bullet.addActor(new BulletPlusma(getCenterX(), getCenterY() - 0.2f, direction, fraction, this));
                 break;
         }
     }
 
     void createArmoredBullet1() {
-        gameStage.MT.bullet.addActor(new ArmoredBullet1(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet1(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     void createArmoredBullet2() {
-        gameStage.MT.bullet.addActor(new ArmoredBullet2(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new ArmoredBullet2(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     float timeRocket = 1.2f;
 
     void createRocket() {
-        gameStage.MT.bullet.addActor(new Rocket(getCenterX(), getCenterY(), direction, fraction, this));
+        gameStage.mainTerrain.bullet.addActor(new Rocket(getCenterX(), getCenterY(), direction, fraction, this));
     }
 
     protected void createBullet() {
@@ -324,7 +324,7 @@ public class Tank extends GameActor {
         x += x % 2;
         y += y % 2;
 
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
     }
 
     public void destroyTank(float damage) {
@@ -553,21 +553,21 @@ public class Tank extends GameActor {
             return result;
         }
 
-        public float distance_of_goal;
+        public float distanceOfGoal;
         public float targetX, targetY;
 
         public boolean startAttack(float x, float y) {
             if (x == goal_x)
-                if ((distance_of_goal = Math.abs(goal_y - y)) <= radius_enemy)
+                if ((distanceOfGoal = Math.abs(goal_y - y)) <= radius_enemy)
                     if (y > goal_y) {
-                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distance_of_goal))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y + (int) distanceOfGoal))
                             return false;
                         top();
                         if (direction == UP) createBullet();
                         MODE = ATTACK;
                         return true;
                     } else {
-                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y - (int) distance_of_goal))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x, goal_y - (int) distanceOfGoal))
                             return false;
                         bottom();
                         if (direction == DOWN) createBullet();
@@ -576,16 +576,16 @@ public class Tank extends GameActor {
                     }
 
             if (y == goal_y)
-                if ((distance_of_goal = Math.abs(goal_x - x)) <= radius_enemy)
+                if ((distanceOfGoal = Math.abs(goal_x - x)) <= radius_enemy)
                     if (x > goal_x) {
-                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x + (int) distance_of_goal, goal_y))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x + (int) distanceOfGoal, goal_y))
                             return false;
                         right();
                         if (direction == RIGHT) createBullet();
                         MODE = ATTACK;
                         return true;
                     } else {
-                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x - (int) distance_of_goal, goal_y))
+                        if (hasNotDestroyableBlock(goal_x, goal_y, goal_x - (int) distanceOfGoal, goal_y))
                             return false;
                         left();
                         if (direction == LEFT) createBullet();
@@ -597,7 +597,7 @@ public class Tank extends GameActor {
         }
 
         protected void startAttackBuild() {
-            Group builds = gameStage.MT.builds;
+            Group builds = gameStage.mainTerrain.builds;
             for (int i = 0; i < builds.getChildren().size; i++) {
                 ObjBuild objbuild = (ObjBuild) builds.getChildren().get(i);
                 Build build = objbuild instanceof Build ? (Build) objbuild : null;
@@ -614,7 +614,7 @@ public class Tank extends GameActor {
 
         protected void startAttackTank() {
             Group tanks = (fraction == ObjectVariables.tank_ally) ?
-                    gameStage.MT.tanks_enemy : gameStage.MT.tanks_unity;
+                    gameStage.mainTerrain.tanks_enemy : gameStage.mainTerrain.tanks_unity;
             for (int i = 0; i < tanks.getChildren().size; i++) {
                 Tank tank = (Tank) tanks.getChildren().get(i);
                 float x = targetX = tank.defaultAI.goal_x;
@@ -634,7 +634,7 @@ public class Tank extends GameActor {
             Tank buffer = null;
             float last_dis = Float.MAX_VALUE;
 
-            Group tanks = (fraction == ObjectVariables.tank_ally) ? gameStage.MT.tanks_enemy : gameStage.MT.tanks_unity;
+            Group tanks = (fraction == ObjectVariables.tank_ally) ? gameStage.mainTerrain.tanks_enemy : gameStage.mainTerrain.tanks_unity;
             for (int i = 0; i < tanks.getChildren().size; i++) {
                 Tank tank = (Tank) tanks.getChildren().get(i);
 
@@ -649,7 +649,7 @@ public class Tank extends GameActor {
                 }
             }
             if (buffer != null)
-                path = gameStage.MT.AStar.search(buffer.defaultAI.goal_x,
+                path = gameStage.mainTerrain.AStar.search(buffer.defaultAI.goal_x,
                         buffer.defaultAI.goal_y,
                         goal_x,
                         goal_y);
@@ -678,7 +678,7 @@ public class Tank extends GameActor {
                 int x = (int) pos.x;
                 int y = (int) pos.y;
 
-                tank = gameStage.MT.hashTanks.get(gameStage.world_block[x][y]);
+                tank = gameStage.mainTerrain.hashTanks.get(gameStage.world_block[x][y]);
                 if (!(tank instanceof TankUser) && tank != null) {
                     path = null;
                     if (tank.defaultAI.MODE == ATTACK) tank.defaultAI.step_place = true;
@@ -858,7 +858,7 @@ public class Tank extends GameActor {
                             Artiling art = new Artiling(goal_x, goal_y, len, direction);
                             art.damage = damage;
                             art.diameter = WeaponData.Upgrade.art == 5 ? 8 * 2 : 6 * 2;
-                            gameStage.MT.bullet.addActor(art);
+                            gameStage.mainTerrain.bullet.addActor(art);
 
                             //GameStage.MT.mines.addActor(new MineUnity1(goal_x,goal_y));
                             WeaponData.art -= 1;
@@ -878,31 +878,31 @@ public class Tank extends GameActor {
                 switch (mine) {
                     case 1:
                         if (WeaponData.mine1 > 0) {
-                            gameStage.MT.mines.addActor(new MineUnity1(goal_x, goal_y));
+                            gameStage.mainTerrain.mines.addActor(new MineUnity1(goal_x, goal_y));
                             WeaponData.mine1 -= 1;
                         }
                         break;
                     case 2:
                         if (WeaponData.mine2 > 0) {
-                            gameStage.MT.mines.addActor(new MineUnity2(goal_x, goal_y));
+                            gameStage.mainTerrain.mines.addActor(new MineUnity2(goal_x, goal_y));
                             WeaponData.mine2 -= 1;
                         }
                         break;
                     case 3:
                         if (WeaponData.tnt1 > 0) {
-                            gameStage.MT.mines.addActor(new TNT1(goal_x, goal_y));
+                            gameStage.mainTerrain.mines.addActor(new TNT1(goal_x, goal_y));
                             WeaponData.tnt1 -= 1;
                         }
                         break;
                     case 4:
                         if (WeaponData.tnt2 > 0) {
-                            gameStage.MT.mines.addActor(new TNT2(goal_x, goal_y));
+                            gameStage.mainTerrain.mines.addActor(new TNT2(goal_x, goal_y));
                             WeaponData.tnt2 -= 1;
                         }
                         break;
                     case 5:
                         if (WeaponData.tnt3 > 0) {
-                            gameStage.MT.mines.addActor(new TNT3(goal_x, goal_y));
+                            gameStage.mainTerrain.mines.addActor(new TNT3(goal_x, goal_y));
                             WeaponData.tnt3 -= 1;
                         }
                 }
@@ -964,7 +964,7 @@ public class Tank extends GameActor {
                     break;
             }
             track.setOrientation(orientation);
-            gameStage.MT.track.addActor(track);
+            gameStage.mainTerrain.track.addActor(track);
         }
 
         public void detectGround() {

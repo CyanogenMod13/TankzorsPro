@@ -328,7 +328,7 @@ public class Trigger extends Actor {
                 if (wall != null)
                     MainTerrain.getCurrentTerrain().walls.addActor(wall);
                 if (killer) {
-                    Tank tank = GameStage.getInstance().MT.hashTanks.get(GameStage.getInstance().world_block[x][y]);
+                    Tank tank = GameStage.getInstance().mainTerrain.hashTanks.get(GameStage.getInstance().world_block[x][y]);
                     if (tank != null) tank.destroyTank(Float.MAX_VALUE);
                 }
             } else {
@@ -345,7 +345,7 @@ public class Trigger extends Actor {
                         if (GameStage.getInstance().world_physic_block[posx][posy] != null) break;
                         MainTerrain.getCurrentTerrain().walls.addActor(createBlock(posx, posy, type));
                         if (killer) {
-                            Tank tank = GameStage.getInstance().MT.hashTanks.get(GameStage.getInstance().world_block[posx][posy]);
+                            Tank tank = GameStage.getInstance().mainTerrain.hashTanks.get(GameStage.getInstance().world_block[posx][posy]);
                             if (tank != null) tank.destroyTank(Float.MAX_VALUE);
                         }
                     }
@@ -364,7 +364,7 @@ public class Trigger extends Actor {
                         if (GameStage.getInstance().world_physic_block[posx][posy] != null) break;
                         MainTerrain.getCurrentTerrain().walls.addActor(createBlock(posx, posy, type));
                         if (killer) {
-                            Tank tank = GameStage.getInstance().MT.hashTanks.get(GameStage.getInstance().world_block[posx][posy]);
+                            Tank tank = GameStage.getInstance().mainTerrain.hashTanks.get(GameStage.getInstance().world_block[posx][posy]);
                             if (tank != null) tank.destroyTank(Float.MAX_VALUE);
                         }
                     }

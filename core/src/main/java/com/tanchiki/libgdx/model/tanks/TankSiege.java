@@ -14,7 +14,7 @@ public class TankSiege extends DefaultTank {
         defaultAI = new DefaultAI() {
             @Override
             public boolean hasNotDestroyableBlock(int x0, int y0, int x, int y) {
-                if (defaultAI.distance_of_goal <= 4 * 2)
+                if (defaultAI.distanceOfGoal <= 4 * 2)
                     return super.hasNotDestroyableBlock(x0, y0, x, y);
                 return false;
             }
@@ -24,9 +24,9 @@ public class TankSiege extends DefaultTank {
 
     @Override
     protected void createBullet() {
-        if (defaultAI.distance_of_goal <= 4 * 2) super.createBullet();
+        if (defaultAI.distanceOfGoal <= 4 * 2) super.createBullet();
         else if (time > 2f) {
-            gameStage.MT.bullet.addActor(new Artiling(getCenterX(), getCenterY(), defaultAI.radius_enemy, direction));
+            gameStage.mainTerrain.bullet.addActor(new Artiling(getCenterX(), getCenterY(), defaultAI.radius_enemy, direction));
             time = 0;
         }
     }

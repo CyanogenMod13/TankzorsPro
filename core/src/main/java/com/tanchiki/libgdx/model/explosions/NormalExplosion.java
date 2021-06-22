@@ -21,9 +21,9 @@ public class NormalExplosion extends Explosion {
         setCenterPosition(x, y);
         if (GameStage.world_obj[(int) x][(int) y] instanceof Sand) {
             if (((Sand) GameStage.world_obj[(int) x][(int) y]).modify)
-                GameStage.MT.ground.addActor(new CrashSand(x, y));
+                GameStage.mainTerrain.ground.addActor(new CrashSand(x, y));
         } else if (GameStage.world_obj[(int) x][(int) y] instanceof Grass)
-            GameStage.MT.ground.addActor(new CrashGrass(x, y));
+            GameStage.mainTerrain.ground.addActor(new CrashGrass(x, y));
         else if (GameStage.world_obj[(int) x][(int) y] instanceof Plate) {
             Plate p = (Plate) GameStage.world_obj[(int) x][(int) y];
             p.crash();
@@ -34,7 +34,7 @@ public class NormalExplosion extends Explosion {
             a.remove();
             GameStage.world_mines[(int) x][(int) y] = null;
         }
-        GameStage.MT.smoke.addActor(new Smoke(getCenterX(), getCenterY()));
+        GameStage.mainTerrain.smoke.addActor(new Smoke(getCenterX(), getCenterY()));
 
         overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][4]);
 

@@ -24,7 +24,7 @@ public class Spike extends DestroyableBlock {
             if (GameStage.world_nodes != null)
                 GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
             remove();
-            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+            GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
         }
         HP = 0;
     }

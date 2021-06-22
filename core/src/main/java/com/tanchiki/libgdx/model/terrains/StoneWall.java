@@ -33,7 +33,7 @@ public class StoneWall extends DestroyableBlock {
                 GameStage.world_nodes[(int) getCenterX()][(int) getCenterY()] = 0;
             remove();
             GameStage.world_physic_block[(int) getCenterX()][(int) getCenterY()] = null;
-            GameStage.MT.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
+            GameStage.mainTerrain.explosions.addActor(new NormalExplosion(getCenterX(), getCenterY(), TextureLoader.getInstance().getExpl()));
         }
     }
 }

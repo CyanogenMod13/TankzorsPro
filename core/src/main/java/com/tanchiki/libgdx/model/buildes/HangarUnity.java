@@ -68,34 +68,42 @@ public class HangarUnity extends SubBuilds {
         LAST_INDEX = 0;
 
         super.act(delta);
-        if (gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || gameStage.TankUser != null && gameStage.TankUser.HP <= 0))
+        if (gameStage.world_block[(int) getCenterX()][(int) getCenterY()] == 0 && (ObjectVariables.size_allies < ObjectVariables.max_tanks_ally || gameStage.tankUser != null && gameStage.tankUser.HP <= 0))
             time += delta;
 
         if (time >= 1) {
 
             if (Settings.start_game && (nextIndexSpawn == -1 || index == nextIndexSpawn)) {
-                if (gameStage.TankUser == null) {
-                    gameStage.TankUser = new TankUser(getCenterX(), getCenterY());
-                    gameStage.MT.tanks_unity.addActor(gameStage.TankUser);
+                if (gameStage.tankUser == null) {
+                    gameStage.tankUser = new TankUser(getCenterX(), getCenterY());
+                    gameStage.mainTerrain.tanks_unity.addActor(gameStage.tankUser);
                     if (ourSpawn == 0) nextIndexSpawn = -1;
                     time = 0;
                     return;
                 }
-
-                if (gameStage.TankUser.HP <= 0) {
+                /*
+                if (gameStage.tankFriend == null) {
+                    gameStage.tankFriend = new TankFriend(getCenterX(), getCenterY());
+                    gameStage.mainTerrain.tanks_unity.addActor(gameStage.tankFriend);
+                    if (ourSpawn == 0) nextIndexSpawn = -1;
+                    time = 0;
+                    return;
+                }
+                */
+                if (gameStage.tankUser.HP <= 0) {
                     if (WeaponData.live > 0 && MainTerrain.Mission.CODE != 66) {
-                        TankUser t = gameStage.TankUser;
+                        TankUser t = gameStage.tankUser;
                         //t.destroyTank();
                         if (t.flag != null) t.flag.active = true;
-                        gameStage.MT.health.addActor(t.health);
-                        gameStage.MT.ring.addActor(t.ring);
+                        gameStage.mainTerrain.health.addActor(t.health);
+                        gameStage.mainTerrain.ring.addActor(t.ring);
                         t.setCenterPosition(getCenterX(), getCenterY());
                         t.defaultAI.goal_x = (int) getCenterX();
                         t.defaultAI.goal_y = (int) getCenterY();
                         t.HP = t.HPBackup;
                         Settings.TankUserSettings.HPShieldBackup = 0;
 
-                        gameStage.MT.tanks_unity.addActor(t);
+                        gameStage.mainTerrain.tanks_unity.addActor(t);
                         WeaponData.live--;
                         if (ourSpawn == 0) nextIndexSpawn = -1;
                         time = 0;
@@ -104,7 +112,7 @@ public class HangarUnity extends SubBuilds {
                         if (MainTerrain.Mission.CODE == 66) MissionCompleted.show(MissionCompleted.MISSION_COMPLETED);
                         MissionCompleted.show(MissionCompleted.MISSION_FAILED);
                         missionCompleted = null;
-                        gameStage.MT.mission.remove();
+                        gameStage.mainTerrain.mission.remove();
                     }
                 }
             }

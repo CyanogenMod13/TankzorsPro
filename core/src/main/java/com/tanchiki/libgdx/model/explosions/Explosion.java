@@ -29,13 +29,11 @@ public class Explosion extends GameActor {
         setPosition(x, y, Align.center);
         duration = 1f / r[0].length;
         anim = new Animation<TextureRegion>(duration, r[0]);
-        dtime = r[0].length * Gdx.graphics.getDeltaTime(); //anim.getFrameDuration();
-        //anim.setPlayMode(Animation.PlayMode.REVERSED);
+        dtime = r[0].length * Gdx.graphics.getDeltaTime();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         super.draw(batch, parentAlpha);
         anim.setFrameDuration(duration);
         s.setRegion(anim.getKeyFrame(time, false));
@@ -51,8 +49,6 @@ public class Explosion extends GameActor {
     public void act(float delta) {
         time += delta;
         destroyExpl();
-
         super.act(delta);
     }
-
 }

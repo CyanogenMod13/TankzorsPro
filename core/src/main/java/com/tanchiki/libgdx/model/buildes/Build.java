@@ -57,7 +57,7 @@ abstract public class Build extends ObjBuild {
         }
         Health = new Health();
 
-        gameStage.MT.health.addActor(Health);
+        gameStage.mainTerrain.health.addActor(Health);
         //overlayer = new Overlayer(Body[0].getPosition().x + a / 2, Body[0].getPosition().y - a / 2,f);
         if (fraction == ObjectVariables.tank_ally)
             overlayer = new Sprite(TextureLoader.getInstance().getOverlayers()[0][0]);

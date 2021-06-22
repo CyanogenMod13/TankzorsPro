@@ -178,12 +178,12 @@ public class InfoPanel extends Group {
                     last_x = stime.getX();
                 }
 
-                if (GameStage.TankUser.speedHack) {
+                if (GameStage.tankUser.speedHack) {
                     sspeed.setSize((InfoPanel.this.getHeight() / 4 - padding), (InfoPanel.this.getHeight() / 4 - padding));
                     sspeed.setPosition(last_x - layout.width - padding / 2 - sspeed.getWidth(), InfoPanel.this.getY() + InfoPanel.this.getHeight() - sspeed.getHeight() - padding - block.getHeight());
                     sspeed.draw(batch);
 
-                    int t = Math.round(30 - GameStage.TankUser.speedTime);
+                    int t = Math.round(30 - GameStage.tankUser.speedTime);
                     s = "0:" + (t < 10 ? "0" : "") + t;
                     layout.setText(f, s);
                     //h = f.getBounds(s).height;

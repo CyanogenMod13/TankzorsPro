@@ -15,7 +15,7 @@ public class RedFlag extends Flag {
 
     @Override
     void clicked() {
-        GameStage.getInstance().TankUser.flag = this;
+        GameStage.getInstance().tankUser.flag = this;
         SoundLoader.getInstance().getFlagPickup().play(Settings.volumeEffect);
         active = false;
     }
@@ -34,7 +34,7 @@ public class RedFlag extends Flag {
         }
 
         if (!active) {
-            setCenterPosition(GameStage.getInstance().TankUser.defaultAI.goal_x, GameStage.getInstance().TankUser.defaultAI.goal_y);
+            setCenterPosition(GameStage.getInstance().tankUser.defaultAI.goal_x, GameStage.getInstance().tankUser.defaultAI.goal_y);
             switch (MainTerrain.Mission.CODE) {
                 case 3:
                 case 40:

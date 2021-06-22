@@ -37,7 +37,7 @@ public class MiniMap extends GameActor {
         float size = getHeight() / (GameStage.getInstance().world_height / 2);
         setWidth(GameStage.getInstance().world_wight / 2 * size);
 
-        MainTerrain m = GameStage.getInstance().MT;
+        MainTerrain m = GameStage.getInstance().mainTerrain;
 
         Array<Actor> ground = m.ground.getChildren();
         for (int i = 0; i < ground.size; i++) {

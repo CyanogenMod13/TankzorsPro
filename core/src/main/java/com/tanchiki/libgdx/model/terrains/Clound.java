@@ -63,7 +63,7 @@ public class Clound extends GameActor {
         time += d;
         if (time >= t) {
             t = MathUtils.random(3f, 60f);
-            GameStage.getInstance().MT.decor.addActor(new Clound(MathUtils.random(0, GameStage.getInstance().world_wight), -10));
+            GameStage.getInstance().mainTerrain.decor.addActor(new Clound(MathUtils.random(0, GameStage.getInstance().world_wight), -10));
             time = 0;
         }
     }

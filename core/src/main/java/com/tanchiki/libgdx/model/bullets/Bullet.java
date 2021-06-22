@@ -25,7 +25,6 @@ import com.tanchiki.libgdx.util.SoundLoader;
 import com.tanchiki.libgdx.util.TextureLoader;
 
 public class Bullet extends GameActor {
-    //Body Body;
     Sprite s;
     TextureRegion[] t;
     protected GameStage gameStage;
@@ -35,7 +34,6 @@ public class Bullet extends GameActor {
     public int angle;
     public Tank parent;
     public int ID = 0;
-    //public Sound play;
     public boolean isPlay = true;
 
     private final Vector2 pos = new Vector2();
@@ -46,7 +44,6 @@ public class Bullet extends GameActor {
     public Sound sound = SoundLoader.getInstance().getShellBullet();
 
     public Bullet(float x, float y, int angle, float speed, float f, Array<TextureRegion> r) {
-        //play = ObjectClass.AudioLoader.playBulletFire();
         expl = TextureLoader.getInstance().getExpl();
         this.angle = angle;
         fraction = f;
@@ -58,9 +55,7 @@ public class Bullet extends GameActor {
             t[i] = r.get(i);
         }
         s = new Sprite(t[0]);
-        //Body.setBullet(false);
         s.setSize(s.getWidth() / 10 * ObjectVariables.size_block, s.getHeight() / 10 * ObjectVariables.size_block);
-        //Body.setUserData(this);
         setSize(s.getWidth(), s.getHeight());
         setCenterPosition(x, y);
         pos.set(Math.round(getCenterX()), Math.round(getCenterY()));
@@ -71,7 +66,6 @@ public class Bullet extends GameActor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-
         super.draw(batch, parentAlpha);
         if (angle == 1)
             s.setRegion(t[0]);
@@ -81,15 +75,13 @@ public class Bullet extends GameActor {
             s.setRegion(t[2]);
         if (angle == 2)
             s.setRegion(t[3]);
-        //setCenterPosition(Body.getPosition().x,Body.getPosition().y);
         s.setCenter(getCenterX(), getCenterY());
         s.draw(batch);
-        //FontLoader.f16.draw(batch, "HP:" + HP, getCenterX(), getCenterY());
     }
 
     public void destroyBullet() {
         if (HP <= 0) {
-            gameStage.MT.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
+            gameStage.mainTerrain.explosions.addActor(new SmallExplosion(getCenterX(), getCenterY(), expl));
 
             if (fraction == ObjectVariables.tank_ally)
                 if (pos.x >= 0 && pos.x < gameStage.world_wight && pos.y >= 0 && pos.y < gameStage.world_height)
@@ -141,8 +133,6 @@ public class Bullet extends GameActor {
 
     @Override
     public void act(float delta) {
-        //if (isPlay) play.play();
-
         if (sound != null) {
             sound.play(Settings.volumeEffect);
             sound = null;
@@ -150,8 +140,7 @@ public class Bullet extends GameActor {
 
         isPlay = false;
 
-        if (!gameStage.MT.rect.contains(getCenterX(), getCenterY())) {
-            //Body.setUserData("delete");
+        if (!gameStage.mainTerrain.rect.contains(getCenterX(), getCenterY())) {
             HP = 0;
             destroyBullet();
             return;
@@ -173,7 +162,7 @@ public class Bullet extends GameActor {
         if (fraction == ObjectVariables.tank_ally) gameStage.world_bullets_unity[(int) pos.x][(int) pos.y] = this;
         if (fraction == ObjectVariables.tank_enemy) gameStage.world_bullets_enemy[(int) pos.x][(int) pos.y] = this;
 
-        Tank tank = gameStage.MT.hashTanks.get(gameStage.world_block[x][y]);
+        Tank tank = gameStage.mainTerrain.hashTanks.get(gameStage.world_block[x][y]);
         if (tank != null)
             if (tank.fraction != fraction) {
                 body.setCenter(tank.getCenterX(), tank.getCenterY());
@@ -224,9 +213,6 @@ public class Bullet extends GameActor {
                 HP -= Math.max(buildHP, 0);
                 destroyBullet();
             }
-
-
         super.act(delta);
     }
-
 }

@@ -991,8 +991,8 @@ public class StoreMenu extends Table {
 
             @Override
             public int getPrice() {
-                if (GameStage.getInstance().TankUser == null) return 0;
-                int p = (int) (GameStage.getInstance().TankUser.HPBackup);
+                if (GameStage.getInstance().tankUser == null) return 0;
+                int p = (int) (GameStage.getInstance().tankUser.HPBackup);
                 return p * (WeaponData.Upgrade.brone == 3 ? 4 : 8);
             }
 
@@ -1046,8 +1046,8 @@ public class StoreMenu extends Table {
 
             @Override
             public int getPrice() {
-                if (GameStage.getInstance().TankUser == null) return 0;
-                int p = (int) (GameStage.getInstance().TankUser.HPBackup - GameStage.getInstance().TankUser.HP);
+                if (GameStage.getInstance().tankUser == null) return 0;
+                int p = (int) (GameStage.getInstance().tankUser.HPBackup - GameStage.getInstance().tankUser.HP);
                 return p * (WeaponData.Upgrade.brone == 3 ? 3 : 6);
             }
 
@@ -1058,15 +1058,15 @@ public class StoreMenu extends Table {
 
             @Override
             public boolean getEnable() {
-                if (GameStage.getInstance().TankUser == null) return false;
-                return GameStage.getInstance().TankUser.HPBackup > GameStage.getInstance().TankUser.HP;
+                if (GameStage.getInstance().tankUser == null) return false;
+                return GameStage.getInstance().tankUser.HPBackup > GameStage.getInstance().tankUser.HP;
             }
 
             @Override
             public void accept() {
                 Settings.TankUserSettings.coin -= getPrice();
-                GameStage.getInstance().TankUser.HP = GameStage.getInstance().TankUser.HPBackup;
-                GameStage.getInstance().TankUser.HPShield = GameStage.getInstance().TankUser.HPShieldBackup;
+                GameStage.getInstance().tankUser.HP = GameStage.getInstance().tankUser.HPBackup;
+                GameStage.getInstance().tankUser.HPShield = GameStage.getInstance().tankUser.HPShieldBackup;
             }
         });
 		/*addElement(new ElementInterface() {
@@ -1994,7 +1994,7 @@ public class StoreMenu extends Table {
                 @Override
                 public void act(float delta) {
                     super.act(delta);
-                    if (GameStage.getInstance().TankUser != null) setText(inter.getCount());
+                    if (GameStage.getInstance().tankUser != null) setText(inter.getCount());
                 }
             }).pad(20);
             TextButton pay = new TextButton("+", bstyle);
@@ -2044,7 +2044,7 @@ public class StoreMenu extends Table {
                 @Override
                 public void act(float delta) {
                     super.act(delta);
-                    if (GameStage.getInstance().TankUser != null) setText(inter.getPrice());
+                    if (GameStage.getInstance().tankUser != null) setText(inter.getPrice());
                 }
             });
             price.add(new Image(inter.getValueIcon())).pad(3);

@@ -48,11 +48,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.LEFT;
 
             private void move() {
-                gameStage.TankUser.setStateMotion(current);
+                gameStage.tankUser.setStateMotion(current);
             }
 
             private void stop() {
-                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.tankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -99,11 +99,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.UP;
 
             private void move() {
-                gameStage.TankUser.setStateMotion(current);
+                gameStage.tankUser.setStateMotion(current);
             }
 
             private void stop() {
-                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.tankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -149,11 +149,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.RIGHT;
 
             private void move() {
-                gameStage.TankUser.setStateMotion(current);
+                gameStage.tankUser.setStateMotion(current);
             }
 
             private void stop() {
-                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.tankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override
@@ -201,11 +201,11 @@ public class Buttons extends GameGroup {
             final TankUser.Vec current = TankUser.Vec.DOWN;
 
             private void move() {
-                gameStage.TankUser.setStateMotion(current);
+                gameStage.tankUser.setStateMotion(current);
             }
 
             private void stop() {
-                gameStage.TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.tankUser.setStateMotion(TankUser.Vec.NONE);
             }
 
             @Override

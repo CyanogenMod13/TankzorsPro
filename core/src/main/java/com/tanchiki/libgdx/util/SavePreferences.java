@@ -13,10 +13,14 @@ public class SavePreferences {
     private static SavePreferences instance = null;
 
     public static SavePreferences getInstance() {
-        return instance == null ? instance = new SavePreferences() : instance;
+        if (instance == null)
+            instance = new SavePreferences();
+        return instance;
     }
 
-    private final String dir = Gdx.app.getType().equals(Application.ApplicationType.Android) ? "/data/data/com.tanchiki.libgdx/files/" : "";
+    private final String dir = Gdx.app.getType().equals(Application.ApplicationType.Android) ?
+            "/data/data/com.tanchiki.libgdx/files/" :
+            "";
 
     private SavePreferences() {
     }
@@ -56,6 +60,7 @@ public class SavePreferences {
             WeaponData.live = 4;
             WeaponData.light_bullet = 100;
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -113,7 +118,9 @@ public class SavePreferences {
             out.write(ByteBuffer.allocate(10).putFloat(Settings.volumeMusic).array());
             out.write(ByteBuffer.allocate(10).putFloat(Settings.volumeEffect).array());
             out.write(ByteBuffer.allocate(10).putFloat(Settings.zoom).array());
+            out.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -127,7 +134,9 @@ public class SavePreferences {
             Settings.volumeEffect = ByteBuffer.wrap(bytes).getFloat();
             in.read(bytes);
             Settings.zoom = ByteBuffer.wrap(bytes).getFloat();
+            in.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

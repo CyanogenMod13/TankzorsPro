@@ -52,19 +52,19 @@ public class JoyStick extends Touchpad {
                 float angle = (arcsin >= 0) ? ((arccos <= 90) ? (arcsin) : (arccos)) : ((arccos >= 90) ? (Math.abs(arcsin) + 180) : (arcsin + 360));
 
                 if (angle > 45 && angle < 135)
-                    gameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.UP);
+                    gameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.UP);
                 else if (angle > 135 && angle < 225)
-                    gameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.LEFT);
+                    gameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.LEFT);
                 else if (angle > 225 && angle < 315)
-                    gameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.DOWN);
+                    gameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.DOWN);
                 else if ((angle > 315 && angle <= 360) || (angle >= 0 && angle < 45))
-                    gameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.RIGHT);
+                    gameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.RIGHT);
             }
 
             @Override
             public void dragStop(InputEvent e, float x, float y, int pointer) {
                 super.dragStop(e, x, y, pointer);
-                gameStage.getInstance().TankUser.setStateMotion(TankUser.Vec.NONE);
+                gameStage.getInstance().tankUser.setStateMotion(TankUser.Vec.NONE);
             }
         });
     }

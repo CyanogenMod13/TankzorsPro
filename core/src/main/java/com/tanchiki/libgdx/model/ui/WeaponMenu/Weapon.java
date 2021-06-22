@@ -59,7 +59,7 @@ public class Weapon extends GameActor {
 
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            TankUser t = GameStage.getInstance().TankUser;
+            TankUser t = GameStage.getInstance().tankUser;
 
             super.clicked(event, x, y);
             if (t != null)
@@ -163,7 +163,7 @@ public class Weapon extends GameActor {
                     }
                     case WeaponData.Type.speed: {
                         WeaponData.speed -= 1;
-                        GameStage.getInstance().TankUser.activateSpeedSkill();
+                        GameStage.getInstance().tankUser.activateSpeedSkill();
                         Settings.pause = false;
                         WeaponMenuStage.getInstance().hideMenu();
                         break;
@@ -180,10 +180,10 @@ public class Weapon extends GameActor {
                     }
                     case WeaponData.Type.fix: {
                         GameStage gameStage = GameStage.getInstance();
-                        if (gameStage.TankUser != null) {
-                            if (gameStage.TankUser.HP != gameStage.TankUser.HPBackup)
+                        if (gameStage.tankUser != null) {
+                            if (gameStage.tankUser.HP != gameStage.tankUser.HPBackup)
                                 if (WeaponData.fix > 0) {
-                                    gameStage.TankUser.HP = gameStage.TankUser.HPBackup;
+                                    gameStage.tankUser.HP = gameStage.tankUser.HPBackup;
                                     WeaponData.fix -= 1;
                                 }
                         }

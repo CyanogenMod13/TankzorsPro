@@ -31,6 +31,10 @@ public class TankUser extends DefaultTank {
         setAI(new UserAI());
     }
 
+    public TankUser(float x, float y, short f, TextureRegion[] regions, int weapon) {
+        super(x, y, f, regions, weapon);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (WeaponData.modern_tank > 0)
@@ -53,52 +57,58 @@ public class TankUser extends DefaultTank {
     }
 
     @Override
+    protected void createBullet() {
+        super.createBullet();
+        MainTerrain.getCurrentTerrain().countFire++;
+    }
+
+    @Override
     void createLightBullet() {
+        if (WeaponData.light_bullet <= 0) return;
         super.createLightBullet();
         WeaponData.light_bullet -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createPlasmaBullet() {
+        if (WeaponData.plazma <= 0) return;
         super.createPlasmaBullet();
         WeaponData.plazma -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createDoubleLightBullet() {
+        if (WeaponData.double_light_bullet <= 0) return;
         super.createDoubleLightBullet();
         WeaponData.double_light_bullet -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createDoublePlasmaBullet() {
+        if (WeaponData.double_palzma <= 0) return;
         super.createDoublePlasmaBullet();
         WeaponData.double_palzma -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createArmoredBullet1() {
+        if (WeaponData.bronet_bullet <= 0) return;
         super.createArmoredBullet1();
         WeaponData.bronet_bullet -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createArmoredBullet2() {
+        if (WeaponData.bronet_bullet2 <= 0) return;
         super.createArmoredBullet2();
         WeaponData.bronet_bullet2 -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
     void createRocket() {
+        if (WeaponData.rocket <= 0) return;
         super.createRocket();
         WeaponData.rocket -= 1;
-        MainTerrain.getCurrentTerrain().countFire++;
     }
 
     @Override
@@ -106,6 +116,10 @@ public class TankUser extends DefaultTank {
         updateStateMotion();
         updateStateFire();
         super.act(delta);
+        userConfig();
+    }
+
+    protected void userConfig() {
         Settings.TankUserSettings.HPbackup = 5 + ((WeaponData.modern_tank > 0) ? 9 : 0) + WeaponData.brone1 + WeaponData.brone2;
         Settings.TankUserSettings.HP = (int) HP;
         HPBackup = Settings.TankUserSettings.HPbackup;
@@ -197,9 +211,9 @@ public class TankUser extends DefaultTank {
     }
 
     public void doRepair() {
-        if (gameStage.TankUser.HP != gameStage.TankUser.HPBackup)
+        if (gameStage.tankUser.HP != gameStage.tankUser.HPBackup)
             if (WeaponData.fix > 0) {
-                gameStage.TankUser.HP = gameStage.TankUser.HPBackup;
+                gameStage.tankUser.HP = gameStage.tankUser.HPBackup;
                 WeaponData.fix -= 1;
                 SoundLoader.getInstance().getRepairPickup().play(Settings.volumeEffect);
             } else {

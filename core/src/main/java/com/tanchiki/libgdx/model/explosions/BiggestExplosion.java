@@ -120,7 +120,7 @@ public class BiggestExplosion extends GameGroup {
             if (!MainTerrain.getCurrentTerrain().rect.contains(x, y)) return;
 
             if (GameStage.world_physic_block != null && GameStage.world_tank != null) {
-                Tank t = GameStage.MT.hashTanks.get(GameStage.world_block[x][y]);
+                Tank t = GameStage.mainTerrain.hashTanks.get(GameStage.world_block[x][y]);
                 if (t != null)
                     if (lastTank != t) {
                         t.HPShield = 0;
@@ -157,7 +157,7 @@ public class BiggestExplosion extends GameGroup {
                     trigger.actived();
             }
             if (hasCreate)
-                GameStage.MT.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl(), small));
+                GameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl(), small));
         }
     }
 }

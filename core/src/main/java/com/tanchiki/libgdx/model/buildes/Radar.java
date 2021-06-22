@@ -13,10 +13,10 @@ public class Radar extends Build {
 
     @Override
     public void destroyBuilds() {
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x, y - a, TextureLoader.getInstance().getExpl()));
-        gameStage.MT.explosions.addActor(new NormalExplosion(x + a, y - a, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x + a, y, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x, y - a, TextureLoader.getInstance().getExpl()));
+        gameStage.mainTerrain.explosions.addActor(new NormalExplosion(x + a, y - a, TextureLoader.getInstance().getExpl()));
         Health.remove();
         remove();
     }
