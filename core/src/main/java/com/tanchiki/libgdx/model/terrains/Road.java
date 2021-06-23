@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.tanchiki.libgdx.util.ObjectVariables;
 
-public class Road extends Terrains {
+public class Road extends Terrain {
     Object center = last_block;
 
     public Road(float x, float y) {

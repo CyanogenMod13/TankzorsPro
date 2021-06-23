@@ -3,7 +3,7 @@ package com.tanchiki.libgdx.model.terrains;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 
-public class Plate extends Terrains {
+public class Plate extends Terrain {
     public int HP = 1;
 
     public static final int PLATE1 = 49,

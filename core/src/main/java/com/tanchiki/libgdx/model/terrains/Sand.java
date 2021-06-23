@@ -2,7 +2,7 @@ package com.tanchiki.libgdx.model.terrains;
 
 import com.badlogic.gdx.math.MathUtils;
 
-public class Sand extends Terrains {
+public class Sand extends Terrain {
     private final float x;
     private final float y;
 
@@ -18,7 +18,7 @@ public class Sand extends Terrains {
     private final int random5 = MathUtils.random(48 + 8, 52 + 7);
 
     public void postInit() {
-        modify = false;
+        isModification = false;
 
         try {
             if ((g.world_obj[(int) (x + size)][(int) y] instanceof Grass) &&
@@ -129,7 +129,7 @@ public class Sand extends Terrains {
         } catch (ArrayIndexOutOfBoundsException e) {
         }
 
-        modify = true;
+        isModification = true;
         s.setRegion(t[random5]);
     }
 

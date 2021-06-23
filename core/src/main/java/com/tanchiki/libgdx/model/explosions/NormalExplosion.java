@@ -14,14 +14,13 @@ import com.tanchiki.libgdx.util.TextureLoader;
 
 public class NormalExplosion extends Explosion {
     private Sprite overlayer;
-    private Animation anim;
     public Sound sound = SoundLoader.getInstance().getExpl();
 
     public NormalExplosion(float x, float y, TextureRegion[][] r) {
         super(x, y, r);
         setPosition(x, y, Align.center);
         if (GameStage.world_obj[(int) x][(int) y] instanceof Sand) {
-            if (((Sand) GameStage.world_obj[(int) x][(int) y]).modify)
+            if (((Sand) GameStage.world_obj[(int) x][(int) y]).isModification)
                 GameStage.mainTerrain.ground.addActor(new CrashSand(x, y));
         } else if (GameStage.world_obj[(int) x][(int) y] instanceof Grass)
             GameStage.mainTerrain.ground.addActor(new CrashGrass(x, y));
@@ -52,8 +51,7 @@ public class NormalExplosion extends Explosion {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-
+    public void draw(Batch batch, float parentAlpha) {  
         super.draw(batch, parentAlpha);
         //overlayer.setRegion((TextureRegion) anim.getKeyFrame(time, false));
         overlayer.setSize(2 * 3, 2 * 3);
