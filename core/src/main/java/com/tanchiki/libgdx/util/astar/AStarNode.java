@@ -1,38 +1,34 @@
 package com.tanchiki.libgdx.util.astar;
 
+import java.util.*;
+
 public class AStarNode {
     public AStarNode parent;
     public int code;
-
     public int x, y;
-
-    private String toString;
-
-    private int hashCode;
-
+    
     public AStarNode(int x, int y) {
         this.x = x;
         this.y = y;
-        toString = x + ":" + y;
-        hashCode = toString.hashCode();
     }
 
     @Override
     public String toString() {
-
-        return toString;
+        return "Node(" + x + ", " + y + ")";
     }
 
     @Override
     public int hashCode() {
-
-        return hashCode;
+        return Objects.hash(x, y);
     }
 
     @Override
-    public boolean equals(Object obj) {
-
-        return hashCode == obj.hashCode();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AStarNode)) return false;
+        
+        AStarNode node = (AStarNode) o;
+        return x == node.x && y == node.y;
     }
 
     public static final int UP = 1;
